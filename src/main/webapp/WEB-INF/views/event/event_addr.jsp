@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../../js/jquery-1.12.4.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../../css/main.css" rel="stylesheet">
+<script src="${goRoot}js/jquery-1.12.4.js"></script>
+<script src="${goRoot}js/bootstrap.min.js"></script>
+<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot}css/main.css" rel="stylesheet">
+<link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 	<title>Home</title>
 <script type="text/javascript">
@@ -60,7 +61,7 @@ function sample2_execDaumPostcode() {
     initLayerPosition();
 }
 function initLayerPosition(){
-    var width = 250; //우편번호서비스가 들어갈 element의 width
+    var width = 500; //우편번호서비스가 들어갈 element의 width
     var height = 500; //우편번호서비스가 들어갈 element의 height
     var borderWidth = 1; //샘플에서 사용하는 border의 두께
 
@@ -79,6 +80,52 @@ $(function(){
 	});
 });// end document.onload
 </script>
+<style type="text/css">
+.page_container{
+	max-width: 1080px;
+	margin: 0px auto;
+}
+.contents_container{
+	display: inline-block;
+	margin: 0px auto;
+}
+body {
+    background: #fff;
+	font-family: 'Roboto', sans-serif;
+	color:#333;
+	line-height: 22px;	
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: 400;
+	color:#111;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+h1, h2, h3 {
+	text-transform:uppercase;
+}
+
+input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 1;
+    filter: alpha(opacity=1);    
+}
+
+.form-inline .form-group{
+    margin-left: 0;
+    margin-right: 0;
+}
+.control-label {
+    color:#333333;
+}
+</style>
 </head>
 <body>
 	<!--header-->
@@ -137,46 +184,88 @@ $(function(){
     <div class="page_container">
         <hr>
             <!-- 내용 입력 시작-->
-	       	<div class="">
-			배경이미지 있음
+            <div class="contents_container">
+	       	<div class="row">
+   			<div class="col-md-8">
+   			<h1 class="entry-title"><span>이벤트 참가 주소입력</span></h1>
+   			<hr>
 			<form method="post" action="/reset/event/${event}/addr">
 				<div>
 					<input type="hidden" name="eve_no" id="eve_no" value="${event}">
 				</div>
-				<div>
-					<label for="email">이메일(ID)</label>			
-					<input type="email" name="email" id="email" class="" value="" />
-				</div>
-				<div>
-					<label for="name">받는사람 이름</label>			
-					<input type="text" name="name" id="name" class="" value="" />
-				</div>
-				<div>
-					<label for="phone">연락처</label>			
-					<input type="text" name="phone" id="phone" class="" value="" />
-				</div>
-				<div>
-					<label for="">주소</label><a href=""  class="btn btn-primary"  data-toggle="modal" data-target=".bs-example-modal-sm">주소검색</a>
-					<input type="text"  style="width:500px;" id="zipNo"  name="zipNo" />
-					<input type="text"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" />
-					<input type="text"  style="width:500px;" id="addrDetail"  name="addrDetail" />
-				</div>
-				<div>
-					<button type="submit">이벤트 참가</button>
-					<button type="reset">취소</button>
-				</div>
+				<div class="form-group">
+		          <label class="control-label col-sm-3">Email ID<span class="text-danger">*</span></label>
+		          <div class="col-md-8 col-sm-9">
+		              <div class="input-group">
+			              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+			              <input type="email" class="form-control" name="email" id="email" placeholder="연락 받으실  Email 주소를 적어주세요." value="">
+		              </div>
+		            	<small><br></small> 
+		          </div>
+		        </div>
+				<div class="form-group">
+		          <label class="control-label col-sm-3">참가하시는분 성함 <span class="text-danger">*</span></label>
+		          <div class="col-md-8 col-sm-9">
+		            <input type="text" class="form-control" name="name" id="name" placeholder="성함을 적어주세요." value="">
+		          	<small><br></small>
+		          </div>
+		        </div>
+		        
+		        <div class="form-group">
+		          <label class="control-label col-sm-3">주소 <span class="text-danger">*</span></label>
+		          <div class="col-md-8 col-sm-9">
+		            <input type="text" style="width:70px;" class="form-control" id="zipNo"  name="zipNo" readonly="readonly"/>
+		          	<small><br></small>
+		          </div>
+		          <label class="control-label col-sm-3"></label>
+		          <div class="col-md-8 col-sm-9">
+		            <input type="text" class="form-control" id="roadAddrPart1"  name="roadAddrPart1" readonly="readonly"/>
+		          	<small><br></small>
+		          </div>
+		          <label class="control-label col-sm-3"></label>
+		          <div class="col-md-8 col-sm-9">
+		            <input type="text" class="form-control" id="addrDetail"  name="addrDetail" placeholder="상세주소를 입력해 주세요."/>
+		          	<small><br></small>
+		          </div>
+		          <label class="control-label col-sm-3"></label>
+		          <div class="col-md-8 col-sm-9">
+		          	<a href=""  class="redBtn"  data-toggle="modal" data-target=".bs-example-modal-sm">주소검색</a>
+		          	<small><br><br></small>
+		          </div>
+		        </div>
+		        
+
+		        <div class="form-group">
+		          <label class="control-label col-sm-3">전화번호 <span class="text-danger">*</span></label>
+		          <div class="col-md-8 col-sm-9">
+		          	<div class="input-group">
+		              <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+		              <input type="text" class="form-control" name="phone" id="phone" placeholder="연락받으실 전화번호를 적어주세요." value="">
+		            </div>
+		            <small><br></small>
+		          </div>
+		        </div>
+		       
+		        <div class="form-group">
+		          <div class="col-xs-offset-3 col-xs-10">
+   					<button type="submit" class="darkBtn">이벤트 참가</button>
+					<button type="reset" class="redBtn">취소</button>
+		          </div>
+		        </div>
 			</form>
+			</div><!-- col-md-8 end -->
+			</div><!-- row end -->
+			</div>
 			<div id="address_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  <div class="modal-dialog modal-sm" role="document">
 			    <div id="layer" class="modal-content"></div>
 			  </div>
 			</div>
-			</div>
            	<!-- 내용 입력 끝 -->
         <hr>
     </div>
     <!-- //main contents -->
-
+	<%@include file="../../views/template/ajax_loading.jsp" %>
     <!--footer-->
     <div class="footer">
         <div class="wrap">
@@ -207,6 +296,6 @@ $(function(){
             </div>
         </div>
     </div>
-    <!--//footer-->    
+    <!--//footer-->
 </body>
 </html>

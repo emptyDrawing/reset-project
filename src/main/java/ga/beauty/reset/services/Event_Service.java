@@ -26,6 +26,14 @@ public class Event_Service {
 		model.addAttribute("alist",commonDao.selectAll());
 	}
 	
+	public void listPage(Model model,int offset, int noOfRecords) throws SQLException{
+		model.addAttribute("alist",commonDao.selectAll(offset, noOfRecords));
+	}
+	
+	public int getCount() throws SQLException{
+		return commonDao.getCount();
+	}
+	
 	public void detailPage(Model model,Event_Vo bean,Comment_Vo comment) throws SQLException{
 		model.addAttribute("detail",commonDao.selectOne(bean));
 		model.addAttribute("comment",commentDao.list(comment));

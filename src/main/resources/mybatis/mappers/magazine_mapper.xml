@@ -8,9 +8,26 @@
 		<if test="cate!=null">
 		 AND CATE=#{cate}
 		</if>
-		ORDER BY MAG_NO
+		ORDER BY MAG_NO DESC
   	</select>
   	
+<!-- 페이징 및 전체 레코드 갯수 조회 쿼리 -->
+	<select id="listCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM MAGAZINE WHERE OPEN=1
+		<if test="cate!=null">
+		 AND CATE=#{cate}
+		</if>
+	</select>
+
+<!-- 게시글 목록을 조회하기 위한 쿼리(일반, 공지사항)-->
+	<select id="pagingList" resultType="Magazine_Vo" parameterType="hashmap">
+		SELECT * FROM MAGAZINE WHERE OPEN=1 
+		<if test="cate!=null">
+		 AND CATE=#{cate}
+		</if>
+		ORDER BY MAG_NO DESC LIMIT #{offset}, #{noOfRecords}  <!-- offset위치부터 noOfRecords 수 만큼 select 하라! -->
+	</select>
+		
   	<select id="selectOne" resultType="Magazine_Vo">
   		SELECT * FROM MAGAZINE WHERE MAG_NO=#{mag_no}
   	</select>

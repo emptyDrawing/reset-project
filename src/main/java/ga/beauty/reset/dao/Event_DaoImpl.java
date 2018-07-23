@@ -1,6 +1,7 @@
 package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -46,6 +47,34 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 
 	@Override
 	public List<Event_Vo> selectAll(Event_Vo bean) throws SQLException {
+		return null;
+	}
+
+	@Override
+	public List<Event_Vo> selectAll(int offset, int noOfRecords) throws SQLException {
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("offset",offset);
+		params.put("noOfRecords",noOfRecords);
+		return sqlSession.selectList("event.pagingList",params);
+	}
+
+	@Override
+	public int getCount() throws SQLException {
+		return sqlSession.selectOne("event.listCount");
+	}
+
+	@Override
+	public List<Event_Vo> selectAll(int cate, int offset, int noOfRecords) throws SQLException {
+		return null;
+	}
+
+	@Override
+	public int getCount(int cate) throws SQLException {
+		return 0;
+	}
+
+	@Override
+	public List<Event_Vo> selectAll(int num) throws SQLException {
 		return null;
 	}
 

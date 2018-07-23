@@ -85,6 +85,9 @@
 		clip:rect(0,0,0,0); 
 		border: 0; 
 	}
+	.delimgBtn{
+		display: block;
+	}
 
 </style>
 </head>
@@ -154,7 +157,7 @@
             	</div>
             	<div id="preview">
             		<img src="#" id="control_img">
-            		<button type="button" class="redBtn">대표이미지 삭제</button>
+            		<button type="button" class="redBtn delimgBtn">대표이미지 삭제</button>
             	</div>
             	<div>
 	            	<label for="title">제목</label>
@@ -226,7 +229,7 @@
         <hr>
     </div>
     <!-- //main contents -->
-
+	<%@include file="../../views/template/ajax_loading.jsp" %>
     <!--footer-->
     <div class="footer">
         <div class="wrap">

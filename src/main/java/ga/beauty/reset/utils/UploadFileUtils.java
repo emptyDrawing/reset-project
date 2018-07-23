@@ -81,7 +81,7 @@ public class UploadFileUtils {
         // 이미지를 읽기 위한 버퍼
         BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
         // 100픽셀 단위의 썸네일 생성
-        BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
+        BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, size);
         // 썸네일의 이름을 생성(원본파일명에 's_'를 붙임)
         String thumbnailName = uploadPath + path + File.separator + "_s_" + fileName;
         File newFile = new File(thumbnailName);

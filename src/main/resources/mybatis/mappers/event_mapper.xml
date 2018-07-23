@@ -7,6 +7,16 @@
   		SELECT * FROM EVENT WHERE OPEN=1 ORDER BY EVE_NO DESC
   	</select>
   	
+<!-- 페이징 및 전체 레코드 갯수 조회 쿼리 -->
+	<select id="listCount" resultType="int">
+		SELECT COUNT(*) FROM EVENT WHERE OPEN=1;  
+	</select>
+	
+<!-- 게시글 목록을 조회하기 위한 쿼리(일반, 공지사항)-->
+	<select id="pagingList" resultType="Event_Vo" parameterType="hashmap">
+		SELECT * FROM EVENT WHERE OPEN=1 ORDER BY EVE_NO DESC LIMIT #{offset}, #{noOfRecords}  <!-- offset위치부터 noOfRecords 수 만큼 select 하라! -->
+	</select>
+		
   	<select id="selectOne" resultType="Event_Vo">
   		SELECT * FROM EVENT WHERE EVE_NO=#{eve_no}
   	</select>

@@ -1,5 +1,6 @@
 package ga.beauty.reset;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,13 @@ public class Home_Controller {
         if (ip == null) ip = req.getRemoteAddr();		
         logger.info(LogEnum.INTER+"메인페이지에 {ip:"+ip+", locale:"+locale+"} 가 들어왔습니다. ");
 		return "index";
+	}
+	
+	@RequestMapping(value="/error")
+	public String test() throws IOException{
+		{
+			throw new IOException("에러 발생 잠시후 다시 이용해 주세요.");
+		}
 	}
 
 }

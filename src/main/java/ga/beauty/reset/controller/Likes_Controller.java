@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import ga.beauty.reset.services.Likes_Service;
 
 @Controller
 public class Likes_Controller {
+	Logger log=Logger.getLogger(getClass());
 	
 	@Autowired
 	Likes_Service likes_Service;
@@ -42,6 +44,7 @@ public class Likes_Controller {
 	@RequestMapping(value="/likes/{type}/{p_no}", method=RequestMethod.PUT)
 	@ResponseBody
 	public Map<String,Object> likesAddUp(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws IOException, SQLException {
+		log.debug("실행");
 		return likes_Service.up(bean);
 	}
 	

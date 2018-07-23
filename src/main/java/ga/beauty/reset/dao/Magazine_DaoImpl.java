@@ -1,6 +1,7 @@
 package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -48,6 +49,40 @@ public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 	@Override
 	public List<Magazine_Vo> selectAll(Magazine_Vo bean) throws SQLException {
 		return sqlSession.selectList("magazine.selectAll",bean);
+	}
+
+	@Override
+	public List<Magazine_Vo> selectAll(int offset, int noOfRecords) throws SQLException {
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("offset",offset);
+		params.put("noOfRecords",noOfRecords);
+		return sqlSession.selectList("magazine.pagingList",params);
+	}
+
+	@Override
+	public int getCount() throws SQLException {
+		return sqlSession.selectOne("magazine.listCount");
+	}
+
+	@Override
+	public List<Magazine_Vo> selectAll(int cate, int offset, int noOfRecords) throws SQLException {
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("cate", cate);
+		params.put("offset",offset);
+		params.put("noOfRecords",noOfRecords);
+		return sqlSession.selectList("magazine.pagingList",params);
+	}
+
+	@Override
+	public int getCount(int cate) throws SQLException {
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("cate", cate);
+		return sqlSession.selectOne("magazine.listCount",params);
+	}
+
+	@Override
+	public List<Magazine_Vo> selectAll(int num) throws SQLException {
+		return null;
 	}
 
 
