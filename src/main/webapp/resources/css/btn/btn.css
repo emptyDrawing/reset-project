@@ -1,0 +1,44 @@
+/* 기본 버튼 CSS */
+.darkBtn {
+	background-color:#313131;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #313131;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 15px;
+	margin: 5px 5px;
+	text-decoration:none;
+}
+
+.darkBtn:active {
+	position:relative;
+	top:1px;
+}
+
+.redBtn {
+	background-color:#DD2D25;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #DD2D25;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 15px;
+	margin: 5px 5px;
+	text-decoration:none;
+}
+
+.redBtn:active {
+	position:relative;
+	top:1px;
+}

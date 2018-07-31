@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="companys">
+	<select id="totCount"  parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM COMPANYS
+ 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchType != null and txt != null">${searchType} LIKE CONCAT('%',#{txt},'%')</if>
+			<if test="company != null">AND COMPANY=#{company}</if>
+		</trim>
+		<trim>
+		<if test="start != null">
+			LIMIT #{start}, #{cnt}
+		</if>
+		</trim>
+	</select>
+	<select id="selectAllLimit"  parameterType="hashmap" resultType="Companys_Vo">
+  		SELECT * FROM COMPANYS
+ 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchType != null and txt != null">${searchType} LIKE 'CONCAT('%',#{txt},'%')'</if>
+			<if test="company != null">AND COMPANY=#{company}</if>
+		</trim>
+		ORDER BY EMAIL
+		<trim>
+		<if test="start != null">
+			LIMIT #{start}, #{cnt}
+		</if>
+		</trim>
+  	</select>
+	<select id="selectAll" resultType="Companys_Vo">
+  		SELECT * FROM COMPANYS ORDER BY EMAIL
+  	</select>
+	<select id="selectOne" resultType="Companys_Vo">
+  		SELECT * FROM COMPANYS WHERE EMAIL =#{email}
+  	</select>
+	<insert id="insertOne" parameterType="int">
+  		INSERT INTO COMPANYS
+		(EMAIL, COMPANY, BISNUM, MANAGER, POSTCODE, ADDRESS, PHONE) 
+		VALUES (#{email}, #{company}, #{bisnum}, #{manager}, #{postcode}, #{address}, #{phone});
+  	</insert>
+  	<update id="updateOne" parameterType="int">
+  		UPDATE COMPANYS
+  		<trim prefix="SET" suffixOverrides=",">
+			<if test="company != null">COMPANY=#{company},</if>
+			<if test="bisnum != null">BISNUM=#{bisnum},</if>
+			<if test="manager != null">MANAGER=#{manager},</if>
+			<if test="postcode != null">POSTCODE=#{postcode},</if>
+			<if test="address != null">ADDRESS=#{address},</if>
+			<if test="phone != null">PHONE=#{phone},</if>
+		</trim>
+		WHERE EMAIL = #{beam.email}
+  	</update>
+</mapper>
+

@@ -3,19 +3,28 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
-
+	<annotation-driven/>
+	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/imgs/**" location="/resources/imgs/" />
+	<resources mapping="/fonts/**" location="/resources/fonts/" />
+	<resources mapping="/editor/**" location="/resources/editor/" />
+	<resources mapping="/ckeditor/**" location="/resources/ckeditor/" />
+	<resources mapping="/upload/**" location="/resources/upload/" />
+	<resources mapping="/thumbnail/**" location="/resources/thumbnail/" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -26,5 +35,24 @@
 	<context:component-scan base-package="ga.beauty.reset" />
 	
 	
-	
+	<!-- 인터셉터 객체 생성 -->
+    <beans:bean id="auth_Interceptor" class="ga.beauty.reset.Auth_Interceptor"/>
+    <beans:bean id="login_out_Interceptor" class="ga.beauty.reset.Login_out_Interceptor"/>
+    <!-- Interceptor 설정 -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/admin/"/>
+            <mapping path="/mypage/"/>
+            <beans:ref bean="auth_Interceptor"/>
+        </interceptor>
+        <interceptor>
+        	<mapping path="/login/"/>
+        	<mapping path="/logout/"/>
+        	<beans:ref bean="login_out_Interceptor"/>
+        </interceptor>
+    </interceptors>
+	<!-- 파일업로드 필수 
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="2048000"></beans:property>
+	</beans:bean>-->
 </beans:beans>

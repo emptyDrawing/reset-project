@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="items">
+  
+  	<select id="itemAll" resultType="items_Vo">
+  		SELECT * FROM ITEMS
+  	</select>
+  	<select id="rankAll" resultType="items_Vo">
+  		SELECT * FROM ITEMS WHERE CATE=#{cate} AND OPEN=1 ORDER BY TOT DESC LIMIT 10
+  	</select>
+  	<select id="rankListAdd" resultType="items_Vo">
+		SELECT * FROM ITEMS WHERE CATE=#{cate} AND OPEN=1 ORDER BY TOT DESC LIMIT 10,5
+  	</select>
+  	<select id="selectOne" resultType="items_Vo">
+  		SELECT * FROM ITEMS WHERE ITEM=#{item} AND OPEN=1
+  	</select>
+  	<select id="totAll" resultType="ranks_Vo">
+  		SELECT * FROM MYDB.RANK WHERE ITEM=#{item}
+  	</select>
+  	<select id="cartAll" resultType="members_Vo">
+  		SELECT CART FROM `MYDB`.`MEMBERS` WHERE EMAIL=#{email}
+  	</select>
+  	<update id="cartUpdate">
+  		UPDATE `MYDB`.`MEMBERS` SET CART=#{cart} WHERE email=#{email}
+  	</update>
+  	
+	<select id="itemBrand" resultType="items_Vo">
+  		SELECT * FROM ITEMS WHERE brand LIKE CONCAT('%',#{brand},'%') AND OPEN=1
+  	</select>
+  	<select id="itemName" resultType="items_Vo">
+  		SELECT * FROM ITEMS WHERE name LIKE CONCAT('%',#{name},'%') AND OPEN=1
+  	</select>
+  	
+  	<insert id="itemAdd" parameterType="items_Vo">
+  		INSERT INTO ITEMS (name,img, brand, vol, price, tot, oil, dry, sen, cate, tags) 
+	VALUES (#{name},#{img},#{brand},#{vol},#{price},#{tot},#{oil},#{dry},#{sen},#{cate},#{tags})
+	<selectKey resultType="integer" keyProperty="item" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+  	</insert>
+  	<insert id="rankAdd" parameterType="items_Vo">
+  		INSERT INTO MYDB.RANK (item,one,two,three,four,five) VALUES(#{item},'0','0','0','0','0')
+  	</insert>
+  	<update id="itemUpdate" parameterType="items_Vo">
+  		UPDATE ITEMS SET NAME=#{name},IMG=#{img},BRAND=#{brand},VOL=#{vol},PRICE=#{price},OIL=#{oil},DRY=#{dry}, SEN=#{sen},CATE=#{cate}, TAGS=#{tags} WHERE ITEM=#{item}
+  	</update>
+  	<update id="itemDel">
+  		UPDATE MYDB.ITEMS SET OPEN=0 WHERE ITEM=#{item}
+  	</update>
+  	
+  	<select id="itemCont" resultType="int">
+  		SELECT COUNT(*) FROM ITEMS
+  	</select>
+  </mapper>

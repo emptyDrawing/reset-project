@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="notice_mapper">
+  
+  <select id="selectAll" resultType="Notice_Vo">
+   SELECT * FROM NOTICE ORDER BY no_no DESC;
+  </select>
+  
+    <select id="selectOne" resultType="Notice_Vo">
+   SELECT * FROM NOTICE ORDER BY no_no=#{no_no}
+  </select>
+  
+  <insert id="insertOne" parameterType="Notice_Vo">
+  	INSERT INTO NOTICE (title, content) VALUES (#{title}, #{content})
+  </insert>
+  
+  
+  <update id="updateOne" parameterType="Notice_Vo">
+  UPDATE NOTICE SET title=#{title},content=#{content} WHERE no_no=#{no_no}
+  </update>
+  
+  <delete id="deleteOne" parameterType="int">
+  delete from notice where no_no=#{no_no}
+  </delete>
+  
+  </mapper>
+  
+  
+  

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="reviews">
+  	<select id="reviewToTAll" resultType="reviews_Vo">
+  		SELECT * FROM REVIEW WHERE OPEN=1 ORDER BY REV_NO 
+  	</select>
+  	<select id="reviewAll" resultType="reviews_Vo">
+  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT 10
+  	</select>
+  	<!-- TODO:[sch] 4.ajax 크롤링 -->
+  	<select id="reviewListAdd" resultType="reviews_Vo">
+  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT #{review_num},5
+  	</select>
+  	<insert id="reviewAdd" parameterType="reviews_Vo">
+  		Insert into `mydb`.`review` (`item`, `img`, `writer`, `good`, `bad`, `tip`, `pop`, `star`,`open`) 
+		VALUES (#{item}, #{img}, #{writer}, #{good}, #{bad}, #{tip}, '0', #{star},1)
+  	</insert>
+  	<select id="reviewOne" resultType="reviews_Vo">
+  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND REV_NO=#{rev_no} AND OPEN=1
+  	</select>
+  	<update id="reviewUpdate" parameterType="reviews_Vo">
+  		UPDATE review SET IMG=#{img}, GOOD=#{good},BAD=#{bad},TIP=#{tip},STAR=#{star},POP=#{pop} WHERE ITEM=#{item} AND REV_NO=#{rev_no}
+  	</update>
+  <!-- 	<delete id="reviewDelete" parameterType="int">
+  		DELETE FROM REVIEW WHERE ITEM=#{item} AND REV_NO=#{rev_no}
+  	</delete> -->
+  	<update id="reviewDelete" parameterType="int">
+  		UPDATE REVIEW SET OPEN=0 WHERE ITEM=#{item} AND REV_NO=#{rev_no}
+  	</update>
+  	<select id="reviewTot" resultType="int">
+  		SELECT COUNT(*) FROM REVIEW WHERE ITEM=#{item}
+  	</select>
+  	<select id="reviewTotAll" resultType="int">
+  		SELECT COUNT(*) FROM REVIEW
+	</select>  	
+  	<select id="mypage_review" resultType="reviews_Vo" parameterType="String">
+  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE NICK=#{nick} AND OPEN=1 ORDER BY REV_NO
+  	</select>
+  </mapper>

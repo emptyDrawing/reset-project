@@ -1,0 +1,48 @@
+.login-block{
+	float:left;
+	width:100%;
+	margin-top: 6%;
+}
+.banner-sec{
+	height:100%; 
+	border-radius: 0 10px 10px 0; 
+	padding:0;
+	}
+.container{
+	background:white; 
+	border-radius: 10px;
+	border: 1px solid #dd2d25;
+	}
+.carousel-inner{border-radius:0 10px 0 0;}
+.carousel-caption{text-align:left; left:5%;}
+.login-sec{padding: 20px 30px; position:relative;}
+.login-sec .copy-text{position:absolute; width:80%; bottom:20px; font-size:13px; text-align:center;}
+.login-sec .copy-text i{color:#FEB58A;}
+.login-sec .copy-text a{color:#E36262;}
+.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #dd2d25;}
+.login-sec h2:after{content:" "; width:100px; height:5px; background:#d00b01; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
+.btn-login{background: #DE6262; color:#fff; font-weight:600; float: right;}
+.line{
+	clear: both;
+	margin-top: 10px;
+}
+.webBtn{
+	text-align: center;
+}
+.loginBtn{
+	clear: both;
+	text-align: center;
+	height:38px;
+	margin-bottom: 10px;
+}
+.webicon{
+	margin: 3px auto;
+}
+
+.loginA{
+	margin-top:10px;
+	float: left;
+}
+.bx-wrapper{
+	margin-top: 5%;
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="magazine">
+  	<select id="selectAll" resultType="Magazine_Vo">
+  		SELECT * FROM MAGAZINE WHERE OPEN=1
+		<if test="com_email!=null">
+		 AND COM_EMAIL=#{com_email}
+		</if>
+		ORDER BY MAG_NO DESC
+  	</select>
+  	
+<!-- 페이징 및 전체 레코드 갯수 조회 쿼리 -->
+	<select id="listCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM MAGAZINE WHERE OPEN=1
+		<if test="cate!=null">
+		 AND CATE=#{cate}
+		</if>
+	</select>
+
+<!-- 게시글 목록을 조회하기 위한 쿼리(일반, 공지사항)-->
+	<select id="pagingList" resultType="Magazine_Vo" parameterType="hashmap">
+		SELECT * FROM MAGAZINE WHERE OPEN=1 
+		<if test="cate!=null">
+		 AND CATE=#{cate}
+		</if>
+		ORDER BY MAG_NO DESC LIMIT #{offset}, #{noOfRecords}  <!-- offset위치부터 noOfRecords 수 만큼 select 하라! -->
+	</select>
+		
+  	<select id="selectOne" resultType="Magazine_Vo">
+  		SELECT * FROM MAGAZINE WHERE MAG_NO=#{mag_no}
+  	</select>
+  	
+  	<insert id="insertOne" parameterType="Magazine_Vo">
+  		INSERT INTO MAGAZINE (IMG,TITLE,CON,CATE,COM_EMAIL,WRITER) values (#{img},#{title},#{con},#{cate},#{com_email},#{writer})
+  	</insert>
+  	
+  	<update id="updateOne" parameterType="Magazine_Vo">
+  		UPDATE MAGAZINE SET 
+  		<if test="img!=null">
+  		IMG=#{img},
+  		</if>
+  		TITLE=#{title},CON=#{con},CATE=#{cate},TAGS=#{tags} WHERE MAG_NO=#{mag_no}
+  	</update>
+  	
+  	<update id="updatePop" parameterType="Magazine_Vo">
+  		UPDATE MAGAZINE SET POP=#{pop}	WHERE MAG_NO=#{mag_no}
+  	</update>
+  	
+  	<update id="updateView" parameterType="Magazine_Vo">
+  		UPDATE MAGAZINE SET VIEW=VIEW+1 WHERE MAG_NO=#{mag_no}
+  	</update>
+  	<!-- 
+  	<delete id="deleteOne" parameterType="Magazine_Vo">
+  		DELETE FROM MAGAZINE WHERE MAG_NO=#{mag_no}
+  	</delete>
+  	 -->
+  	 
+  	 <update id="deleteOne" parameterType="Magazine_Vo">
+  	 	UPDATE MAGAZINE SET OPEN=0 WHERE MAG_NO=#{mag_no}
+  	 </update>
+  </mapper>

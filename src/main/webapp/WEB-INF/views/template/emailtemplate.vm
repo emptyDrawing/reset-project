@@ -1,0 +1,7 @@
+Dear ${email}
+title : ${title}
+Sending Email Using Spring Smtp Email + Velocity Template from the location.
+******
+${con}
+******
+Thanks

@@ -1,113 +1,311 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
-	<title>Home</title>
+<%@include file="/WEB-INF/views/template/head.jsp"%>
+<script src="js/jquery.flexslider.js"></script>
+<style type="text/css">
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+}
+
+ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
+
+.mainRankTitle{
+	text-align: center;
+	font-family: NanumSquareB;
+	color: #303030;
+	border: 2px solid #303030;
+	border-radius: 30px;
+	width: 160px;
+	margin: 0px auto;
+	margin-top: 50px;
+}
+
+.mainRankSub{
+	font-size: 20px;
+	font-family: NanumSquareB;
+	width: 400px;
+	margin: 0px auto;
+	text-align: center;
+	margin-top: 20px;
+}
+.strongWord{
+	color: #cf0902;
+	font-size: 25px;
+	font-family: NanumSquareEB;
+}
+.divide_line{
+	background-color: #ebebeb;
+	height: 4px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+.mainTitle{
+	font-family: NanumSquareB;
+	margin-left: 2%;
+}
+.slides img{
+	max-width: 100%; 
+}
+.flexslider {
+	z-index:-1;
+	text-align: center;
+}
+.flex-control-paging {
+	display: inline-block;
+}
+.flex-control-paging:after {
+	display: block;
+	content: '';
+	clear: both;
+}
+.flex-control-paging li {
+	float: left;
+	display: inline-block;
+}
+.flex-control-paging a {
+	display: inline-block;
+	margin: 3px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #42A1F6;
+	font-size: 0;
+	line-height: 0;
+}
+.flex-control-paging a.flex-active{
+	background-color:#335574;
+}
+.flex-direction-nav li a {
+	text-decoration: none;
+	font-size: 43px;
+	font-weight: bold;
+	color: #000;
+}
+.flex-direction-nav li.flex-nav-prev {
+	bottom: 20px;
+	left: 15px;
+	display: none;
+}
+.flex-direction-nav li.flex-nav-next {
+	right: 15px;
+	display: none;
+} 
+.flexslider2{
+	text-align: center;
+}
+.flex-caption {
+  width: 100%;
+  padding: 2%;
+  background: rgba(0,0,0,.4);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+  font-size: 14px;
+  line-height: 18px;
+}
+
+</style>
+
+	<script type="text/javascript">
+	  $(function(){
+		  $('.flexslider').flexslider({
+			useCSS: true,
+			animation: "slide",
+		    controlsContainer: $(".custom-controls-container"),
+		  });
+		 
+		// 매거진 캐러셀
+		// store the slider in a local variable
+		  var $window = $(window),
+		      flexslider2 = { vars:{} };
+		 
+		  // tiny helper function to add breakpoints
+		  function getGridSize() {
+		    return (window.innerWidth < 600) ? 2 :
+		           (window.innerWidth < 900) ? 3 : 4;
+		  }
+		 
+		 /*  $(function() {
+		    SyntaxHighlighter.all();
+		  }); */
+		 
+		  $window.load(function() {
+		    $('.flexslider2').flexslider({
+		      animation: "slide",
+		      animationLoop: false,
+		      itemWidth: 400,
+		      itemMargin: 5,
+		      minItems: getGridSize(), // use function to pull in initial value
+		      maxItems: getGridSize() // use function to pull in initial value
+		    });
+		  });
+		 
+		  // check grid size on resize event
+		  $window.resize(function() {
+		    var gridSize = getGridSize();
+		 
+		    flexslider2.vars.minItems = gridSize;
+		    flexslider2.vars.maxItems = gridSize;
+		  });
+		// store the slider in a local variable
+		  var $window = $(window),
+		      flexslider3 = { vars:{} };
+		 
+		  // tiny helper function to add breakpoints
+		  function getGridSize() {
+		    return (window.innerWidth < 600) ? 2 :
+		           (window.innerWidth < 900) ? 3 : 4;
+		  }
+		 
+		 /*  $(function() {
+		    SyntaxHighlighter.all();
+		  }); */
+		 
+		  $window.load(function() {
+		    $('.flexslider3').flexslider({
+		      animation: "slide",
+		      animationLoop: false,
+		      itemWidth: 400,
+		      itemMargin: 5,
+		      minItems: getGridSize(), // use function to pull in initial value
+		      maxItems: getGridSize() // use function to pull in initial value
+		    });
+		  });
+		 
+		  // check grid size on resize event
+		  $window.resize(function() {
+		    var gridSize = getGridSize();
+		 
+		    flexslider3.vars.minItems = gridSize;
+		    flexslider3.vars.maxItems = gridSize;
+		  });
+		  // 매거진 캐러셀 끝
+		  
+		rankingLlist();
+      });
+	  function rankingLlist(){
+		  $.ajax({
+				type: 'get',
+				url:'/reset/ranking/ajax?id=1',
+				dataType:'text',
+				success:function(result){
+					$("#rankingList1").html(result);
+				}
+			});
+    	$.ajax({
+				type: 'get',
+				url:'/reset/ranking/ajax?id=2',
+				dataType:'text',
+				success:function(result){
+					$("#rankingList2").html(result);
+				}
+			});
+    	$.ajax({
+				type: 'get',
+				url:'/reset/ranking/ajax?id=3',
+				dataType:'text',
+				success:function(result){
+					$("#rankingList3").html(result);
+				}
+			});
+	  }
+	</script>
 </head>
 <body>
-	<!--header-->
-    <div class="header">
-    	<div class="wrap">
-            <nav class="main_menu container">
-                <div class="menu_img">
-                    <img src="imgs/header_logo.png">
-                </div>
-                <div class="menu_login">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="search">검색</label>
-                            <input type="text" class="form-control input_box" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
-                    </form>
-                </div>
-                <div class="menu_bar">
-                    <ul class="nav">
-                      <li class="current"><a href="index.html">홈</a></li>
-                      <li><a href="about.html">랭킹</a></li>
-                      <li class="top-menu"><a href="javascript:{}">화플</a>
-                          <ul class="sub-menu">
-                              <li><a href="scaffolding.html">Scaffolding</a></li>
-                              <li><a href="typography.html">Typography</a></li>
-                              <li><a href="shortcodes.html">Shortcodes</a></li>
-                              <li><a href="tables.html">Tables</a></li>
-                          </ul>
-                      </li>
-                      <li class="top-menu"><a href="javascript:{}">이벤트</a>
-                           <ul class="sub-menu">
-                              <li><a href="portfolio_2columns.html">2 Columns</a></li>
-                              <li><a href="portfolio_3columns.html">3 Columns</a></li>
-                              <li><a href="portfolio_4columns.html">4 Columns</a></li>
-                          </ul>
-                      </li>                                  
-                      <li class="top-menu"><a href="javascript:{}">리뷰</a>
-                           <ul class="sub-menu">
-                              <li><a href="blog.html">Blog with right sidebar</a></li>
-                              <li><a href="blog_post.html">Blog post</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
-                </div>
-             </nav>                
-             
-        </div>    
-    </div>
-    <!--//header-->    
-     
+<%@include file="/WEB-INF/views/template/menu.jsp" %>
+    
     <!-- main contents -->
     <div class="page_container">
-        <hr>
-            <div>
-                <h1>내용</h1>
-            </div>
-        <hr>
-
+		<div class="flexslider">
+		  <ul class="slides">
+		    <li>
+		      <img src="imgs/main_imgs/13.jpg" />
+		    </li>
+		    <li>
+		      <img src="imgs/main_imgs/14.jpg" />
+		    </li>
+		    <li>
+		      <img src="imgs/main_imgs/15.jpg" />
+		    </li>
+		    <li>
+		      <img src="imgs/main_imgs/16.jpg" />
+		    </li>
+		  </ul>
+		</div>
+		
+    	<div class="divide_line"></div>
+    	
+		<div class="rankTitleDiv">
+			<h2 class="mainRankTitle">스킨 랭킹</h2>
+		</div>
+		<div class="mainRankSub">유저들이 뽑은 <span class="strongWord">스킨</span> 랭킹</div>
+    	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
+    	<div id="rankingList1"></div>
+    	
+    	<div class="divide_line"></div>
+    	
+    	<div class="rankTitleDiv">
+    		<h2 class="mainRankTitle">로션 랭킹</h2>
+    	</div>
+    	<div class="mainRankSub">유저들이 뽑은 <span class="strongWord">로션</span> 랭킹</div>
+    	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
+   		<div id="rankingList2"></div>
+   		
+    	<div class="divide_line"></div>
+   		
+   		<div class="rankTitleDiv">
+    		<h2 class="mainRankTitle">에센스 랭킹</h2>
+    	</div>
+    	<div class="mainRankSub">유저들이 뽑은 <span class="strongWord">에센스</span> 랭킹</div>
+    	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
+    	<div id="rankingList3"></div>
        
+       	<h1 class="mainTitle">매거진</h1>
+    	<div class="divide_line"></div>
+    	<div class="magazine">
+    		<!-- Place somewhere in the <body> of your page -->
+			<div class="flexslider2 carousel">
+			  <ul class="slides">
+			    <c:forEach items="${magazine_alist }" var="magazine">
+			      <li>
+				      <img src="/reset/imgs/${magazine.img }" />
+				      <p class="flex-caption">${magazine.title }</p>
+			      </li>
+			    </c:forEach>
+			    <!-- items mirrored twice, total of 12 -->
+			  </ul>
+			</div>
+    	</div>
+       	<h1 class="mainTitle">이벤트</h1>
+    	<div class="divide_line"></div>
+    	<div class="event">
+    		<!-- Place somewhere in the <body> of your page -->
+			<div class="flexslider3 carousel">
+			  <ul class="slides">
+			    <c:forEach items="${event_alist }" var="event">
+			      <li>
+				      <img src="/reset/imgs/${event.img }" />
+				      <p class="flex-caption">${event.title }</p>
+			      </li>
+			    </c:forEach>
+			    <!-- items mirrored twice, total of 12 -->
+			  </ul>
+			</div>
+    	</div>
+       	
     </div>
     <!-- //main contents -->
-
-    <!--footer-->
-    <div class="footer">
-        <div class="wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="imgs/footer_logo.png" alt="" /></a></div>
-                        <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
-                    </div>
-                    <div class="footer_R">
-                        <div class="fright">
-                            <form action="#" method="post">
-                                <input class="inp_search" name="name" type="text" value="   Search the Site" onfocus="if (this.value == 'Search the Site') this.value = '';" onblur="if (this.value == '') this.value = 'Search the Site';" />
-                            </form>
-                        </div>
-                        <div class="footer_menu">
-                            <ul class="nav">
-                                <li><a href="index.html" class="current">홈</a></li>
-                                <li><a href="about.html">랭킹</a></li>
-                                <li><a href="scaffolding.html">화플</a></li>
-                                <li><a href="portfolio_2columns.html">이벤트</a></li>
-                                <li><a href="blog.html">리뷰</a></li>
-                                <li><a href="contacts.html">문의</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--//footer-->    
-
+    
+    
+<%@include file="/WEB-INF/views/template/footer.jsp"%>
 </body>
 </html>

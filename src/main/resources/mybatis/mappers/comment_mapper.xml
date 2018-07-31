@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="comment">
+  	<select id="list" resultType="Comment_Vo">
+  		SELECT * FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO=#{p_no} ORDER BY CO_NO ASC
+  	</select>
+  	
+  	<select id="count">
+  		SELECT COUNT(*) FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO=#{p_no}
+  	</select>
+  	
+  	<insert id="create">
+  		INSERT INTO COMMENT (WRITER,EMAIL,CONTENT,CO_TYPE,P_NO) VALUES (#{writer},#{email},#{content},#{co_type},#{p_no})
+  	</insert>
+  	
+ 	<update id="update">
+ 		UPDATE COMMENT SET CONTENT=#{content}, NALJA=NOW() WHERE CO_NO=#{co_no} AND CO_TYPE=#{co_type} AND P_NO=#{p_no}
+ 	</update>
+ 	
+ 	<delete id="delete">
+ 		DELETE FROM COMMENT WHERE CO_NO=#{co_no} AND CO_TYPE=#{co_type} AND P_NO=#{p_no}
+ 	</delete>
+ 	
+ 	<delete id="deleteAll">
+ 		DELETE FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO={#p_no}
+ 	</delete>
+ 	
+ 	<select id="mypage_list" resultType="Comment_Vo">
+  		SELECT * FROM COMMENT WHERE WRITER=#{writer} ORDER BY CO_NO ASC
+  	</select>
+  </mapper>

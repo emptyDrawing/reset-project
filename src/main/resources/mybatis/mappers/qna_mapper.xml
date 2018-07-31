@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="qna_mapper">
+ 
+ <select id="selectAll" resultType="Qna_Vo">
+ 	SELECT * FROM QNA ORDER BY QA_NO DESC
+ </select>
+ 
+ <select id="selectOne" resultType="Qna_Vo">
+ 	SELECT * FROM QNA WHERE QA_NO=#{qa_no}
+ </select>
+ 
+ <!--  <choose><when test='answer==null or answer==""'>'답변을 입력해 주세요'</when>
+<otherwise>#{answer}</otherwise>
+</choose> -->
+
+
+ <insert id="insertOne" parameterType="Qna_Vo">
+ 	<!--  INSERT INTO QNA ('qa_type', 'con', 'email') VALUES (#{qa_type}, #{con}, #{email})-->
+ 	INSERT INTO QNA (con, qa_type, email) VALUES (#{con}, #{qa_type}, #{email})
+ </insert>
+
+ 
+ <delete id="deleteOne" parameterType="int">
+ 	DELETE FROM QNA WHERE qa_no=#{qa_no}
+ </delete>
+ 
+ <update id="updateOne" parameterType="Qna_Vo">
+update qna set answer=#{answer} where qa_no=#{qa_no}
+ </update>
+
+ </mapper>

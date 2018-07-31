@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="selectOne" resultType="User_Vo">
+  		SELECT * FROM USER WHERE EMAIL =#{email}
+  	</select>
+  	<insert id="insertOne" parameterType="User_Vo">
+  		INSERT INTO USER
+  		(`EMAIL`, `PASSWORD`, `USER_TYPE`, `JOIN_ROUTE`)
+  		VALUES (#{email}, #{password}, #{user_type}, #{join_route})
+  	</insert>
+  	<update id="updateOne" parameterType="User_Vo">
+  		UPDATE USER
+  		<trim prefix="SET" suffixOverrides=",">
+  			<if test="password != null">PASSWORD=#{password},</if>
+  			<if test="user_type != null">USER_TYPE=#{user_type},</if>
+  			<if test="join_route != null">JOIN_ROUTE=#{join_route}</if>
+  		</trim>
+  		WHERE EMAIL=#{email}
+  	</update>
+  	<select id="checkInfo" resultType="int">
+  		SELECT count(*) FROM USER
+  		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+  		<if test="email != null">EMAIL = #{email}</if>
+		</trim>
+  	</select>
+</mapper>
