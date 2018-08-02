@@ -52,7 +52,7 @@ $(document).ready(function(){
 				type:"post",
 				enctype: 'multipart/form-data',
 				data : formData,
-				url: "/reset/item/"+item,
+				url: "/item/"+item,
 				contentType: false,
 				processData: false,
 				dataType: "text"
@@ -169,7 +169,7 @@ function expUp(type){
 		var type = type;//review,comment,like
 		$.ajax({
 			type : 'POST',
-			url : '/reset/exp',
+			url : '/exp',
 			data : JSON.stringify({
 				email : email,
 				type : type
@@ -224,7 +224,7 @@ function reviewCheck(){
 	<%@include file="/WEB-INF/views/template/menu.jsp"%>
 	<div class="breadcrumb">
 		<div>
-			<a href="/reset/">HOME</a> <span class="slash">/</span> 로션
+			<a href="/">HOME</a> <span class="slash">/</span> 로션
 		</div>
 	</div>
 	<!--//header-->
@@ -233,7 +233,7 @@ function reviewCheck(){
 	<div class="page_container">
 		<div class="contentsBox">
 			<div class="ImgBox">
-				<img src="../${item_bean.img }" class="img-responsive"
+				<img src="${goRoot}${item_bean.img }" class="img-responsive"
 					alt="Responsive image">
 			</div>
 			<div class="InfoBox">
@@ -420,7 +420,7 @@ function reviewCheck(){
 					<h4 class="modal-title" id="myModalLabel">리뷰 쓰기</h4>
 				</div>
 				<div class="modal-body">
-					<form id="review" action="/reset/item/${item_bean.item}"
+					<form id="review" action="/item/${item_bean.item}"
 						name="review" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="writer" value="${login_nick }" />
 

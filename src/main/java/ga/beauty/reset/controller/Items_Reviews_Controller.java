@@ -31,7 +31,7 @@ import ga.beauty.reset.utils.UploadFileUtils;
 @Controller
 public class Items_Reviews_Controller {
 	//TODO:[sch] 이미지 저장 경로 설정 해야함
-	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/review_imgs";
+	String filePath="/Tomcat/webapps/ROOT/resources/imgs/review_imgs";
 	Logger logger=Logger.getLogger(getClass());
 	ObjectMapper mapper = new ObjectMapper();
 	

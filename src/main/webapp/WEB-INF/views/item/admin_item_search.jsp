@@ -100,7 +100,7 @@ function search_brand(){
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
-			url: "/reset/itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
+			url: "/itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
@@ -130,7 +130,7 @@ function search_name(){
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
-			url: "/reset/itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
+			url: "/itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다

@@ -27,7 +27,7 @@ import ga.beauty.reset.utils.UploadFileUtils;
 @Controller
 public class Item_Controller {
 	//TODD:[sch] 이미지 저장 경로 설정 해야함
- 	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/item_imgs";
+ 	String filePath="/Tomcat/webapps/ROOT/resources/imgs/item_imgs";
 	String essence="/essence";
 	String lotion="/lotion";
 	String skin="/skin";

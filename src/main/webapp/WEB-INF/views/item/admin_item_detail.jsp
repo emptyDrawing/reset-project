@@ -107,7 +107,7 @@ $(document).ready(function(){
 				type:"post",
 				enctype: 'multipart/form-data',
 				data : formData,
-				url: "/reset/admin/itemUpdate/"+item,
+				url: "/admin/itemUpdate/"+item,
 				contentType: false,
 				processData: false,
 				dataType: "text"
@@ -132,7 +132,7 @@ $(document).ready(function(){
 				type:"delete",
 				enctype: 'multipart/form-data',
 				data : formData,
-				url: "/reset/admin/item/"+item,
+				url: "/admin/item/"+item,
 				contentType: false,
 				processData: false,
 				dataType: "text"

@@ -85,7 +85,7 @@
 	  function rankingLlist(){
 		  $.ajax({
 				type: 'get',
-				url:'/reset/ranking/ajax?id=1',
+				url:'/ranking/ajax?id=1',
 				dataType:'text',
 				success:function(result){
 					$("#rankingList1").html(result);
@@ -93,7 +93,7 @@
 			});
     	$.ajax({
 				type: 'get',
-				url:'/reset/ranking/ajax?id=2',
+				url:'/ranking/ajax?id=2',
 				dataType:'text',
 				success:function(result){
 					$("#rankingList2").html(result);
@@ -101,7 +101,7 @@
 			});
     	$.ajax({
 				type: 'get',
-				url:'/reset/ranking/ajax?id=3',
+				url:'/ranking/ajax?id=3',
 				dataType:'text',
 				success:function(result){
 					$("#rankingList3").html(result);
@@ -167,7 +167,7 @@
 			  <ul class="slides">
 			    <c:forEach items="${magazine_alist }" var="magazine">
 			      <li>
-				      <img src="/reset${magazine.img }" />
+				      <img src="/${magazine.img }" />
 				      <p class="flex-caption">${magazine.title }</p>
 			      </li>
 			    </c:forEach>
@@ -183,7 +183,7 @@
 			  <ul class="slides">
 			    <c:forEach items="${event_alist }" var="event">
 			      <li>
-				      <img src="/reset${event.img }" />
+				      <img src="/${event.img }" />
 				      <p class="flex-caption">${event.title }</p>
 			      </li>
 			    </c:forEach>

@@ -271,7 +271,7 @@ $(document).ready(function(){
 				type:"post",
 				enctype: 'multipart/form-data',
 				data : formData,
-				url: "/reset/item/"+item+"/review/"+rev_no,
+				url: "/item/"+item+"/review/"+rev_no,
 				contentType: false,
 				processData: false,
 				dataType: "text",
@@ -279,7 +279,7 @@ $(document).ready(function(){
 					console.log(data);
 					if(data=="1"){
 						console.log("성공");
-							window.location.href="/reset/item/"+item+"/review/"+rev_no;
+							window.location.href="/item/"+item+"/review/"+rev_no;
 					} else if(data=="0"){
 						alert("글수정에 실패하였습니다.");
 					}
@@ -295,7 +295,7 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
-					window.location.href="/reset/item/"+item+"/review/"+rev_no;
+					window.location.href="/item/"+item+"/review/"+rev_no;
 					
 				} else if(data=="0"){
 					alert("글수정에 실패하였습니다.");
@@ -314,7 +314,7 @@ $(document).ready(function(){
 				type:"delete",
 				enctype: 'multipart/form-data',
 				data : formData,
-				url: "/reset/item/"+item+"/review/"+rev_no,
+				url: "/item/"+item+"/review/"+rev_no,
 				contentType: false,
 				processData: false,
 				dataType: "text"
@@ -324,7 +324,7 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
-					window.location.href="/reset/item/"+item;
+					window.location.href="/item/"+item;
 				} else if(data=="0"){
 					alert("글삭제에 실패하였습니다.");
 				}
@@ -344,7 +344,7 @@ $(document).ready(function(){
 		/* var type=${type}; */		    
 	    $.ajax({
 	    	type:'post',
-			url: '/reset/like/'+type+'/'+p_no,
+			url: '/like/'+type+'/'+p_no,
 			data : JSON.stringify({
 				email : email,
 				type : type,
@@ -381,7 +381,7 @@ $(document).ready(function(){
 				/* var type=${type}; */		    
 			    $.ajax({
 			    	type:'PUT',
-					url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+					url: '/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
 					data : JSON.stringify({
 						email : email,
 						type : type,
@@ -423,7 +423,7 @@ $(document).ready(function(){
 				/* var type=${type}; */		    
 			    $.ajax({
 			    	type:'DELETE',
-					url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+					url: '/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
 					data : JSON.stringify({
 						email : email,
 						type : type,
@@ -460,7 +460,7 @@ $(document).ready(function(){
 		var type = type;//review,comment,like
 		$.ajax({
 			type : 'POST',
-			url : '/reset/exp',
+			url : '/exp',
 			data : JSON.stringify({
 				email : email,
 				type : type
@@ -481,7 +481,7 @@ $(document).ready(function(){
 		var type = type;//review,comment,like
 		$.ajax({
 			type : 'DELETE',
-			url : '/reset/exp',
+			url : '/exp',
 			data : JSON.stringify({
 				email : email,
 				type : type
@@ -535,7 +535,7 @@ $(document).ready(function(){
     <%@include file="/WEB-INF/views/template/menu.jsp"%>
     <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		랭킹
    		</div>
@@ -746,7 +746,7 @@ $(document).ready(function(){
 		        <h4 class="modal-title" id="myModalLabel">리뷰 수정</h4>
 		      </div>
 		      <div class="modal-body">
-		      <form id="review" action="/reset/item/${item_bean.item}" name="review" enctype="multipart/form-data" onsubmit="return reviewCheck()">
+		      <form id="review" action="/item/${item_bean.item}" name="review" enctype="multipart/form-data" onsubmit="return reviewCheck()">
 	        	<input type="hidden" id="option" name="option" value="1"/>
 	        	<input type="hidden" id="rev_no" name="rev_no" value="${review_bean.rev_no}"/>
 	        	<input type="hidden" id="preimg" name="preimg" value="${review_bean.img }"/>
@@ -896,7 +896,7 @@ $(document).ready(function(){
 		<%//TODO 댓글 리스트%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
-			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){
+			$.getJSON('/'+co_type+"/"+p_no+"/comment",function(data){
 				var str="";
 				/*//TODO: 댓글 수정 버튼을 세션에 맞게 보여야함.  */
 				$(data).each(
@@ -927,7 +927,7 @@ $(document).ready(function(){
 			<%//TODO url 경로 변경해야함.%>
 			$.ajax({
 				type:'post',
-				url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
+				url: '/'+co_type+'/'+p_no+'/'+'comment/add',
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method_Override" : "POST"		
@@ -968,7 +968,7 @@ $(document).ready(function(){
 			var content =$("#commenttext").val().replace(/(?:\r\n|\r|\n)/g,"<br/>");
 			$.ajax({
 				type: 'put',
-				url:'/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
+				url:'/'+co_type+'/'+p_no+'/comment/'+co_no,
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "PUT"
@@ -990,7 +990,7 @@ $(document).ready(function(){
 			var co_no=$("#commentnum").val();
 			$.ajax({
 				type: 'delete',
-				url: '/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
+				url: '/'+co_type+'/'+p_no+'/comment/'+co_no,
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "DELETE"

@@ -61,7 +61,7 @@ function add(){
     <%@include file="/WEB-INF/views/template/menu.jsp"%>
     <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		랭킹
    		</div>

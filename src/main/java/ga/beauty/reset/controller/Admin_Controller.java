@@ -28,7 +28,7 @@ import ga.beauty.reset.utils.LogEnum;
 @Controller
 public class Admin_Controller {
 
-	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/review_imgs";
+	String filePath="/Tomcat/webapps/ROOT/resources/imgs/review_imgs";
 
 	Logger logger = Logger.getLogger(Admin_Controller.class);
 	
