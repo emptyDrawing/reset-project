@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
@@ -98,19 +100,22 @@ public class AsyncScheduleConfig {
 							handle(ex);
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
+						} catch (UnsupportedEncodingException e) {
+							e.printStackTrace();
 						}
                     }
                 }
             };
         }		
-        private void handle(Exception ex) throws FileNotFoundException {
-            logger.error(LogEnum.ERROR_ASYNC+ex.getMessage().replace("\n", " ").replace("\r", ""));
+        private void handle(Exception ex) throws FileNotFoundException, UnsupportedEncodingException {
+            logger.fatal(LogEnum.ERROR_ASYNC+ex.getMessage().replace("\n", " ").replace("\r", ""));
             Date date = new Date();
             String fileDate = MySDF.SDF_ALL.format(date);
             File file = new File(crashPath+"/"+fileDate+"-crash.log");
             if(!file.exists())new File(file.getParent()).mkdirs();
-            PrintStream test = new PrintStream(file);
+            PrintStream test = new PrintStream(file, "UTF-8");
             ex.printStackTrace(test);
+            test.close();
         }
 		@Override
 		public boolean prefersShortLivedTasks() {

@@ -54,18 +54,14 @@ public class RegexLogFile {
 			return 0;
 		}
 		int tmpCnt = start;
-		try(BufferedReader in = new BufferedReader 
-				(new InputStreamReader 
-						(new ReverseLineInputStream(new File(filename))
-								))){// try-resource
-			
+		try(BufferedReader in = new BufferedReader (new InputStreamReader (new ReverseLineInputStream(new File(filename)),"UTF-8"))){// try-resource
 			int lineCnt = 1;
 			while(true) {
 				if(lineCnt<start+cnt) {
 					String line = in.readLine();
 					if (line == null) {
 						break;
-					}else if(line.equals( System.getProperty( "line.separator" )) || line.equals("\r") || line.equals("\n") ){	
+					}else if(line.equals( System.getProperty( "line.separator" ))){	
 					}else {
 						if(tmpCnt==lineCnt) {
 							list.add(getLogForString(line));

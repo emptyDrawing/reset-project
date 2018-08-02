@@ -2,8 +2,11 @@ package ga.beauty.reset.utils.runner;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -136,10 +139,11 @@ public class Magazine_Listener implements Common_Listener{
 				new File(file.getParent()).mkdirs();
 			}
 			StringBuilder sbr = createJsonString();
-			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
+			try(BufferedWriter buffOut =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))){
 				buffOut.write(sbr.toString());
 				buffOut.flush();
 				logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 저장되었습니다.");
+				buffOut.close();
 			}
 			init();
 		}
@@ -162,10 +166,11 @@ public class Magazine_Listener implements Common_Listener{
 				new File(file.getParent()).mkdirs();
 			}
 			StringBuilder sbr = createJsonString();
-			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
+			try(BufferedWriter buffOut =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))){
 				buffOut.write(sbr.toString());
 				buffOut.flush();
 				logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 임시저장 되었습니다.");
+				buffOut.close();
 			}
 		}
 	}
