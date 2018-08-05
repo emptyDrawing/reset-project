@@ -48,4 +48,8 @@
   	<select id="mypage_review" resultType="reviews_Vo" parameterType="String">
   		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE NICK=#{nick} AND OPEN=1 ORDER BY REV_NO
   	</select>
+  	
+  	<select id="rankUpdate" resultType="int" >
+  		SELECT COUNT(*) FROM REVIEW WHERE ITEM=${item} AND STAR=${star} AND OPEN=1
+  	</select>
   </mapper>
