@@ -7,6 +7,11 @@
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <style type="text/css">
 
+.container {
+	font-family: NanumSquareR;
+	font-size: 20px;
+}    
+    
 .textareadiv{
 margin-top : 15px;
 visibility:hidden;

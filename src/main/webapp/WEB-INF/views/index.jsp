@@ -167,8 +167,8 @@
 			  <ul class="slides">
 			    <c:forEach items="${magazine_alist }" var="magazine">
 			      <li>
-				      <img src="/${magazine.img }" />
-				      <p class="flex-caption">${magazine.title }</p>
+				      <a href="magazine/${magazine.mag_no}"><img src="${magazine.img }" /></a>
+				      <a href="magazine/${magazine.mag_no}"><p class="flex-caption">${magazine.title }</p></a>
 			      </li>
 			    </c:forEach>
 			    <!-- items mirrored twice, total of 12 -->
@@ -183,8 +183,8 @@
 			  <ul class="slides">
 			    <c:forEach items="${event_alist }" var="event">
 			      <li>
-				      <img src="/${event.img }" />
-				      <p class="flex-caption">${event.title }</p>
+				      <a href="event/${event.eve_no}"><img src="${event.img }" /></a>
+				      <a href="event/${event.eve_no}"><p class="flex-caption">${event.title }</p></a>
 			      </li>
 			    </c:forEach>
 			    <!-- items mirrored twice, total of 12 -->

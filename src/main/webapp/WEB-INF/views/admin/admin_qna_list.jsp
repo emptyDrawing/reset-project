@@ -7,7 +7,7 @@
 <html>
 <head>
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
-</head>
+
 <style type="text/css">
 
 .container {
@@ -32,16 +32,40 @@
 h1 {
 	font-size: 3vmax;
 	font-family: NanumSquareB;
-	margin-botton: 50px;
 	color: #303030;
 }
-
+    
 a{
 color: black;
 text-decoration: none;
 }
 
+.qano-cell{
+	width: 7%;
+	text-align: center;
+}
+
+.nalja-cell{
+	width: 10%;
+}
+
+.qatype-cell{
+	width: 20%;
+}
+
+.con-cell{
+	width: 55%;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden ;
+}
+.answer-cell{
+	width: 10%;
+}
+
+    
 </style>
+ </head>
 <body>
     <div id="wrapper">
 	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
@@ -58,17 +82,17 @@ text-decoration: none;
 	<table class="table">
 	<thead>
 	<tr>
-		<th>글번호</th>
-		<th>날짜</th>
-		<th>질문유형</th>
-		<th>내용</th>
-		<th>답변</th>
+		<th class="qano-cell">글번호</th>
+		<th class="nalja-cell">날짜</th>
+		<th class="qatype-cell">질문유형</th>
+		<th class="con-cell">내용</th>
+		<th class="answer-cell">답변</th>
 		</tr>
 	<tbody>
 	<c:forEach items="${alist }" var="bean">
 	<tr>
-		<td><a href="./qna/${bean.qa_no }">${bean.qa_no }</a></td>
-		<td><a href="./qna/${bean.qa_no }">${bean.nalja }</a></td>
+		<td class="qano-cell"><a href="./qna/${bean.qa_no }">${bean.qa_no }</a></td>
+        <td class="nalja-cell"><a href="./qna/${bean.qa_no }"><fmt:formatDate value="${bean.nalja}" pattern="MM/dd" /></a></td>
 		<td><a href="./qna/${bean.qa_no }">
 		
 			<c:choose>
@@ -89,12 +113,12 @@ text-decoration: none;
 <c:set var="nowdate" scope="request"><fmt:formatDate value="${now}"/></c:set>
 <c:set var="nalja" scope="request"><fmt:formatDate value="${bean.nalja}"/></c:set>
 		</a></td>
-		<td><a href="./qna/${bean.qa_no }">${bean.con }</a>
+		<td class="con-cell"><a href="./qna/${bean.qa_no }">${bean.con }</a>
 							<c:if test="${nalja == nowdate}">
 										&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
 								</c:if>
 </td> 
-		<td><a href="./qna/${bean.qa_no }">
+		<td class="answer-cell"><a href="./qna/${bean.qa_no }">
 			<c:choose> 
 				<c:when test="${empty bean.answer}">미답변</c:when>  
 				<c:otherwise>답변완료</c:otherwise>

@@ -4,17 +4,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
-<link href="${goRoot}css/main.css" rel="stylesheet">
+<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
+<script src="${goRoot }js/contents_img.js"></script>
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
+
 	//전 페이지로 이동
 	$("#listBack").click(function(){
 		window.history.back();
 	});
-});
 	
+	//댓글 닫기 버튼 클릭시 모달 감추기
+	$("#closeBtn").click(function(){
+		$("#modDiv").hide();
+	});
+   
+});
 </script>
 <style type="text/css">
 .page_container{
@@ -26,16 +32,16 @@ $(document).ready(function(){
 }
 .btimg{/* 좋아요 아이콘 */
 	margin: 2% 1%;
-	width: 4.7%;
+	width: 50px;
 }
 .viewimg{/* 조회수 아이콘 */
-	width: 1.7%;
-	margin-left: 76%;
-	margin-right: 0.5%;
+	width: 20px;
+	margin-right: 10px;
 }
 .view{
 	margin: 10px;
 	color: #b2b0b0;
+	text-align: right;
 }
 #popNum{
 	font-size: 1vmax;
@@ -57,22 +63,23 @@ $(document).ready(function(){
 
 #comment{
 	margin-top: 20px;
+	clear: both;
 }
 .title{
-	font-size: 1.9vmax;
+	font-size: 30px;
 }
 .nalja{
-	font-size: 0.9vmax;
-	margin-left: 75%;
+	font-size: 16px;
+	text-align:right;
 	color: #b2b0b0;
 }
 /* 항상위에 오는 버튼 */
 .topbtn{
-	width: 40%;
+	width: 60px;
 }
 
 .alwaysBtn{
-	margin-left:75%;
+	margin-left:70%;
 	bottom: 20px;
 	position: fixed;
 }
@@ -81,9 +88,11 @@ $(document).ready(function(){
 }
 .box-footer{/* 댓글 입력버튼 */
 	margin-top: 20px;
-	margin-left: 90%;
+	float: right;
 }
-
+.box-body{
+	clear: both;
+}
 /* 댓글 스타일 */
 .com_div{
 	display: inline-block;
@@ -91,14 +100,14 @@ $(document).ready(function(){
 }
 
 .com_nalja{
-	margin-left: 85%;
+	float: right;
 }
 .com_hr{
 	width: 100%;
 	margin-bottom: 1%;
 }
 .comBtn{
-	margin-left: 90%;
+	float: right;
 }
 
 /* tags 안보이게 */
@@ -106,7 +115,42 @@ $(document).ready(function(){
 	visibility: hidden;
 }
 .copy{
-	margin-left: 60%;
+	text-align: right;
+	font-family: NanumSquareB;
+}
+.endHr{
+	clear: both;
+}
+.cate{
+	font-family: NanumSquareR;
+	font-size: 15px;
+}
+.popDiv{
+	clear: both;
+}
+.nalview{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+@media (max-width: 991px) {
+ 	.title{
+		font-size: 20px;
+	}
+	.copy{
+		text-align: center;
+	}
+	.viewimg{/* 조회수 아이콘 */
+		width: 13px;
+		margin-right: 10px;
+	}
+	.nalja{
+		font-size: 13px;
+		text-align:right;
+		color: #b2b0b0;
+	}
+	.topbtn{
+		width: 40px;
+	}
 }
 </style>
 </head>
@@ -127,12 +171,16 @@ $(document).ready(function(){
 		            <div>
 		            	<span><img src="${goRoot}${detail.img }"></span>
 		            </div>
-		            <div class="nalja">
-	            		<span><strong>${detail.nalja }</strong></span>
+		            <div style="padding: 0 7.5%" class="nalview">
+			            <div class="nalja">
+		            		<span><strong>${detail.nalja }</strong></span>
+		            	</div>
+		            	<div style="clear:both"></div>
+		            	<div class="view">
+		            		<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}</strong></span>
+		            	</div>
 	            	</div>
-	            	<div class="view">
-	            		<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}<strong></span>
-	            	</div>
+	            	<div style="clear:both"></div>
 	            	<div>
 		           		<span class="cate">${detail.cate }</span>
 		            </div>
@@ -158,31 +206,64 @@ $(document).ready(function(){
 	            		<hr id="titleHr"/>
 	            	</div>
 		            <div>
-	            		<span>${detail.con }</span>
+	            		<span class="con_img">${detail.con }</span>
 	            	</div>
+	            	<script type="text/javascript">
+	            	var windowWidth=$(window).width();
+	            	$(window).resize(function(){
+	            		if(windowWidth >= 1200){
+	            			con_img(900);
+	            			location.reload();
+	            		} else if(windowWidth >= 992 && windowWidth < 1200){
+	            			con_img(700);
+	            			location.reload();
+	            		} else if(windowWidth >= 768 && windowWidth < 992){
+	            			con_img(500);
+	            			location.reload();
+	            		} else {
+	            			con_img(300);
+	            			location.reload();
+	            		}
+	            	});
+	            	$(function(){
+	            		if(windowWidth >= 1200){
+	            			con_img(900);
+	            		} else if(windowWidth >= 992 && windowWidth < 1200){
+	            			con_img(700);
+	            		} else if(windowWidth >= 768 && windowWidth < 992){
+	            			con_img(500);
+	            		} else {
+	            			con_img(300);
+	            		}
+	            	});
+	            </script>
 		            <div class="copy">
 		            	<%Calendar cal = Calendar.getInstance();%>
-		            	Copyrightⓒ <%= cal.get(Calendar.YEAR) %> <span>${detail.writer }</span> All rights reserved.
+		            	Copyrightⓒ <%= cal.get(Calendar.YEAR) %> <span>${detail.writer }</span><span class="changeDiv">All rights reserved.</span>
 		            </div>
 		            <!-- 좋아요. -->
+		            <c:if test="${login_on=='true'}">
 		            <div class="popDiv dis">
-						<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
-						<span><strong id="popNum">${detail.pop }</strong></span>
+						<input id="type" type="hidden" value="magazine" />
+						<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn btimg">
+						<span><strong id="su">${detail.pop }</strong></span>
 		            </div>
+		            </c:if>
 		            <!-- 좋아요 끝 -->
-
 			<div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
-			<%-- <c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}"> --%>
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 				<button type="submit" class="editBtn redBtn">수정</button>
-			<%-- </c:if> --%>
+			</c:if>
 			</div>
 			</form>
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 			<form method="post" action="/admin/magazine/${detail.mag_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="deleteBtn redBtn">삭제</button>
 			</form>
+			</c:if>
 			</div>
 			<!-- 항상 화면 위에 이동버튼 -->
 			<div class="alwaysBtn">
@@ -223,7 +304,6 @@ $(document).ready(function(){
 			<div id="modDiv" style="display : none;">
 				<div class="modal-title">
 					<input type="hidden" id="commentnum" >
-					댓글 수정
 				</div>
 				<div>
 					<textarea rows="5" class="form-control" type="text" id="commenttext"></textarea>
@@ -242,7 +322,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<!-- TODO: event 댓글 리스트 끝 -->
-        <hr>
+        <hr class="endHr">
     </div>
     <!-- //main contents -->
             <!-- 컨탠츠 끝 -->

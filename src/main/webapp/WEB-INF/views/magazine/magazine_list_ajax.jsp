@@ -27,7 +27,7 @@ $(function() {
 </style>
 <div class="contentsBox" class="span6 element category01" data-category="category01">
     <div class="hover_img">
-        <a href="magazine/${bean.mag_no}"><img src="/${bean.img}" alt="main_img"></a>
+        <a href="magazine/${bean.mag_no}"><img src="${bean.img}" alt="main_img"></a>
     </div> 
     <div class="item_description">
         <h3><a href="magazine/${bean.mag_no}"><strong>${bean.title}</strong></a></h3>

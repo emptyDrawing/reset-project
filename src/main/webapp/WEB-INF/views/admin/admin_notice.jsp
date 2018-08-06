@@ -7,30 +7,8 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/admin_header.jsp"%>
-<!-- <script type="text/javascript">
-	function detail() {
-		$('.detailForm input').hide();
-		$('.modal-title').html('상세페이지');
-		$('.well-input').show();
-		$('.modal-footer').show();
-	}
-	function edit(){
-		$('.detailForm input').show();
-		$('.modal-title').html('수정페이지');
-		$('.modal-footer').hide();
-	}
 
-	
-	$(function(){
-		detail();
-		
-		$('.edit').click(function(){ edit(); });
-		
-	});
-	
-</script> -->
 <style type="text/css">
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 .modal, .container {
 	font-family: NanumSquareR;
@@ -40,7 +18,6 @@
 h1 {
 	font-size: 3vmax;
 	font-family: NanumSquareB;
-	margin-botton: 50px;
 	color: #303030;
 }
 
@@ -55,6 +32,7 @@ h1 {
 	padding: 10px;
 	font-family: NanumSquareR;
 	font-size: 20px;
+
 }
 
 .nohead, .nodiv {
@@ -77,15 +55,9 @@ h1 {
 
 .mytable {
 	border-collapse: collapse;
-	height: 5%;
 	text-align: center;
 }
 
-/* .newImg > img{
-	width: 25px;
-	height: 25px;
-
-} */
 .newbtn {
 	background-color: #d00b01;
 	-moz-border-radius: 2px;
@@ -182,20 +154,15 @@ h1 {
 	float: right;
 }
 
-input {
-	color: white;
-}
-
-.button {
-	top-margin: 100px;
-}
+.addNotice{
+	margin-top : 30px;
+	}
 
 .notice_boder {
 	border-bottom: 1px solid #DDDDDD;
 }
 </style>
-
-</head>
+    </head>
 <body>
 	<div id="wrapper">
 		<%@include file="/WEB-INF/views/template/admin_side_menu.jsp"%>
@@ -216,12 +183,14 @@ input {
 									<!-- TODO [jihyun] reset -->
 									<div class="form-group">
 										<label for="name">제목</label> <input type="text"
-											class="form-control" name="title" id="title" placeholder="제목" />
+											class="form-control" name="title" id="title" placeholder="제목을 입력하세요" />
 									</div>
 									<div class="form-group">
-										<label for="content">내용</label> <input type="text"
+										<label for="content">내용</label> <!-- <input type="text"
 											class="form-control" name="content" id="content"
-											placeholder="공지사항 내용" />
+											placeholder="공지사항 내용" /> -->
+									<textarea class="form-control" rows="5" name="content" id="content"
+													placeholder="공지내용을 입력하세요"></textarea>
 									</div>
 									<div class="addbtns">
 										<button type="submit" class="redbtn">입력</button>
@@ -304,21 +273,22 @@ input {
 												<div class="well well-sm well-input">${bean.title }</div>
 												<input type="text" value="${bean.title }"
 													class="form-control" name="title" id="title"
-													placeholder="제목" />
+													placeholder="제목을 입력하세요" />
 											</div>
 											<div class="form-group">
 												<label for="content">내용</label>
 												<div class="well well-sm well-input">${bean.content }</div>
-												<input type="text" value="${bean.content }"
+												<textarea value="${bean.content }" class="form-control" rows="5" name="content" id="content"
+													placeholder="내용을 입력하세요"></textarea>
+											<%-- 	<input type="text" value="${bean.content }"
 													class="form-control" name="content" id="content"
-													placeholder="내용" />
+													placeholder="내용" /> --%>
 											</div>
 											<div class="hidebtn">
 												<input type="submit" class="blackbtn" value="수정" /> <input
 													type="button" class="greybtn" data-dismiss="modal"
-													value="Close" id="close" /><br />
+													value="Close" id="close" />
 											</div>
-											<br />
 										</form>
 										<script type="text/javascript">
 											function detail() {
@@ -371,10 +341,10 @@ input {
 					</c:forEach>
 
 					<!-- TODO [jihyun]notice - 관리자 로그인시 보이게 되는 입력버튼 -->
-					<%-- <c:if test="${login_on==true && !(login_user_type='일반')}"> --%>
+					<%-- <c:if test="${login_on==true && !(login_user_type='일반')}">--%>
 					<button type="button" class="addNotice redbtn pull-right"
 						data-toggle="modal" data-target=".bs-example-modal-lg">입력하기</button>
-					<%-- </c:if> --%>
+					<%--</c:if> --%>
 				</div>
 				<br>
 				<br>
