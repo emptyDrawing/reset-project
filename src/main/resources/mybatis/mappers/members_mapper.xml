@@ -34,7 +34,7 @@
 	<insert id="insertOne" parameterType="int">
   		INSERT INTO MEMBERS
 		(`email`, `nick`, `gender`, `age`, `skin`, `phone`, `cart`, `exp`) 
-		VALUES (#{email}, #{nick}, #{gender}, #{age}, #{skin}, #{phone}, #{cart}, #{exp});
+		VALUES (#{email}, #{nick}, #{gender}, #{age}, #{skin}, #{phone}, '', #{exp});
   	</insert>
   	<update id="updateOne" parameterType="int">
   		UPDATE MEMBERS

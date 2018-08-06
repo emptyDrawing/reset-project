@@ -51,7 +51,7 @@ public class Login_Naver implements Login_Service{
 	
 	//
 	public Login_Naver() throws UnsupportedEncodingException {
-		redirectURI =  URLEncoder.encode("http://localhost:8080/login/naver", "UTF-8"); // TODO 나중에 바꿀거
+		redirectURI =  URLEncoder.encode("http://reset-beauty.ga/login/naver", "UTF-8"); // TODO 나중에 바꿀거
 	}
 
 	@Override

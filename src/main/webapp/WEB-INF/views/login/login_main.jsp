@@ -110,7 +110,7 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
         function(googleUser) {
     	  var id_token = googleUser.getAuthResponse().id_token;
 		  var xhr = new XMLHttpRequest();
-    	  xhr.open('POST', 'http://localhost:8080/login/google/');
+    	  xhr.open('POST', 'http://reset-beauty.ga/login/google/');
     	  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     	  xhr.send('idtoken=' + id_token);
     	  xhr.onreadystatechange = function () {
@@ -228,7 +228,7 @@ $(function(){
   	String state = new BigInteger(130, random).toString();
   
   	String naver_clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
-    String naver_redirectURI = URLEncoder.encode("http://localhost:8080/login/naver/", "UTF-8");
+    String naver_redirectURI = URLEncoder.encode("http://reset-beauty.ga/login/naver/", "UTF-8");
     String naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"; 
     naver_apiURL += "&client_id=" + naver_clientId;
     naver_apiURL += "&redirect_uri=" + naver_redirectURI;
@@ -236,7 +236,7 @@ $(function(){
     session.setAttribute("state", state);
 
     String kakao_clientId = "1b9f25b372bcd6828070cc433502aa22";//애플리케이션 클라이언트 아이디값";
-	String kakao_redirectURI = "http://localhost:8080/login/kakao/"; // TODO 나중에 바꿀거
+	String kakao_redirectURI = "http://reset-beauty.ga/login/kakao/"; // TODO 나중에 바꿀거
     String kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code";
     kakao_apiURL += "&client_id=" + kakao_clientId;
     kakao_apiURL += "&redirect_uri=" + kakao_redirectURI;
