@@ -54,7 +54,10 @@ text-decoration: none;
 }
 
 .con-cell{
-	width: 55%
+	width: 55%;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden ;
 }
 .answer-cell{
 	width: 10%;
