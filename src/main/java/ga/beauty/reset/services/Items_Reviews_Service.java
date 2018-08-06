@@ -74,20 +74,32 @@ public class Items_Reviews_Service {
 		int three=0;
 		int four=0;
 		int five=0;
+		double avg=0;
 		boolean result=false;
 		for(int i=0;i<temp123.length;i++) {
 			if(temp123[i]==0) {
-				temp123[i]=0;
 				result=true;
+			}else {
+				if(i==0) {
+					one=temp123[i];
+				}else if(i==1) {
+					two=temp123[i];
+				}else if(i==2) {
+					three=temp123[i];
+				}else if(i==3) {
+					four=temp123[i];
+				}else if(i==4) {
+					five=temp123[i];
+				}
 			}
 		}
 		if(result) {
+			total=one+two+three+four+five;
 			if(one!=0) {one=rank.getOne()*100/total;}
 			if(two!=0) {two= rank.getTwo()*100/total;}
 			if(three!=0) {three= rank.getThree()*100/total;}
 			if(four!=0) {four= rank.getFour()*100/total;}
 			if(five!=0) {five= rank.getFive()*100/total;}
-			total=one+two+three+four+five;
 		} else {
 			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
 			one= rank.getOne()*100/total;
@@ -116,7 +128,9 @@ public class Items_Reviews_Service {
 	
 	// 리뷰 추가
 	public int review_addPage(HttpServletResponse resp,Reviews_Vo bean) throws SQLException, IOException {
-		return Reviews_Dao.reviewAdd(bean);
+		int result=Reviews_Dao.reviewAdd(bean);
+		if(result==1) {avgUpdate(bean);}
+		return result;
 	}
 
 	// 리뷰 상세페이지
@@ -144,15 +158,27 @@ public class Items_Reviews_Service {
 			if(temp123[i]==0) {
 				temp123[i]=0;
 				result=true;
+			}else {
+				if(i==0) {
+					one=temp123[i];
+				}else if(i==1) {
+					two=temp123[i];
+				}else if(i==2) {
+					three=temp123[i];
+				}else if(i==3) {
+					four=temp123[i];
+				}else if(i==4) {
+					five=temp123[i];
+				}
 			}
 		}
 		if(result) {
+			total=one+two+three+four+five;
 			if(one!=0) {one=rank.getOne()*100/total;}
 			if(two!=0) {two= rank.getTwo()*100/total;}
 			if(three!=0) {three= rank.getThree()*100/total;}
 			if(four!=0) {four= rank.getFour()*100/total;}
 			if(five!=0) {five= rank.getFive()*100/total;}
-			total=one+two+three+four+five;
 		} else {
 			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
 			one= rank.getOne()*100/total;
@@ -196,14 +222,78 @@ public class Items_Reviews_Service {
 			String temp=sb.toString();
 			bean.setImg(temp);
 		}
-
-		return Reviews_Dao.reviewUpdate(bean);
+		int result=Reviews_Dao.reviewUpdate(bean);
+		if(result==1) {avgUpdate(bean);}
+		return result;
 	}
 	
 	// 리뷰 삭제페이지
 	public int review_deletePage(String filePath,Reviews_Vo bean) throws SQLException, IOException {
 		logger.debug("deletePage param: "+bean);
-		return Reviews_Dao.reviewDelete(filePath,bean);
+		int result=Reviews_Dao.reviewDelete(filePath,bean);
+		if(result==1) {avgUpdate(bean);}
+		return result;
 	}
+	
+	// 평점업데이트
+	private void avgUpdate(Reviews_Vo bean) throws SQLException{
+		System.out.println("평점 업뎃");
+		Ranks_Vo rank=Reviews_Dao.totAll(bean.getItem());
+		int[] temp123 = new int[5];
+		temp123[0]=rank.getOne();
+		temp123[1]=rank.getTwo();
+		temp123[2]=rank.getThree();
+		temp123[3]=rank.getFour();
+		temp123[4]=rank.getFive();
+		
+		int itemnum=bean.getItem();
+		int total = 0;
+		int one = 0;
+		int two=0;
+		int three=0;
+		int four=0;
+		int five=0;
+		double avg=0;
+		boolean result=false;
+		for(int i=0;i<temp123.length;i++) {
+			if(temp123[i]==0) {
+				result=true;
+			}else {
+				if(i==0) {
+					one=temp123[i];
+				}else if(i==1) {
+					two=temp123[i];
+				}else if(i==2) {
+					three=temp123[i];
+				}else if(i==3) {
+					four=temp123[i];
+				}else if(i==4) {
+					five=temp123[i];
+				}
+			}
+		}
+		
+		
+		if(result) {
+			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
+			if(five!=0) {five=five*5;}
+			if(four!=0) {four=four*4;}
+			if(three!=0) {three=three*3;}
+			if(two!=0) {two=two*2;}
+			if(total==0) {
+				avg=0;
+			}else {
+				avg=(five+four+three+two+one)/total;
+			}
+		} else {
+			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
+			avg=((rank.getFive()*5)+(rank.getFour()*4)+(rank.getThree()*3)+(rank.getTwo()*2)+(rank.getOne()*1))/total;
+		}
+		Items_Vo item=new Items_Vo();
+		item.setItem(itemnum);
+		item.setTot(avg);
+		Items_Dao.itemRankUpdate(item);
+	}
+	
 }
 

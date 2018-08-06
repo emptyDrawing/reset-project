@@ -235,6 +235,7 @@ $(function(){
     naver_apiURL += "&state=" + state;
     session.setAttribute("state", state);
 
+
     String kakao_clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
 	String kakao_redirectURI = "http://reset-beauty.ga/login/kakao/"; // TODO 나중에 바꿀거
     String kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code";

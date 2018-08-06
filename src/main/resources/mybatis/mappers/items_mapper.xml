@@ -47,6 +47,9 @@
   	<update id="itemUpdate" parameterType="items_Vo">
   		UPDATE ITEMS SET NAME=#{name},IMG=#{img},BRAND=#{brand},VOL=#{vol},PRICE=#{price},OIL=#{oil},DRY=#{dry}, SEN=#{sen},CATE=#{cate}, TAGS=#{tags} WHERE ITEM=#{item}
   	</update>
+  	<update id="itemRankUpdate" parameterType="items_Vo">
+  		UPDATE ITEMS SET TOT=#{tot} WHERE ITEM=#{item}
+  	</update>
   	<update id="itemDel">
   		UPDATE MYDB.ITEMS SET OPEN=0 WHERE ITEM=#{item}
   	</update>
