@@ -272,12 +272,6 @@ public class Items_Reviews_Service {
 				}
 			}
 		}
-		System.out.println(result);
-		System.out.println(one);
-		System.out.println(two);
-		System.out.println(three);
-		System.out.println(four);
-		System.out.println(five);
 		
 		
 		if(result) {
