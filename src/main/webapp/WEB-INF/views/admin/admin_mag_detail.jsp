@@ -214,16 +214,12 @@ $(document).ready(function(){
 	            	$(window).resize(function(){
 	            		if(windowWidth >= 1200){
 	            			con_img(900);
-	            			location.reload();
 	            		} else if(windowWidth >= 992 && windowWidth < 1200){
 	            			con_img(700);
-	            			location.reload();
 	            		} else if(windowWidth >= 768 && windowWidth < 992){
 	            			con_img(500);
-	            			location.reload();
 	            		} else {
 	            			con_img(300);
-	            			location.reload();
 	            		}
 	            	});
 	            	$(function(){
