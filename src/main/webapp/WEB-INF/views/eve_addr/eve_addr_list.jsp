@@ -20,7 +20,9 @@
 	width: 100%;
 	margin: 60px auto 0px auto;
 }
-
+.icon{
+	width:18px;
+}
 </style>
 </head>
 <body>
@@ -39,13 +41,16 @@
 								<div class="col-sm-6 col-md-12">
 									<div class="thumbnail">
 										<a href="/admin/eveaddr/${bean.eve_no}"><img
-											src="/${bean.img}" alt="main_img"></a>
+											src="${bean.img}" alt="main_img"></a>
 										<div class="caption">
 											<a href="/admin/eveaddr/${bean.eve_no}"><h3>${bean.title}</h3></a>
 											<p>${bean.nalja}</p>
+											
 											<p>
-												<img src="#" alt="좋아요" class="pop" />${bean.pop }<img
-													src="#" alt="조회수" class="view" />${bean.view }</p>
+												<img src="/imgs/icon/like.png" alt="좋아요" class="pop icon" />&emsp;${bean.pop }
+												&emsp;&emsp;&emsp;&emsp;
+												<img src="/imgs/icon/view.png" alt="조회수" class="view icon" />&emsp;${bean.view }
+											</p>
 										</div>
 									</div>
 								</div>
