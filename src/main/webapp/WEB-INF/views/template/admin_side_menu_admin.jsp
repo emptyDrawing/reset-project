@@ -75,10 +75,10 @@ width: 225px;
 				<ul id="menu1" class="collapse">
 					<li><a href="${goRoot}admin/member/normal/">일반회원</a></li>
 					<li><a href="${goRoot}admin/member/company/">기업회원</a></li>
-					<c:if test="${login_user_type eq 'CEO'}">
 					<li><a href="${goRoot}admin/member/emp/">직원관리</a></li>
-					</c:if>
+					<c:if test="${login_user_type eq 'CEO'}">
 					<li><a href="${goRoot}admin/sign/add/">회원등록</a></li>
+					</c:if>
 				</ul>
 			</li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">홈페이지관리</a>
