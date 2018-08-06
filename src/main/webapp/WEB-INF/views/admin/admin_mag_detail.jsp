@@ -19,8 +19,9 @@ $(document).ready(function(){
 	$("#closeBtn").click(function(){
 		$("#modDiv").hide();
 	});
-   
+    
 });
+
 </script>
 <style type="text/css">
 .page_container{
@@ -244,8 +245,12 @@ $(document).ready(function(){
 		            <!-- 좋아요. -->
 		            <c:if test="${login_on=='true'}">
 		            <div class="popDiv dis">
+		            	<input id="email" type="hidden" value="${login_email }" />
+						<input id="p_no" type="hidden" value="${detail.mag_no }" />
 						<input id="type" type="hidden" value="magazine" />
+						<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
 						<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn btimg">
+						<input id="result" type="hidden" value="" />
 						<span><strong id="su">${detail.pop }</strong></span>
 		            </div>
 		            </c:if>
@@ -334,7 +339,15 @@ $(document).ready(function(){
 		//아래 두개의 변수만 바꿔주면 됩니다.
 		var p_no=${detail.mag_no};
 		var co_type="magazine";
-		
+		function settingModifyBtn(){
+			var email = "${login_email}";
+			$(".comBtn").each(function(){
+			 	checkEmail=$(this).attr("email");
+				if(email != checkEmail){
+					$(this).css("display","none")
+				};
+			});
+		};
 		<%//TODO [김형준] magazein url 경로(reset) 변경해야함.%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
@@ -343,17 +356,18 @@ $(document).ready(function(){
 				
 			$(data).each(
 				function(){
-				str+=
-					"<div class='commentLi'>"
-					+"<div>"+this.writer+"</div>"
-					+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
-					+"<div>"+this.nalja+"</div>"
-					+"<div><button class='comBtn'>MOD</button></div>"
-					+"</div>";
+					str+=
+						"<div class='commentLi'>"
+						+"<hr class='com_hr'/>"
+						+"<div class='com_writer com_div'><strong>"+this.writer+"</strong></div>"
+						+"<div  class='com_nalja com_div'>"+this.nalja+"</div>"
+						+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
+						+"<div class='com_btn'><button class='comBtn redBtn' email="+this.email+">댓글수정</button></div>"
+						+"</div>";
 			});
 			
 			$("#comment").html(str);
-			
+			settingModifyBtn();
 			});
 		};//getAllList end
 		
@@ -385,6 +399,7 @@ $(document).ready(function(){
 				success : function(result){
 					if(result == 'SUCCESS'){
 						alert("등록 되었습니다.");
+						expUp("comment");
 						getAllList();
 					}
 				}
@@ -440,6 +455,7 @@ $(document).ready(function(){
 					console.log("result:"+result);
 					if(result=='SUCCESS'){
 						alert("삭제되었습니다");
+						expDown("comment");
 						$("#modDiv").hide("slow");
 						getAllList();
 					}

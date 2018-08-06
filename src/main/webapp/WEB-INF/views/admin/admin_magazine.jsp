@@ -5,10 +5,12 @@
 <html>
 <head>
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
-<script src="${goRoot}js/jquery.selectric.js"></script>
-<link href="${goRoot}css/main.css" rel="stylesheet">
-<link href="${goRoot}css/selectric.css" rel="stylesheet">
-<link href="${goRoot}css/btn/btn.css" rel="stylesheet">
+<script src="${goRoot }js/jquery.selectric.js"></script>
+<script type="text/javascript" src="${goRoot }js/jquery.bxslider.js"></script>
+<link href="${goRoot }css/jquery.bxslider.css" rel="stylesheet" >
+<link href="${goRoot }css/selectric.css" rel="stylesheet">
+<link href="${goRoot }css/btn/btn.css" rel="stylesheet">
+	
 <script type="text/javascript">
 $(function() {
 	  $('select').selectric();
@@ -70,11 +72,10 @@ $(function() {
 }
 
 .addBtn{
-    display: block;
-    text-align: right;
-    vertical-align: middle;
-    height: 30px;
-    margin-bottom: 30px;
+	display: block;
+	margin-left: 90%;
+	vertical-align: middle;
+	height: 30px;
 }
 
 .icon{
@@ -123,6 +124,7 @@ $(function() {
         	<!-- 내용 입력 -->
             <!-- Magazine list-page 입니다. -->
             <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
+          	<c:if test="${login_user_type eq 'CEO' || login_user_type eq '직원'}">
            	<div class="selCate">
 	            <select name="cate" id="select">
 	            	<option value="99">전체 콘텐츠</option>
@@ -137,7 +139,7 @@ $(function() {
             	var cate=$("#select option:selected").val();
             	$.ajax({
     				type: 'get',
-    				url:'/magazine/ajax',
+    				url:'/admin/magazine/ajax',
     				data:"cate="+cate,
     				dataType:'text',
     				success:function(result){
@@ -146,23 +148,24 @@ $(function() {
     			});
             });
             </script>
+            </c:if>
             <div id="listTarget">
             <div class="contents_container">
             <c:forEach items="${alist }" var="bean">
             <div class="contentsBox" class="span6 element category01" data-category="category01">
                 <div class="hover_img">
-                    <a href="${goRoot}admin/magazine/${bean.mag_no}"><img src="${goRoot }${bean.img}" alt="main_img"></a>
+                    <a href="/admin/magazine/${bean.mag_no}"><img src="${goRoot }${bean.img}" alt="main_img"></a>
                 </div> 
-                <div class="item_description">
-                    <h3><a href="${goRoot }admin/magazine/${bean.mag_no}"><strong>${bean.title}</strong></a></h3>
+                <div class="/admin/item_description">
+                    <h3><a href="/admin/magazine/${bean.mag_no}"><strong>${bean.title}</strong></a></h3>
                     <div><strong class="strong">${bean.cate}</strong></div>
                     <div>
                     	<span class="pop">
-                    		<img src="${goRoot }imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
+                    		<img src="/imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
                     	</span>
                     	&emsp;&emsp;&emsp;&emsp;
                     	<span class="view">
-	                    	<img src="${goRoot }imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
+	                    	<img src="/imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
                     	</span>
                     </div>
                 </div>                                  
