@@ -253,7 +253,7 @@ public class Items_Reviews_Service {
 		int three=0;
 		int four=0;
 		int five=0;
-		double avg=0;
+		double avg=0.0;
 		boolean result=false;
 		for(int i=0;i<temp123.length;i++) {
 			if(temp123[i]==0) {
@@ -272,29 +272,20 @@ public class Items_Reviews_Service {
 				}
 			}
 		}
-		System.out.println(result);
-		System.out.println(one);
-		System.out.println(two);
-		System.out.println(three);
-		System.out.println(four);
-		System.out.println(five);
-		
-		
+
 		if(result) {
 			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
 			if(five!=0) {five=five*5;}
 			if(four!=0) {four=four*4;}
 			if(three!=0) {three=three*3;}
 			if(two!=0) {two=two*2;}
-			if(total==0) {
-				avg=0;
-			}else {
-				avg=(five+four+three+two+one)/total;
-			}
+			int a=five+four+three+two+one;
+			avg=(double)(five+four+three+two+one)/total;
 		} else {
 			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
-			avg=((rank.getFive()*5)+(rank.getFour()*4)+(rank.getThree()*3)+(rank.getTwo()*2)+(rank.getOne()*1))/total;
+			avg=(double)((rank.getFive()*5)+(rank.getFour()*4)+(rank.getThree()*3)+(rank.getTwo()*2)+(rank.getOne()*1))/total;
 		}
+		avg=Double.parseDouble(String.format("%.1f",avg));
 		Items_Vo item=new Items_Vo();
 		item.setItem(itemnum);
 		item.setTot(avg);
