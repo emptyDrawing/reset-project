@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.Date"%>
@@ -41,7 +41,7 @@ text-decoration: none;
 }
 
 .qano-cell{
-	width: 7%;
+	width : 7%;
 	text-align: center;
 }
 
@@ -51,19 +51,25 @@ text-decoration: none;
 
 .qatype-cell{
 	width: 20%;
+	
 }
 
-.con-cell{
-	width: 55%;
-	text-overflow:ellipsis;
+
+.mystyle{
+	width: 605px;
+	height: 45px;
 	white-space:nowrap;
-	overflow:hidden ;
+	overflow: hidden;
+	text-overflow: ellipsis;
+ 	display :inline-block;
 }
+
+
+
 .answer-cell{
 	width: 10%;
 }
 
-    
 </style>
  </head>
 <body>
@@ -90,7 +96,7 @@ text-decoration: none;
 		</tr>
 	<tbody>
 	<c:forEach items="${alist }" var="bean">
-	<tr>
+	<tr class="trheight">
 		<td class="qano-cell"><a href="./qna/${bean.qa_no }">${bean.qa_no }</a></td>
         <td class="nalja-cell"><a href="./qna/${bean.qa_no }"><fmt:formatDate value="${bean.nalja}" pattern="MM/dd" /></a></td>
 		<td><a href="./qna/${bean.qa_no }">
@@ -113,10 +119,10 @@ text-decoration: none;
 <c:set var="nowdate" scope="request"><fmt:formatDate value="${now}"/></c:set>
 <c:set var="nalja" scope="request"><fmt:formatDate value="${bean.nalja}"/></c:set>
 		</a></td>
-		<td class="con-cell"><a href="./qna/${bean.qa_no }">${bean.con }</a>
-							<c:if test="${nalja == nowdate}">
+		<td class="con-cell mystyle"><c:if test="${nalja == nowdate}">
 										&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
-								</c:if>
+								</c:if><a href="./qna/${bean.qa_no }">${bean.con }</a>
+						
 </td> 
 		<td class="answer-cell"><a href="./qna/${bean.qa_no }">
 			<c:choose> 

@@ -205,8 +205,6 @@ h1 {
 				</div>
 
 				<!-- 입력페이지 끝-->
-
-
 				<!-- list 시작 -->
 				<div class="container">
 
@@ -289,6 +287,7 @@ h1 {
 													type="button" class="greybtn" data-dismiss="modal"
 													value="Close" id="close" />
 											</div>
+											<br>
 										</form>
 										<script type="text/javascript">
 											function detail() {
@@ -331,7 +330,7 @@ h1 {
 											<input type="hidden" name="_method" value="delete" />
 											<button type="submit" class="redbtn delete">삭제</button>
 										</form>
-
+									<br>
 									</div>
 									<!-- modal footer end  -->
 
