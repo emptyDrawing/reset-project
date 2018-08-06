@@ -367,18 +367,18 @@ input.valid, textarea.valid {
 								console.log(select);
 							if(select == 0){
 								console.log('문의 분류를 선택해주세요');
-								alert('문의 분류 미선택 : submit 불가능');
+								alert('문의 분류를 선택해주세요');
 								return false;
 							}
 							 if(con.val().length < 1){
 									console.log('내용 미입력 : submit 불가능');
-									alert('내용 미입력 : submit 불가능');
+									alert('내용을 입력해주세요');
 									return false;
 								}
 								if(email.val().length < 1){
 									console.log('이메일을 입력해주세요'); 
 									$('#email').append("<span>오류</span>");
-									alert('이메일 입력 없음 : submit 불가능');
+									alert('이메일을 입력해주세요');
 									return false;
 								}
 							if (checkbox.is(':not(:checked)')){

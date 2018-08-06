@@ -39,11 +39,19 @@
     .rankingImg{
     	width: 60px;
     }
+    
     .rankingBrand{
+    	font-family: NanumSquareB;
+    	font-size: 20px;
+    	color: #2e2e2e;
+    }
+    
+    .rankingName{
     	font-family: NanumSquareEB;
     	font-size: 23px;
     	color: #2e2e2e;
     }
+    
     .rankingvol,.rankingPrice{
     	font-family: NanumSquareB;
     	font-size: 18px;

@@ -44,7 +44,11 @@
   		<if test="img!=null">
   		IMG=#{img},
   		</if>
-  		TITLE=#{title},CON=#{con},CATE=#{cate},TAGS=#{tags} WHERE MAG_NO=#{mag_no}
+  		TITLE=#{title},CON=#{con},CATE=#{cate}
+  		<if test="com_email!=null">
+  		,COM_EMAIL=#{com_email}
+  		</if>
+  		WHERE MAG_NO=#{mag_no}
   	</update>
   	
   	<update id="updatePop" parameterType="Magazine_Vo">

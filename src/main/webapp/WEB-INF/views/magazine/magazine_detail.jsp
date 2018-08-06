@@ -5,6 +5,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+<script src="${goRoot }js/contents_img.js"></script>
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -372,8 +373,37 @@ function expDown(type){
 	            		<hr id="titleHr"/>
 	            	</div>
 		            <div>
-	            		<span>${detail.con }</span>
+	            		<span class="con_img">${detail.con }</span>
 	            	</div>
+	            	<script type="text/javascript">
+	            	var windowWidth=$(window).width();
+	            	$(window).resize(function(){
+	            		if(windowWidth >= 1200){
+	            			con_img(900);
+	            			location.reload();
+	            		} else if(windowWidth >= 992 && windowWidth < 1200){
+	            			con_img(700);
+	            			location.reload();
+	            		} else if(windowWidth >= 768 && windowWidth < 992){
+	            			con_img(500);
+	            			location.reload();
+	            		} else {
+	            			con_img(300);
+	            			location.reload();
+	            		}
+	            	});
+	            	$(function(){
+	            		if(windowWidth >= 1200){
+	            			con_img(900);
+	            		} else if(windowWidth >= 992 && windowWidth < 1200){
+	            			con_img(700);
+	            		} else if(windowWidth >= 768 && windowWidth < 992){
+	            			con_img(500);
+	            		} else {
+	            			con_img(300);
+	            		}
+	            	});
+	            </script>
 		            <div class="copy">
 		            	<%Calendar cal = Calendar.getInstance();%>
 		            	Copyrightⓒ <%= cal.get(Calendar.YEAR) %> <span>${detail.writer }</span><span class="changeDiv">All rights reserved.</span>

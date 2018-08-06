@@ -7,14 +7,23 @@
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <link href="${goRoot}css/main.css" rel="stylesheet">
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
+<link href="css/btn/btn.css" rel="stylesheet">
+
 <style type="text/css">
+
 .page_container{
 	max-width: 1080px;
 	margin: 0px auto;
+	font-family: NanumSquareR;
 }
 .contents_container{
 	display: inline-block;
     text-align: center;
+    width:100%;
+}
+.pagenum_container{
+	width: 100%;
+	margin: 60px auto 0px auto;
 }
 .contentsBox{
 	width: 50%;
@@ -22,12 +31,17 @@
 	margin-top: 5%;
 }
 .icon{
-	width:3%;
+	width:18px;
+}
+
+.headtitle{
+	font-size: 3vmax;
+	font-family: NanumSquareB;
+	color: #303030;
 }
 
 .redBtn{
-	margin-left: 90%;
-	text-decoration: none;
+	float: right;
 }
 
 @media (max-width: 991px) {
@@ -44,27 +58,35 @@
 	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
         <div id="page-wrapper">
             <div class="container-fluid">
-                <div class="row">
-                        <div class="page_container">
             <!-- 내용 입력 -->
             <!-- Event list-page 입니다. -->
-				<a href="/admin/event/add" class="redBtn">글쓰기</a>
+<div class="page_container">
+        <div>
+   			<div class="headtitle">Event</div>
+   			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
+   			<div class="">
+           		<a href="/admin/event/add" class="redBtn">글쓰기</a>
+           	</div>
+           	</c:if>
+   		</div>
+            <!-- 내용 입력 -->
+            <!-- Event list-page 입니다. -->
     	<div class="contents_container">
             <c:forEach items="${alist }" var="bean">
             <div class="contentsBox" class="span6 element category01" data-category="category01">
                 <div class="hover_img">
                 	<!-- //TODO : [김형준] img 주소 변경 필요 -->
-                    <a href="event/${bean.eve_no}"><img src="/${bean.img}" alt="main_img"></a>
+                    <a href="${goRoot }admin/event/${bean.eve_no}"><img src="${goRoot }${bean.img}" alt="main_img"></a>
                 </div> 
                 <div class="item_description">
-                    <h6><a href="event/${bean.eve_no}"><strong>${bean.title}</strong></a></h6>
+                    <h3><a href="${goRoot }admin/event/${bean.eve_no}"><strong>${bean.title}</strong></a></h3>
                     <div>
                     	<span class="pop">
-                    		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
+                    		<img src="${goRoot }imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
                     	</span>
                     	&emsp;&emsp;&emsp;&emsp;
                     	<span class="view">
-	                    	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
+	                    	<img src="${goRoot }imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
                     	</span>
                     </div>
                 </div>                                    
@@ -72,10 +94,11 @@
 			</c:forEach>
         </div>
 			<!-- 내용 끝 -->
-		<div>
+		<div class="pagenum_container">
 		<!-- 페이징  -->
 		<c:choose>
 		<c:when test="${paging.numberOfRecords ne NULL and paging.numberOfRecords ne '' and paging.numberOfRecords ne 0}">
+		<div class="container middle">
 		<div class="text-center marg-top">
 			<ul class="pagination">
 				<c:if test="${paging.currentPageNo gt 5}">  											  <!-- 현재 페이지가 5보다 크다면(즉, 6페이지 이상이라면) -->
@@ -106,10 +129,10 @@
 				</c:if> 
 			</ul>
 		</div>
+		</div>
 		</c:when>
 		</c:choose>
 		</div>
-        <hr>
     </div>
     <!-- //main contents -->
 	<%@include file="../../views/template/ajax_loading.jsp" %>

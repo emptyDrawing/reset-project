@@ -37,7 +37,11 @@
   		<if test="img!=null">
   		IMG=#{img},
   		</if>
-  		TITLE=#{title},CON=#{con},COM_EMAIL=#{com_email} WHERE EVE_NO=#{eve_no}
+  		TITLE=#{title},CON=#{con}
+  		<if test="com_email!=null">
+  		,COM_EMAIL=#{com_email}
+  		</if>
+  		WHERE EVE_NO=#{eve_no}
   	</update>
   	
   	<update id="updatePop" parameterType="Event_Vo">

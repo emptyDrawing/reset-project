@@ -7,33 +7,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
-
-	
-<!-- <script type="text/javascript">
-	function detail() {
-		$('.detailForm input').hide();
-		$('.modal-title').html('상세페이지');
-		$('.well-input').show();
-		$('.modal-footer').show();
-	}
-	function edit(){
-		$('.detailForm input').show();
-		$('.modal-title').html('수정페이지');
-		$('.modal-footer').hide();
-	}
-
-	
-	$(function(){
-		detail();
-		
-		$('.edit').click(function(){ edit(); });
-		
-	});
-	
-</script> -->
 <style type="text/css">
-
-
 
 		.container {
 			font-family: NanumSquareR;
@@ -43,7 +17,6 @@
 		h1 {
 			font-size: 3vmax;
 			font-family: NanumSquareB;
-			margin-botton: 50px;
 			color: #303030;
 		}
 		
@@ -109,25 +82,14 @@
 			float: left;
 			padding: 10px;
 		}
-		
-		
-		/*  
-		.iconhead, .icondiv{
-		width: 10%;
-			} 
-		 */
+
 		 
 		.mytable {
 			border-collapse: collapse;
 			height: 50px;
 			text-align : center;
 		}
-		
-		/* .newImg > img{
-			width: 25px;
-			height: 25px;
-		
-		} */
+
 		
 		.newbtn {
 			background-color:#d00b01;
@@ -261,9 +223,9 @@
 	 
  }
  
-
 </style>
 </head>
+    
 <body>
 	<!--header-->
 	<%@include file="/WEB-INF/views/template/menu.jsp"%>
@@ -275,6 +237,7 @@
    		</div>
     </div>
 	<!-- end header -->
+        
 	<!-- list 시작 -->
 	<div class="container">
 		<h1>공지사항</h1>
@@ -309,8 +272,7 @@
 							</div> -->
 				<div class="naljadiv mytable">
 				<span class="md-nalja">${bean.nalja }</span>
-				<span class="sm-nalja"><span><fmt:formatDate value="${bean.nalja}" pattern="MM/dd" /><sapan>
-</span>
+				<span class="sm-nalja"><fmt:formatDate value="${bean.nalja}" pattern="MM/dd" /></span>
 				</div>
 			</div>
 			</div>
@@ -330,9 +292,9 @@
 								공지사항</h4>
 						</div>
 						<div class="modal-body">
-							<form action="/admin/notice/${bean.no_no }" method="POST">
-								<!-- TODO 이지현 경로수정 -->
-								</form>class="detailForm" accept-charset="UTF-8">
+                         <form action="/admin/notice/${bean.no_no }" method="POST"
+								class="detailForm" accept-charset="UTF-8">
+                            <!-- TODO 이지현 경로수정 -->
 								<input type="hidden" name="_method" value="put">
 								<div class="form-group">
 									<label for="no_no">글번호</label>

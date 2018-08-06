@@ -26,16 +26,43 @@ $(function() {
 	  });  
 	});
 </script>
+
 <style type="text/css">
+@font-face {
+  font-family: NanumSquareR;
+  src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareL;
+  src: url(${goRoot}fonts/NanumSquareL.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+}
 .page_container{
 	max-width: 1080px;
 	margin: 0px auto;
+	font-family: NanumSquareR;
 }
 .contents_container{
 	display: inline-block;
     text-align: center;
     width: 100%;
 }
+.pagenum_container{
+	clear: both;
+	width: 100%;
+	margin: 100px auto 0px auto;
+}
+
 .contentsBox{
 	width: 50%;
 	float: left;
@@ -43,14 +70,23 @@ $(function() {
 }
 
 .addBtn{
-	display: block;
-	margin-left: 90%;
-	vertical-align: middle;
-	height: 30px;
+    display: block;
+    text-align: right;
+    vertical-align: middle;
+    height: 30px;
+    margin-bottom: 30px;
 }
 
 .icon{
-	width:3%;
+	width:18px;
+}
+.headtitle{
+	font-size: 3vmax;
+	font-family: NanumSquareB;
+	color: #303030;
+}
+.selectric-wrapper{
+	margin-left: 69%;
 }
 @media (max-width: 991px) {
  
@@ -76,13 +112,17 @@ $(function() {
             <div class="container-fluid">
             <!-- 컨탠츠 시작 -->
     <div class="page_container">
-        <hr>
+       	<div>
+   			<div class="headtitle">Magazine</div>
+   			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
+   			<div class="addBtn">
+           		<a href="/admin/magazine/add" class="redBtn">글쓰기</a>
+           	</div>
+           	</c:if>
+   		</div>
         	<!-- 내용 입력 -->
             <!-- Magazine list-page 입니다. -->
             <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
-           	<div class="addBtn">
-           		<a href="${goRoot}admin/magazine/add" class="redBtn">글쓰기</a>
-           	</div>
            	<div class="selCate">
 	            <select name="cate" id="select">
 	            	<option value="99">전체 콘텐츠</option>
@@ -106,28 +146,30 @@ $(function() {
     			});
             });
             </script>
-            <div id="listTarget" class="contents_container">
+            <div id="listTarget">
+            <div class="contents_container">
             <c:forEach items="${alist }" var="bean">
             <div class="contentsBox" class="span6 element category01" data-category="category01">
                 <div class="hover_img">
-                    <a href="magazine/${bean.mag_no}"><img src="/${bean.img}" alt="main_img"></a>
+                    <a href="${goRoot}admin/magazine/${bean.mag_no}"><img src="${goRoot }${bean.img}" alt="main_img"></a>
                 </div> 
                 <div class="item_description">
-                    <h6><a href="magazine/${bean.mag_no}">${bean.title}</a></h6>
+                    <h3><a href="${goRoot }admin/magazine/${bean.mag_no}"><strong>${bean.title}</strong></a></h3>
                     <div><strong class="strong">${bean.cate}</strong></div>
                     <div>
                     	<span class="pop">
-                    		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
+                    		<img src="${goRoot }imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
                     	</span>
                     	&emsp;&emsp;&emsp;&emsp;
                     	<span class="view">
-	                    	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
+	                    	<img src="${goRoot }imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
                     	</span>
                     </div>
                 </div>                                  
             </div>
 			</c:forEach>
-			<div><!-- 페이징 시작 -->
+			</div>
+			<div class="pagenum_container"><!-- 페이징 시작 -->
 		<!-- 페이징  -->
 		<c:choose>
 		<c:when test="${paging.numberOfRecords ne NULL and paging.numberOfRecords ne '' and paging.numberOfRecords ne 0}">
@@ -165,7 +207,6 @@ $(function() {
 		</c:choose>
 		</div><!-- 페이징 끝 -->
 			</div>
-        <hr>
     </div>
             <!-- 컨탠츠 끝 -->
             </div><!-- /.container-fluid -->
