@@ -32,6 +32,7 @@ h1 {
 	padding: 10px;
 	font-family: NanumSquareR;
 	font-size: 20px;
+
 }
 
 .nohead, .nodiv {
@@ -54,7 +55,6 @@ h1 {
 
 .mytable {
 	border-collapse: collapse;
-	height: 5%;
 	text-align: center;
 }
 
@@ -341,10 +341,10 @@ h1 {
 					</c:forEach>
 
 					<!-- TODO [jihyun]notice - 관리자 로그인시 보이게 되는 입력버튼 -->
-					<%-- <c:if test="${login_on==true && !(login_user_type='일반')}">
+					<%-- <c:if test="${login_on==true && !(login_user_type='일반')}">--%>
 					<button type="button" class="addNotice redbtn pull-right"
 						data-toggle="modal" data-target=".bs-example-modal-lg">입력하기</button>
-					</c:if> --%>
+					<%--</c:if> --%>
 				</div>
 				<br>
 				<br>
