@@ -57,7 +57,9 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	@Override
 	public int reviewAdd(Reviews_Vo bean) throws SQLException {
 		logger.debug("DaoImp-reviewAdd:"+bean);
-		return sqlSession.insert("reviews.reviewAdd", bean);
+		int result=sqlSession.insert("reviews.reviewAdd", bean);
+		if(result==1){rankUpdate(bean);}
+		return result;
 	}
 
 	@Override
@@ -71,7 +73,9 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	
 	@Override
 	public int reviewUpdate(Reviews_Vo bean) throws SQLException {
-		return sqlSession.update("reviews.reviewUpdate",bean);
+		int result=sqlSession.update("reviews.reviewUpdate",bean);
+		if(result==1){rankUpdate(bean);}
+		return result;
 	}
 	
 
@@ -96,7 +100,9 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 //			File file2 = new File(temp);
 //			file2.delete();
 //		}
-		return sqlSession.delete("reviews.reviewDelete", bean);
+		int result=sqlSession.delete("reviews.reviewDelete", bean);
+		if(result==1){rankUpdate(bean);}
+		return result;
 	}
 
 	@Override
@@ -141,5 +147,34 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	@Override
 	public List<Reviews_Vo> mypage_review(String nick) throws SQLException {
 		return sqlSession.selectList("reviews.mypage_review", nick);
+	}
+	
+	private void rankUpdate(Reviews_Vo bean) {
+		logger.debug("check"+bean);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int one=0;
+		int two=0;
+		int three=0;
+		int four=0;
+		int five=0;
+		map.put("item", bean.getItem());
+		map.put("star", 1);
+		one=sqlSession.selectOne("reviews.rankUpdate",map);
+		map.put("star", 2);
+		two=sqlSession.selectOne("reviews.rankUpdate",map);
+		map.put("star", 3);
+		three=sqlSession.selectOne("reviews.rankUpdate",map);
+		map.put("star", 4);
+		four=sqlSession.selectOne("reviews.rankUpdate",map);
+		map.put("star", 5);
+		five=sqlSession.selectOne("reviews.rankUpdate",map);
+		Ranks_Vo rank=new Ranks_Vo();
+		rank.setItem(bean.getItem());
+		rank.setOne(one);
+		rank.setTwo(two);
+		rank.setThree(three);
+		rank.setFour(four);
+		rank.setFive(five);
+		sqlSession.update("ranks.rankUpdate",rank);
 	}
 }

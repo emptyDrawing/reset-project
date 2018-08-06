@@ -371,6 +371,9 @@
 	    color: black;
 	    background: none;
 	}
+	.breadcrumb div {
+	    margin: 0px 9%;
+	}
     .footer_R{
         width: 80%;
         margin: 0px auto;

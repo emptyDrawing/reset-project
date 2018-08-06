@@ -23,4 +23,6 @@ public interface Items_Dao<C> {
 	int itemUpdate(C bean) throws SQLException;
 	//item 삭제
 	int itemDelete(int item) throws SQLException;
+	
+	void itemRankUpdate(Items_Vo bean);
 }

@@ -84,6 +84,10 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 		return sqlSession.delete("items.itemDel",item);
 	}
 	
+	public void itemRankUpdate(Items_Vo bean) {
+		sqlSession.update("items.itemRankUpdate",bean);
+	}
+	
 	// XXX:[kss] 추가 전체카운트용
 	public int getCount() {
 		return sqlSession.selectOne("items.itemCont");

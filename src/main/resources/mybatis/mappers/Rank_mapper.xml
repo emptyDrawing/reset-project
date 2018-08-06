@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="ranks">
+  	<update id="rankUpdate" parameterType="Ranks_Vo">
+  		UPDATE mydb.RANK SET ONE=#{one},TWO=#{two},THREE=#{three},FOUR=#{four},FIVE=#{five} WHERE ITEM=#{item}
+  	</update>
+  </mapper>
