@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ga.beauty.reset.dao.Exp_Dao;
+import ga.beauty.reset.utils.LogEnum;
 
 @Service
 public class Exp_Service {
-	Logger log=Logger.getLogger(getClass());
+	Logger logger=Logger.getLogger(getClass());
 	
 	@Autowired
 	Exp_Dao Exp_Dao;
@@ -28,6 +29,7 @@ public class Exp_Service {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("exp", exp);
+		logger.info(LogEnum.EXP+"계정["+email+"]의 포인트가 ["+exp+"]만큼 증가하였습니다.");
 		return Exp_Dao.up(map); 
 	}
 	
@@ -43,6 +45,7 @@ public class Exp_Service {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("exp", exp);
+		logger.info(LogEnum.EXP+"계정["+email+"]의 포인트가 ["+exp+"]만큼 하락하였습니다.");
 		return Exp_Dao.down(map); 
 	}	
 }

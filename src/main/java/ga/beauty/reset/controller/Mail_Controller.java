@@ -4,7 +4,10 @@ import java.sql.SQLException;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,10 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ga.beauty.reset.dao.entity.Qna_Vo;
 import ga.beauty.reset.services.Qna_Service;
+import ga.beauty.reset.utils.CrudEnum;
 
 @Controller
 public class Mail_Controller {
 
+	Logger logger = Logger.getLogger(getClass());
+	
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -34,7 +40,7 @@ public class Mail_Controller {
 	
 	@RequestMapping(value="/mail/qna/{qa_no}" , method = RequestMethod.POST)
 	@ResponseBody
-	public String qnaSender(@PathVariable int qa_no) throws MessagingException, SQLException{
+	public String qnaSender(@PathVariable int qa_no, HttpServletRequest req) throws MessagingException, SQLException{
 		
 		Qna_Vo bean = service.selectOnePage(qa_no);
 		String setfrom ="resetbeauty@gmail.com";
@@ -53,7 +59,11 @@ public class Mail_Controller {
 		msg.setContent(contents, "text/html; charset=utf-8");
 	
 		mailSender.send(msg);
-	
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.UPDATE + "관리자 페이지에서 {ip:"+ip+"}가 Q&A[No."+ qa_no+"] 응답메일을 보냈습니다.");
 		return "456";
 	}
 }

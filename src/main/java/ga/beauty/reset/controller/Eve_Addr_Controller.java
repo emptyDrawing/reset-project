@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -259,7 +258,6 @@ public class Eve_Addr_Controller {
 				cnt++;
 			}
 		}
-		System.out.println(content.toString());
 		String fileName = now + eveName + "당첨자발표.txt";
 		BufferedWriter bw = new BufferedWriter(new FileWriter(filePath + fileName));
 
@@ -271,11 +269,18 @@ public class Eve_Addr_Controller {
 		wrt.write(fileName);
 		wrt.close();
 		resp.flushBuffer();
+		
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.ADD + "관리자 페이지에서 {ip:"+ip+"}가 이벤트 [No."+eve_no+"] 추첨파일을 만들었습니다.");
+		
 	}
 	
 	//TODO: admin 이벤트 랜덤 추출 후 txt 다운로드 / / 김형준
 	@RequestMapping(value = "/admin/eveaddr/download", method = RequestMethod.GET)
-	public void download(String text, HttpServletResponse resp) throws IOException {
+	public void download(String text, HttpServletResponse resp, HttpServletRequest req) throws IOException {
 		String filePath = "/Tomcat/webapps/ROOT/resources/lucky/";
 		File source = new File(filePath+text);
 		
@@ -302,6 +307,12 @@ public class Eve_Addr_Controller {
 		if(bis!=null)bis.close();
 		if(os!=null)os.close();
 		if(fis!=null)fis.close();
+		
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.ADD + "관리자 페이지에서 {ip:"+ip+"}가 이벤트 추첨파일["+text+"]을 다운로드 하였습니다.");
 		
 	}
 	

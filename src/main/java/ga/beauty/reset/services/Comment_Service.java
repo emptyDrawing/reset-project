@@ -13,7 +13,6 @@ import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.utils.runner.Common_Listener;
-import ga.beauty.reset.utils.runner.Magazine_Listener;
 
 @Service
 public class Comment_Service {

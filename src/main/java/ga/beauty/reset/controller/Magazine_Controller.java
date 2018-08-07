@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ga.beauty.reset.dao.Companys_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Companys_Vo;
-import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Paging_Vo;
 import ga.beauty.reset.services.Magazine_Service;

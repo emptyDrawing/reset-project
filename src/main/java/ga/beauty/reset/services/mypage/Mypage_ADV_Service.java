@@ -2,7 +2,6 @@ package ga.beauty.reset.services.mypage;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.w3c.dom.events.EventTarget;
 
 import ga.beauty.reset.dao.Common_Dao;
 import ga.beauty.reset.dao.entity.Eve_addr_Vo;

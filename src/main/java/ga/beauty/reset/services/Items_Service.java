@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,7 @@ import org.springframework.ui.Model;
 
 import ga.beauty.reset.dao.Items_Dao;
 import ga.beauty.reset.dao.entity.Items_Vo;
+import ga.beauty.reset.utils.CrudEnum;
 import ga.beauty.reset.utils.LogEnum;
 
 @Service
@@ -31,7 +35,7 @@ public class Items_Service {
 	}
 	
 	// 아이템 상세
-	public void item_detailPage(Model model, int item) throws SQLException {
+	public void item_detailPage(Model model, int item, HttpServletRequest req) throws SQLException {
 		logger.debug(LogEnum.DEBUG+"param: "+item);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -67,12 +71,24 @@ public class Items_Service {
 		model.addAttribute("tags", list);
 		model.addAttribute("map", map);
 		
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.DETAIL + " {ip:"+ip+"}가 상품["+item+"]을 조회 하였습니다.");
+		
+		
 	}
 	
 	// 아이템 추가
-		public int item_add(Items_Vo bean) throws SQLException, IOException {
+		public int item_add(Items_Vo bean, HttpServletRequest req) throws SQLException, IOException {
 			
 			if(Items_Dao.itemAdd(bean)==1) {
+				HttpSession session = req.getSession();
+				String ip = req.getHeader("X-FORWARDED-FOR");
+				if (ip == null) ip = req.getRemoteAddr();
+				
+				logger.info(CrudEnum.ADD + " {ip:"+ip+"}가 상품["+bean.getName()+"]을 추가 하였습니다.");
 				return Items_Dao.rankAdd(bean);
 			}else {
 				return 0;
@@ -80,7 +96,7 @@ public class Items_Service {
 		}
 	
 	// 아이템 수정
-	public int item_update(int option,Items_Vo bean) throws SQLException, IOException {
+	public int item_update(int option,Items_Vo bean, HttpServletRequest req) throws SQLException, IOException {
 		logger.debug(LogEnum.DEBUG+"updatePage param: "+option+" "+bean);
 		if(option==1) {
 			logger.debug(LogEnum.DEBUG+"확인"+bean.getImg());
@@ -89,13 +105,23 @@ public class Items_Service {
 			logger.debug(LogEnum.DEBUG+"재확인: "+sb);
 			String temp=sb.toString();
 			bean.setImg(temp);
+			HttpSession session = req.getSession();
+			String ip = req.getHeader("X-FORWARDED-FOR");
+			if (ip == null) ip = req.getRemoteAddr();
+			
+			logger.info(CrudEnum.UPDATE + " {ip:"+ip+"}가 상품["+bean.getName()+"]을 수정 하였습니다.");
 		}
 		return Items_Dao.itemUpdate(bean);
 	}
 		
 	// 아이템 삭제
-	public int item_delete(int item) throws SQLException, IOException {
+	public int item_delete(int item, HttpServletRequest req) throws SQLException, IOException {
 		logger.debug(LogEnum.DEBUG+"deletePage param: "+item);
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.DELETE + " {ip:"+ip+"}가 상품[No."+item+"]을 삭제 하였습니다.");
 		return Items_Dao.itemDelete(item);
 	}
 }

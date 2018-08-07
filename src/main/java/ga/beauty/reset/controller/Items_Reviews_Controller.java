@@ -113,7 +113,7 @@ public class Items_Reviews_Controller {
 		}
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(items_Reviews_service.review_addPage(resp,bean));
+		resp.getWriter().print(items_Reviews_service.review_addPage(resp,bean,req));
 	}
 	
 	// 리뷰 상세
@@ -162,7 +162,7 @@ public class Items_Reviews_Controller {
 			bean.setImg("");
 		}
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(items_Reviews_service.review_updatePage(option,bean));
+		resp.getWriter().print(items_Reviews_service.review_updatePage(option,bean,req));
 	}
 	
 	// 리뷰 삭제
@@ -177,7 +177,7 @@ public class Items_Reviews_Controller {
 		bean.setWriter(req.getParameter("writer"));
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(items_Reviews_service.review_deletePage(filePath,bean));
+		resp.getWriter().print(items_Reviews_service.review_deletePage(filePath,bean,req));
 	}
 	
 	@RequestMapping(value="/ranking/ajax",method=RequestMethod.GET)

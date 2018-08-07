@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import ga.beauty.reset.dao.entity.Companys_Vo;
-import ga.beauty.reset.dao.entity.Members_Vo;
 
 public interface Companys_Dao{
 

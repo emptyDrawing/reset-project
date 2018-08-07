@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ga.beauty.reset.dao.entity.Comment_Vo;
-import ga.beauty.reset.dao.entity.Event_Vo;
-import ga.beauty.reset.dao.entity.Likes_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.services.Comment_Service;

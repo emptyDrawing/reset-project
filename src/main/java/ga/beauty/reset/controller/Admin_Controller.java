@@ -88,7 +88,7 @@ public class Admin_Controller {
 			bean.setWriter(req.getParameter("writer"));
 			
 			resp.setCharacterEncoding("utf-8");
-			resp.getWriter().print(items_Reviews_service.review_deletePage(filePath,bean));
+			resp.getWriter().print(items_Reviews_service.review_deletePage(filePath,bean,req));
 		}
 	
 	
