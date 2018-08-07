@@ -243,11 +243,11 @@ $(document).ready(function(){
                     </tr>
                     <tr>
                         <td>기능성 성분</td>
-                        <td><input type="text" name="comp" id="comp"></td>
+                        <td><input type="hidden" name="comp" id="comp"></td>
                     </tr>
                     <tr>
                         <td>태그</td>
-                        <td><input type="text" name="tags" id="tags"></td>
+                        <td><input type="hidden" name="tags" id="tags"></td>
                     </tr>
                 </table>
             
