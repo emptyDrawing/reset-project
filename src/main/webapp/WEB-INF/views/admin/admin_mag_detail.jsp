@@ -244,7 +244,6 @@ $(document).ready(function(){
 		            	<input id="email" type="hidden" value="${login_email }" />
 						<input id="p_no" type="hidden" value="${detail.mag_no }" />
 						<input id="type" type="hidden" value="magazine" />
-						<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
 						<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn btimg">
 						<input id="result" type="hidden" value="" />
 						<span><strong id="su">${detail.pop }</strong></span>
