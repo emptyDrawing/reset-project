@@ -17,6 +17,7 @@ import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.PasswordUtil;
 
 @Service("login_Normal")
@@ -58,7 +59,7 @@ public class Login_Normal implements Login_Service {
 		}else if(method.equals("POST")) { // ajax로 들어올꺼이
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			logger.debug("들어온 비밀번호:"+password);
+			logger.debug(LogEnum.DEBUG+"들어온 비밀번호:"+password);
 
 			if(email==null || password == null) {
 				// 잘못된 값 들어온 상황
@@ -70,7 +71,7 @@ public class Login_Normal implements Login_Service {
 			User_Vo testBean = new User_Vo();
 			testBean.setEmail(email);
 			int result =user_Dao.checkInfo(testBean);
-			logger.debug("email 있는지 체크"+result);
+			logger.debug(LogEnum.DEBUG+"email 있는지 체크"+result);
 			if(result!=1) {
 				req.setAttribute("result", 401);
 				req.setAttribute("msg", "등록된 이메일이 없습니다.");

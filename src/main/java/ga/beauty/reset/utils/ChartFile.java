@@ -62,7 +62,7 @@ public class ChartFile {
 		} else if (command.equals("like")) {
 			listS = getLikeData(files, command, days);
 		}
-		logger.debug("요청한 차트 데이터 :"+listS);
+		logger.debug(LogEnum.DEBUG+"요청한 차트 데이터 :"+listS);
 		return listS;
 	}
 
@@ -77,7 +77,7 @@ public class ChartFile {
 		} else if (command.equals("review")) {
 			listS = getReviewData(files, command, days,no);
 		}
-		logger.debug("요청한 차트 데이터 :"+listS);
+		logger.debug(LogEnum.DEBUG+"요청한 차트 데이터 :"+listS);
 		return listS;
 	}
 

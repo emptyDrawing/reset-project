@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ga.beauty.reset.dao.entity.Items_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Repository
 public class Cart_DaoImp implements Cart_Dao{
@@ -27,7 +28,7 @@ public class Cart_DaoImp implements Cart_Dao{
 		// 찜조회-제품
 		@Override
 		public Items_Vo selectOne(int item) throws SQLException {
-			logger.debug("DaoImp-selectOne-param: "+item);
+			logger.debug(LogEnum.DEBUG+"DaoImp-selectOne-param: "+item);
 			return sqlSession.selectOne("items.selectOne", item);
 		}
 		

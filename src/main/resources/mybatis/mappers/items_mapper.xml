@@ -54,7 +54,7 @@
   		UPDATE MYDB.ITEMS SET OPEN=0 WHERE ITEM=#{item}
   	</update>
   	
-  	<select id="itemCont" resultType="int">
+  	<select id="itemCont"  parameterType="hashmap" resultType="int">
   		SELECT COUNT(*) FROM ITEMS
   		<if test="where != null">
   		WHERE OPEN=1 AND BRAND = (SELECT COMPANY FROM COMPANYS WHERE EMAIL = #{where})

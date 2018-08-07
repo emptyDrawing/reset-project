@@ -16,6 +16,7 @@ import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Likes_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.runner.Common_Listener;
 
 
@@ -43,14 +44,14 @@ public class Likes_Service {
 	
 	
 	public Likes_Vo check(Likes_Vo bean) throws SQLException {
-		logger.debug("likes_dao param: "+bean);
+		logger.debug(LogEnum.DEBUG+"likes_dao param: "+bean);
 		bean.setType(convert_Type(bean.getType()));
 		return Likes_Dao.check(bean);
 	}
 	
 	@Transactional
 	public Map up(Likes_Vo bean) throws Exception {
-		logger.debug("bean"+bean);
+		logger.debug(LogEnum.DEBUG+"bean"+bean);
 		bean.setType(convert_Type(bean.getType()));
 		Likes_Dao.likesAdd(bean);//insert하고
 
@@ -83,7 +84,7 @@ public class Likes_Service {
 	
 	@Transactional
 	public Map down(Likes_Vo bean) throws Exception {
-		logger.debug("bean"+bean);
+		logger.debug(LogEnum.DEBUG+"bean"+bean);
 		bean.setType(convert_Type(bean.getType()));
 		Likes_Dao.likesDel(bean);//Del하고
 		

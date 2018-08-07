@@ -30,7 +30,7 @@ public class Session_Listener implements HttpSessionListener{
 	}
     
     public void sessionCreated(HttpSessionEvent event) {
-    	logger.debug("세션만들어짐");
+    	logger.debug(LogEnum.DEBUG+"세션만들어짐");
         login_Lsn = Login_Listener.getThis();
     	HttpSession session = event.getSession();
         synchronized(this){

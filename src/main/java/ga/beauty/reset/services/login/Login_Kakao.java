@@ -31,6 +31,7 @@ import ga.beauty.reset.dao.entity.Login_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
 import ga.beauty.reset.utils.ErrorEnum;
+import ga.beauty.reset.utils.LogEnum;
 
 
 @Service("login_kakao")
@@ -124,7 +125,7 @@ public class Login_Kakao implements Login_Service{
 	}
 	
 	private int getToken(String code, Login_Vo bean) throws ClientProtocolException, IOException {
-		logger.debug(code);
+		logger.debug(LogEnum.DEBUG+code);
 		// 시작
 		String apiURL = "https://kauth.kakao.com/oauth/token";
 		
@@ -145,7 +146,7 @@ public class Login_Kakao implements Login_Service{
 		responseString = EntityUtils.toString(response.getEntity());
 
 		JsonNode tokenJson = null;
-		logger.debug("Response Code - getToken(kakao) : ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
+		logger.debug(LogEnum.DEBUG+"Response Code - getToken(kakao) : ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
 		if(responseCode==200) {
 			tokenJson = mapper.readTree(responseString);
 			bean.setAccess_token(tokenJson.get("access_token").asText());
@@ -153,7 +154,7 @@ public class Login_Kakao implements Login_Service{
 //			access_token= tokenJson.get("access_token").asText();
 //			refresh_token= tokenJson.get("refresh_token").asText();
 		}else {
-			logger.debug("Response Err - getToken(kakao) : ("+bean.getRequest()+")/"+responseString);
+			logger.debug(LogEnum.DEBUG+"Response Err - getToken(kakao) : ("+bean.getRequest()+")/"+responseString);
 		}
 		return responseCode;
 	}
@@ -177,11 +178,11 @@ public class Login_Kakao implements Login_Service{
 
 		if(responseCode==200) {
 //			String app_id = idJson.get("id").asText();
-//			logger.debug("app_id : " + app_id);
+//			logger.debug(LogEnum.DEBUG+"app_id : " + app_id);
 //			userSession.setAttribute("app_id", app_id);
 		}
-		logger.debug("Response Code -setkakaoId(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
-		logger.debug("Response Body -setkakaoId(kakao) : ("+bean.getRequest().getRemoteHost()+")/"+responseString);
+		logger.debug(LogEnum.DEBUG+"Response Code -setkakaoId(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
+		logger.debug(LogEnum.DEBUG+"Response Body -setkakaoId(kakao) : ("+bean.getRequest().getRemoteHost()+")/"+responseString);
 	}
 	
 	private String checkEmail(String resultString) throws IOException {
@@ -218,9 +219,9 @@ public class Login_Kakao implements Login_Service{
 		HttpResponse response = client.execute(post);
 		int responseCode = response.getStatusLine().getStatusCode();
 		String responseString = EntityUtils.toString(response.getEntity(), "utf-8");
-		logger.debug("Response Code -getInfo(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
+		logger.debug(LogEnum.DEBUG+"Response Code -getInfo(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
 		if(responseCode != 200) {
-			logger.debug("Response Err -getInfo(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseString);
+			logger.debug(LogEnum.DEBUG+"Response Err -getInfo(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseString);
 			return ErrorEnum.PROFILEERR;
 		}
 		return responseString;

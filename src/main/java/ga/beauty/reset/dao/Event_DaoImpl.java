@@ -63,7 +63,9 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 		return sqlSession.selectOne("event.listCount");
 	}
 	public int getCount(String where) throws SQLException {
-		return sqlSession.selectOne("event.listCount",where);
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("where", where);
+		return sqlSession.selectOne("event.listCount",params);
 	}
 
 	@Override

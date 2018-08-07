@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false"%>
 
-		<div class="chart-container" style="display: block; width: 800px; height: 385px;">
+	 
+
+		<div class="chart-container" style="display: block; width:85%; margin:0 auto;">
 		    <canvas id="chart-${chartSort }" ></canvas>
 		</div>
 		<script type="text/javascript">

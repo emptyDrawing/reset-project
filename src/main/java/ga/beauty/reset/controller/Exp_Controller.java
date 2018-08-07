@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ga.beauty.reset.services.Exp_Service;
+import ga.beauty.reset.utils.LogEnum;
 
 @Controller
 public class Exp_Controller {
@@ -30,7 +31,7 @@ public class Exp_Controller {
 	
 	@RequestMapping(value="/exp", method=RequestMethod.POST)
 	public void expUp(@RequestBody Map map,HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
-		logger.debug("param: "+map.get("email")+"/"+map.get("type"));
+		logger.debug(LogEnum.DEBUG+"param: "+map.get("email")+"/"+map.get("type"));
 		String email=map.get("email").toString();
 		String type=map.get("type").toString();
 		resp.getWriter().print(exp_Service.up(email,type));
@@ -39,7 +40,7 @@ public class Exp_Controller {
 	
 	@RequestMapping(value="/exp", method=RequestMethod.DELETE)
 	public void expdown(@RequestBody Map map,HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
-		logger.debug("param: "+map.get("email")+"/"+map.get("type"));
+		logger.debug(LogEnum.DEBUG+"param: "+map.get("email")+"/"+map.get("type"));
 		String email=map.get("email").toString();
 		String type=map.get("type").toString();
 		resp.getWriter().print(exp_Service.down(email,type));

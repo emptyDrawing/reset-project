@@ -1,5 +1,5 @@
-package ga.beauty.reset.dao;
 
+package ga.beauty.reset.dao;
 import static org.junit.Assert.*;
 
 import org.junit.After;

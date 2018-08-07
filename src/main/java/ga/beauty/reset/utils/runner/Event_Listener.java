@@ -110,7 +110,7 @@ public class Event_Listener implements Common_Listener{
 				logger.info(LogEnum.EVE+"[No."+checkNo+"] 이벤트의 참여자수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setNum(checkVo.getNum()+chNum);
 			}
-			logger.debug("값변화체크:"+checkVo);
+			logger.debug(LogEnum.DEBUG+"값변화체크:"+checkVo);
 		}
 	}//changeValue()
 	

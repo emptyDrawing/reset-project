@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 
 import ga.beauty.reset.dao.Items_Dao;
 import ga.beauty.reset.dao.entity.Items_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Service
 public class Items_Service {
@@ -25,18 +26,18 @@ public class Items_Service {
 
 	// 아이템 검색
 	public 	List<Items_Vo> item_search(String condition, String type) throws SQLException {
-		logger.debug("items_servic param: "+condition+"/"+type);
+		logger.debug(LogEnum.DEBUG+"items_servic param: "+condition+"/"+type);
 		return Items_Dao.itemSearch(condition,type);
 	}
 	
 	// 아이템 상세
 	public void item_detailPage(Model model, int item) throws SQLException {
-		logger.debug("param: "+item);
+		logger.debug(LogEnum.DEBUG+"param: "+item);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//tag.start
 		Items_Vo bean = Items_Dao.selectOne(item);
-		logger.debug(bean.getTags());
+		logger.debug(LogEnum.DEBUG+bean.getTags());
 		String tempStr="";
 		tempStr=bean.getTags().toString();
 		
@@ -45,14 +46,14 @@ public class Items_Service {
 		while(tokens.hasMoreTokens()) {
 			list.add(tokens.nextToken());
 		}
-		logger.debug(list.size());
+		logger.debug(LogEnum.DEBUG+list.size());
 		//tag.end
 		
-		logger.debug(bean);
+		logger.debug(LogEnum.DEBUG+bean);
 		if(!bean.getImg().equals("")) {
-			logger.debug("확인"+bean.getImg());
+			logger.debug(LogEnum.DEBUG+"확인"+bean.getImg());
 			String temp=bean.getImg();
-			logger.debug(temp);
+			logger.debug(LogEnum.DEBUG+temp);
 			if(temp.contains("_s_")) {
 				String[] temp2=temp.split("_s_");
 				bean.setImg(temp2[0]+temp2[1]);
@@ -80,12 +81,12 @@ public class Items_Service {
 	
 	// 아이템 수정
 	public int item_update(int option,Items_Vo bean) throws SQLException, IOException {
-		logger.debug("updatePage param: "+option+" "+bean);
+		logger.debug(LogEnum.DEBUG+"updatePage param: "+option+" "+bean);
 		if(option==1) {
-			logger.debug("확인"+bean.getImg());
+			logger.debug(LogEnum.DEBUG+"확인"+bean.getImg());
 			StringBuffer sb=new StringBuffer(bean.getImg());
 			sb.insert(26,"_s_");
-			logger.debug("재확인: "+sb);
+			logger.debug(LogEnum.DEBUG+"재확인: "+sb);
 			String temp=sb.toString();
 			bean.setImg(temp);
 		}
@@ -94,7 +95,7 @@ public class Items_Service {
 		
 	// 아이템 삭제
 	public int item_delete(int item) throws SQLException, IOException {
-		logger.debug("deletePage param: "+item);
+		logger.debug(LogEnum.DEBUG+"deletePage param: "+item);
 		return Items_Dao.itemDelete(item);
 	}
 }

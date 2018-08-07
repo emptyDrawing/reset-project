@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ga.beauty.reset.dao.entity.Likes_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Repository
 public class Likes_DaoImp implements Likes_Dao<Likes_Vo> {
@@ -20,19 +21,19 @@ public class Likes_DaoImp implements Likes_Dao<Likes_Vo> {
 	
 	@Override
 	public Likes_Vo check(Likes_Vo bean) throws SQLException {
-		logger.debug("like_dao_param: "+bean);
+		logger.debug(LogEnum.DEBUG+"like_dao_param: "+bean);
 		return sqlSession.selectOne("likes.likes", bean);
 	}
 
 	@Override
 	public int likesAdd(Likes_Vo bean) throws SQLException {
-		logger.debug("like_dao_param: "+bean);
+		logger.debug(LogEnum.DEBUG+"like_dao_param: "+bean);
 		return sqlSession.insert("likes.likesAdd", bean);
 	}
 	
 	@Override
 	public int likesDel(Likes_Vo bean) throws SQLException {
-		logger.debug("like_dao_param: "+bean);
+		logger.debug(LogEnum.DEBUG+"like_dao_param: "+bean);
 		return sqlSession.delete("likes.likesDel", bean);
 	}
 	

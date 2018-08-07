@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ga.beauty.reset.dao.entity.Items_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Repository
 public class Items_DaoImp implements Items_Dao<Items_Vo> {
@@ -26,33 +27,33 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	@Override
 	public List<Items_Vo> rankAll(int cate) throws SQLException {
 		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
-		logger.debug("DaoImp-rankAll-param: "+cate);
+		logger.debug(LogEnum.DEBUG+"DaoImp-rankAll-param: "+cate);
 		return sqlSession.selectList("items.rankAll",cate);
 	}
 	
 	@Override
 	public List<Items_Vo> rankListAdd(int cate) throws SQLException {
 		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
-		logger.debug("DaoImp-rankAdd-param: "+cate);
+		logger.debug(LogEnum.DEBUG+"DaoImp-rankAdd-param: "+cate);
 		return sqlSession.selectList("items.rankListAdd", cate);
 	} 
 	
 	@Override
 	public Items_Vo selectOne(int item) throws SQLException {
-		logger.debug("DaoImp-selectOne-param: "+item);
+		logger.debug(LogEnum.DEBUG+"DaoImp-selectOne-param: "+item);
 		return sqlSession.selectOne("items.selectOne", item);
 	}
 
 	@Override
 	public List<Items_Vo> itemSearch(String condition,String type) throws SQLException {
-		logger.debug("DaoImp-itemSearch-param: "+condition+"/"+type);
+		logger.debug(LogEnum.DEBUG+"DaoImp-itemSearch-param: "+condition+"/"+type);
 		if(type.equals("brand")) {
-			logger.debug("브랜드 검색");
+			logger.debug(LogEnum.DEBUG+"브랜드 검색");
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("brand", condition);
 			return sqlSession.selectList("items.itemBrand", map);
 		}else if(type.equals("name")) {
-			logger.debug("이름 검색");
+			logger.debug(LogEnum.DEBUG+"이름 검색");
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("name", condition);
 			return sqlSession.selectList("items.itemName", map);
@@ -63,7 +64,7 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	
 	@Override
 	public int itemAdd(Items_Vo bean) throws SQLException {
-		logger.debug("DaoImp-itemAdd:"+bean);
+		logger.debug(LogEnum.DEBUG+"DaoImp-itemAdd:"+bean);
 		return sqlSession.insert("items.itemAdd", bean);
 	}
 	
@@ -80,7 +81,7 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	
 	@Override
 	public int itemDelete(int item) throws SQLException {
-		logger.debug("DaoImp-itemDel: "+item);
+		logger.debug(LogEnum.DEBUG+"DaoImp-itemDel: "+item);
 		return sqlSession.delete("items.itemDel",item);
 	}
 	
@@ -94,7 +95,9 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	}
 	// XXX:[kss] 추가 전체카운트용
 	public int getCount(String where) {
-		return sqlSession.selectOne("items.itemCont", where);
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("where", where);
+		return sqlSession.selectOne("items.itemCont", params);
 	}
 
 }

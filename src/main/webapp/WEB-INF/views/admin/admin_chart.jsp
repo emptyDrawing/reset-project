@@ -11,7 +11,7 @@
 	var getList = function(ele,command,start,cnt){
 		var $target = $(ele);
 		var sendData = "resultType=list&itemList=true";
-		if(! ('${login_comName}' == 'reset'))sendData +="&where=${login_email}";
+		if('${login_comName}' != 'reset')sendData +="&where=${login_email}";
 		
 		$.post("${goRoot}admin/ajax/"+command,sendData)
 		.done(function(data){

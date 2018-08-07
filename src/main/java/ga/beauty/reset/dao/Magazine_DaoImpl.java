@@ -64,7 +64,9 @@ public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 		return sqlSession.selectOne("magazine.listCount");
 	}
 	public int getCount(String where) throws SQLException {
-		return sqlSession.selectOne("magazine.listCount",where);
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("where", where);
+		return sqlSession.selectOne("magazine.listCount",params);
 	}
 
 	@Override

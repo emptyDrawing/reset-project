@@ -10,8 +10,7 @@
 	var getList = function(ele,command,start,cnt){
 		var $target = $(ele);
 		var sendData = "resultType=list";
-		
-		
+		if('${login_comName}' != 'reset')sendData +="&where=${login_email}";
 		$.post("${goRoot}admin/ajax/"+command,sendData)
 		.done(function(data){
 			var resultHTML= data;
