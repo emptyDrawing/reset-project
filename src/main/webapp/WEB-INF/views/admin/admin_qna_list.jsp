@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.Date"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +58,7 @@ text-decoration: none;
 
 .mystyle{
 	width: 605px;
-	height: 45px;
+	height: 40px;
 	white-space:nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -69,6 +70,7 @@ text-decoration: none;
 .answer-cell{
 	width: 10%;
 }
+
 
 </style>
  </head>
@@ -119,9 +121,10 @@ text-decoration: none;
 <c:set var="nowdate" scope="request"><fmt:formatDate value="${now}"/></c:set>
 <c:set var="nalja" scope="request"><fmt:formatDate value="${bean.nalja}"/></c:set>
 		</a></td>
+		<% pageContext.setAttribute("newLineChar", "\r\n"); %>
 		<td class="con-cell mystyle"><c:if test="${nalja == nowdate}">
 										&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
-								</c:if><a href="./qna/${bean.qa_no }">${bean.con }</a>
+								</c:if><a href="./qna/${bean.qa_no }">${fn:replace(bean.con, newLineChar, "<br/>")}</a>
 						
 </td> 
 		<td class="answer-cell"><a href="./qna/${bean.qa_no }">

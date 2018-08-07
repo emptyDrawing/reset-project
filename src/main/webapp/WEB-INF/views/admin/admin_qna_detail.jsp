@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -274,10 +275,12 @@ display: hidden;
 				<label for="qa_type" class="col-sm-2 col-form-label">질문유형</label>
 				<div class="col-sm-10">${bean.qa_type }</div>
 			</div>
+			<% pageContext.setAttribute("newLineChar", "\r\n"); %>
 			<div class="form-group row">
 				<label for="con" class="col-sm-2 orm-label">내용</label>
-				<div class="col-sm-10">${bean.con }</div>
+				<div class="col-sm-10">${fn:replace(bean.con, newLineChar, "<br/>")}</div>
 			</div>
+			<% pageContext.setAttribute("enterkey", "\r\n"); %>
 			<div class="form-group row">
 				<label for="answer" class="col-sm-2 control-label">답변</label>
 				<div class="col-sm-10">
@@ -286,13 +289,14 @@ display: hidden;
 							<span id="target">등록된 답변이 없습니다. 답변을 입력해주세요</span>
 						</c:when>
 						<c:otherwise>
-							<span id="target">${bean.answer }</span>
+							<span id="target">${fn:replace(bean.answer, enterkey, "<br/>")}</span>
 						</c:otherwise>
 					</c:choose>
 				</div>				
 				
 				
 				<!-- 답변 answer textarea -->
+			
 				<div class="col-sm-2"></div>
 				<div class="col-sm-10 textareadiv">
 					<textarea name="answer" id="answer" class="answer-input" rows="5" placeholder="답변을 작성하세요"></textarea>

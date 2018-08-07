@@ -3,17 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.Date"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE>
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/admin_header.jsp"%>
 
 <style type="text/css">
-
 .modal, .container {
 	font-family: NanumSquareR;
 	font-size: 18px;
 }
+
 
 h1 {
 	font-size: 3vmax;
@@ -32,7 +33,6 @@ h1 {
 	padding: 10px;
 	font-family: NanumSquareR;
 	font-size: 20px;
-
 }
 
 .nohead, .nodiv {
@@ -154,15 +154,15 @@ h1 {
 	float: right;
 }
 
-.addNotice{
-	margin-top : 30px;
-	}
+.addNotice {
+	margin-top: 30px;
+}
 
 .notice_boder {
 	border-bottom: 1px solid #DDDDDD;
 }
 </style>
-    </head>
+</head>
 <body>
 	<div id="wrapper">
 		<%@include file="/WEB-INF/views/template/admin_side_menu.jsp"%>
@@ -183,14 +183,18 @@ h1 {
 									<!-- TODO [jihyun] reset -->
 									<div class="form-group">
 										<label for="name">제목</label> <input type="text"
-											class="form-control" name="title" id="title" placeholder="제목을 입력하세요" />
+											class="form-control" name="title" id="title"
+											placeholder="제목을 입력하세요" />
 									</div>
 									<div class="form-group">
-										<label for="content">내용</label> <!-- <input type="text"
+										<label for="content">내용</label>
+										<!-- <input type="text"
 											class="form-control" name="content" id="content"
 											placeholder="공지사항 내용" /> -->
-									<textarea class="form-control" rows="5" name="content" id="content"
-													placeholder="공지내용을 입력하세요"></textarea>
+
+										<textarea class="form-control" rows="5" name="content"
+											id="content" placeholder="공지내용을 입력하세요"></textarea>
+
 									</div>
 									<div class="addbtns">
 										<button type="submit" class="redbtn">입력</button>
@@ -231,8 +235,9 @@ h1 {
 								<div class="nodiv mytable">${bean.no_no }</div>
 								<div class="titlediv mytable">
 									<c:if test="${nalja == nowdate}">
-									<a href="#" class="newbtn">new</a>
-									</c:if>&nbsp;&nbsp;${bean.title }
+										<a href="#" class="newbtn">new</a>
+									</c:if>
+									&nbsp;&nbsp;${bean.title }
 								</div>
 								<div class="naljadiv mytable">${bean.nalja }</div>
 							</div>
@@ -252,8 +257,8 @@ h1 {
 											공지사항</h4>
 									</div>
 									<div class="modal-body">
-										<form action="/admin/notice/${bean.no_no }"
-											method="POST" class="detailForm" accept-charset="UTF-8">
+										<form action="/admin/notice/${bean.no_no }" method="POST"
+											class="detailForm" accept-charset="UTF-8">
 											<input type="hidden" name="_method" value="put">
 											<div class="form-group">
 												<label for="no_no">글번호</label>
@@ -273,12 +278,15 @@ h1 {
 													class="form-control" name="title" id="title"
 													placeholder="제목을 입력하세요" />
 											</div>
+											<% pageContext.setAttribute("newLineChar", "\r\n"); %>
 											<div class="form-group">
 												<label for="content">내용</label>
-												<div class="well well-sm well-input">${bean.content }</div>
-												<textarea value="${bean.content }" class="form-control" rows="5" name="content" id="content"
-													placeholder="내용을 입력하세요"></textarea>
-											<%-- 	<input type="text" value="${bean.content }"
+												<div class="well well-sm well-input">${fn:replace(bean.content, newLineChar, "<br/>")}</div>
+												<textarea value="${bean.content }" class="form-control"
+													rows="5" name="content" id="content"
+													placeholder="내용을 입력하세요">
+													</textarea>
+												<%-- 	<input type="text" value="${bean.content }"
 													class="form-control" name="content" id="content"
 													placeholder="내용" /> --%>
 											</div>
@@ -292,12 +300,14 @@ h1 {
 										<script type="text/javascript">
 											function detail() {
 												$('.detailForm input').hide();
+												$('.detailForm textarea').hide();
 												$('.modal-title').html('상세페이지');
 												$('.well-input').show();
 												$('.modal-footer').show();
 											}
 											function edit() {
 												$('.detailForm input').show();
+												$('.detailForm textarea').show();
 												$('.modal-title').html('수정페이지');
 												$('.modal-footer').hide();
 											}
@@ -325,12 +335,12 @@ h1 {
 											data-dismiss="modal">목록보기</button>
 										<button type="button" class="blackbtn edit">수정</button>
 
-										<form action="/admin/notice/${bean.no_no }"
-											method="POST" class="deleteForm">
+										<form action="/admin/notice/${bean.no_no }" method="POST"
+											class="deleteForm">
 											<input type="hidden" name="_method" value="delete" />
 											<button type="submit" class="redbtn delete">삭제</button>
 										</form>
-									<br>
+										<br>
 									</div>
 									<!-- modal footer end  -->
 
@@ -345,8 +355,7 @@ h1 {
 						data-toggle="modal" data-target=".bs-example-modal-lg">입력하기</button>
 					<%--</c:if> --%>
 				</div>
-				<br>
-				<br>
+				<br> <br>
 				<!-- 컨탠츠 끝 -->
 			</div>
 			<!-- /.container-fluid -->
