@@ -241,6 +241,10 @@ $(document).ready(function(){
 							</select>
 						</td>
                     </tr>
+                    <tr>
+                        <td><input type="hidden" name="comp" id="comp">
+                        <input type="hidden" name="tags" id="tags"></td>
+                    </tr>
                 </table>
             
             </div>
