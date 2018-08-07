@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.Date"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -18,6 +19,10 @@
 			font-size: 3vmax;
 			font-family: NanumSquareB;
 			color: #303030;
+		}
+		
+		.well{
+    	background-image: linear-gradient(to bottom,#D1D1D1 0,##D1D1D1 100%);
 		}
 		
 		.nohead, .nodiv, .naljahead, .naljadiv, .titlehead {
@@ -276,7 +281,6 @@
 				</div>
 			</div>
 			</div>
-
 			<!-- Modal -->
 			<div class="modal fade yourModal" id="myModal-${bean.no_no }"
 				tabindex="-1" role="dialog"
@@ -312,11 +316,12 @@
 									<input type="text" value="${bean.title }" class="form-control"
 										name="title" id="title" placeholder="제목" />
 								</div>
+								<% pageContext.setAttribute("newLineChar", "\r\n"); %>
 								<div class="form-group">
 									<label for="content">내용</label>
-									<div class="well well-sm well-input">${bean.content }</div>
+									<div class="well well-sm well-input" id="textarea">${fn:replace(bean.content, newLineChar, "<br/>")}</div>
 									<input type="text" value="${bean.content }"
-										class="form-control" name="content" id="content"
+										class="form-control" name="content" id="textarea"
 										placeholder="내용" />
 								</div>
 								<div class="hidebtn">
