@@ -122,8 +122,21 @@ public class Items_Reviews_Service {
 		map.put("five", five);
 		//tot end
 		
+		Items_Vo bean = Items_Dao.selectOne(item);
+		logger.debug(LogEnum.DEBUG+bean);
+		if(!bean.getImg().equals("")) {
+			logger.debug(LogEnum.DEBUG+"확인"+bean.getImg());
+			String tem=bean.getImg();
+			logger.debug(LogEnum.DEBUG+tem);
+			if(tem.contains("_s_")) {
+				String[] tem2=tem.split("_s_");
+				bean.setImg(tem2[0]+tem2[1]);
+			}else {
+				bean.setImg(tem);
+			}
+		}
 		
-		model.addAttribute("item_bean", Items_Dao.selectOne(item));
+		model.addAttribute("item_bean", bean);
 		model.addAttribute("tags", list);
 		model.addAttribute("map", map);
 		model.addAttribute("review_bean", Reviews_Dao.reviewAll(item));
