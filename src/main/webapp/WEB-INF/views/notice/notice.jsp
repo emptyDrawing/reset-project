@@ -281,21 +281,6 @@
 				</div>
 			</div>
 			</div>
-<!-- <script type="text/javascript">
-var str = $('#textarea').val();
-
-str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-
-$('#textarea').val(str);
-
-
-var str = $('.#textarea').val();
-
-str = str.split('<br/>').join("\r\n");
-
-$('#textarea').val(str);
-
-</script> -->
 			<!-- Modal -->
 			<div class="modal fade yourModal" id="myModal-${bean.no_no }"
 				tabindex="-1" role="dialog"
