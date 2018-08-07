@@ -4,6 +4,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
+<script src="${goRoot }js/contents_img.js"></script>
 <link rel="stylesheet" href="${goRoot }css/ranking_review/review_detail.css" type="text/css">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -386,9 +387,36 @@ $(document).ready(function(){
        <div class="reviewBox">
       		<c:choose>
 				<c:when test="${review_bean.img != ''}">
-            		<img src="${goRoot}${review_bean.img }"/>
+            		<div>
+		            	<span class="con_img"><img src="${goRoot}${review_bean.img }"/></span>
+		            </div>
 				</c:when>
 			</c:choose>
+		            <script type="text/javascript">
+		            	var windowWidth=$(window).width();
+		            	$(window).resize(function(){
+		            		if(windowWidth >= 1200){
+		            			con_img(900);
+		            		} else if(windowWidth >= 992 && windowWidth < 1200){
+		            			con_img(700);
+		            		} else if(windowWidth >= 768 && windowWidth < 992){
+		            			con_img(500);
+		            		} else {
+		            			con_img(300);
+		            		}
+		            	});
+		            	$(function(){
+		            		if(windowWidth >= 1200){
+		            			con_img(900);
+		            		} else if(windowWidth >= 992 && windowWidth < 1200){
+		            			con_img(700);
+		            		} else if(windowWidth >= 768 && windowWidth < 992){
+		            			con_img(500);
+		            		} else {
+		            			con_img(300);
+		            		}
+		            	});
+		            </script>
 			<br>
             <p>${review_bean.writer }<br> 
             <span class="sub-title">${review_bean.age }세 / ${review_bean.skin } / ${review_bean.gender } / </span>
