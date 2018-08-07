@@ -33,7 +33,7 @@ function add(){
   					"<a href='./item/"+data.item+"'>"+
   					"<div class='contentsbox'>"+
   					"<div class='numbox box'>"+
-  					"<label>"+num+"</label>"+
+  					"<label class='labelNum'>"+num+"</label>"+
   					"</div>"+
   					"<div class='imgbox box'>"+
   					"<img src='"+data.img+"'>"+

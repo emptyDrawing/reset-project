@@ -241,14 +241,6 @@ $(document).ready(function(){
 							</select>
 						</td>
                     </tr>
-                    <tr>
-                        <td>기능성 성분</td>
-                        <td><input type="hidden" name="comp" id="comp"></td>
-                    </tr>
-                    <tr>
-                        <td>태그</td>
-                        <td><input type="hidden" name="tags" id="tags"></td>
-                    </tr>
                 </table>
             
             </div>

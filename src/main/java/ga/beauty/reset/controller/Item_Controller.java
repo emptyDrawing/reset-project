@@ -29,13 +29,13 @@ import ga.beauty.reset.utils.UploadFileUtils;
 public class Item_Controller {
 	//TODD:[sch] 이미지 저장 경로 설정 해야함
  	String filePath="/Tomcat/webapps/ROOT/resources/imgs/item_imgs";
+ 	String subPath="";
 	String essence="/essence";
 	String lotion="/lotion";
 	String skin="/skin";
 	String oil="/oil";
 	String dry="/dry";
 	String sen="/sen";
-	String subPath="";
 	Logger logger=Logger.getLogger(getClass());
 	ObjectMapper mapper = new ObjectMapper();
 	
@@ -98,7 +98,9 @@ public class Item_Controller {
 	@RequestMapping(value="/admin/item",method=RequestMethod.POST)
 	public void item_add(@RequestParam("img") MultipartFile file,HttpServletRequest req,HttpServletResponse resp) throws IOException, Exception {
 		logger.debug(LogEnum.DEBUG+file.getOriginalFilename());
-
+		
+		filePath="/Tomcat/webapps/ROOT/resources/imgs/item_imgs";
+	 	subPath="";
 		
 		Items_Vo bean=new Items_Vo();
 		bean.setName(req.getParameter("name"));
@@ -147,7 +149,9 @@ public class Item_Controller {
 	// 아이템 수정
 	@RequestMapping(value="/admin/itemUpdate/{item}",method=RequestMethod.POST)
 	public void item_update(@PathVariable("item") int item,@RequestParam("img") MultipartFile file, HttpServletResponse resp,HttpServletRequest req) throws IOException, Exception {
-
+		filePath="/Tomcat/webapps/ROOT/resources/imgs/item_imgs";
+	 	subPath="";
+		
 		logger.debug(LogEnum.DEBUG+"item_update: "+item);
 		logger.debug(LogEnum.DEBUG+"option: "+req.getParameter("option"));// 원래대로1,바꿈2
 		int option=Integer.parseInt(req.getParameter("option"));
@@ -188,17 +192,17 @@ public class Item_Controller {
 		bean.setTags(req.getParameter("tags"));
 		bean.setTot(Double.parseDouble(req.getParameter("tot")));
 		
-		if(!file.getOriginalFilename().equals("")) {
+		/*if(!file.getOriginalFilename().equals("")) {
 			//TODO:[sch] 이미지 파일 경로 설정
 			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
-		}
+		}*/
 		logger.debug(LogEnum.DEBUG+bean);
 		
 		if(req.getParameter("option").equals("1")) {
 			bean.setImg(req.getParameter("preimg"));
 		}else if(req.getParameter("option").equals("2")) {
 			//TODO:[sch] 이미지 파일 경로 설정
-			bean.setImg("imgs/item_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
+			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}else if(req.getParameter("option").equals("3")) {
 			bean.setImg("");
 		}
