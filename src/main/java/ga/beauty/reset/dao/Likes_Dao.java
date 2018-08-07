@@ -2,7 +2,6 @@ package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 import ga.beauty.reset.dao.entity.Likes_Vo;
 

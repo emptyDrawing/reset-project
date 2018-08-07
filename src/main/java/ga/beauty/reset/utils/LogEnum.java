@@ -16,6 +16,9 @@ public class LogEnum {
 	public static final String MAG = "@매거진@-"; // 
 	public static final String LIKE = "@좋아요@-"; // 
 	public static final String EVE = "@이벤트@-"; // 
+	public static final String EXP = "@포인트@-";
+	public static final String CART = "@찜목록@-";
+	
 	
 	public static final String ERROR = "@에러@-"; // 에러상황일때
 	public static final String ERROR_ASYNC = "@비동기-스케쥴러에러@-"; // 

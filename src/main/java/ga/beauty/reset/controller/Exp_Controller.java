@@ -35,6 +35,8 @@ public class Exp_Controller {
 		String email=map.get("email").toString();
 		String type=map.get("type").toString();
 		resp.getWriter().print(exp_Service.up(email,type));
+		
+		
 		// TODO :[kss] 마이페이지 만들때도 써야됨
 	}
 	

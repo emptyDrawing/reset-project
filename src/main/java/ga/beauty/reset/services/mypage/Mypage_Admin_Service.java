@@ -132,6 +132,8 @@ public class Mypage_Admin_Service {
 			if(searchType.equals("pointDown"))map.put("pointDown","exp");
 			if(type.equals("emp"))map.put("company","reset");
 			
+			System.out.println(map);
+			
 			if(type.equals("normal")) {
 				int tot = members_Dao.totCount(map);
 				List<Members_Vo> list = members_Dao.selectAllLimit(map);

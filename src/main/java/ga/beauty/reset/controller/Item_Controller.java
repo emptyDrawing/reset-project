@@ -76,9 +76,9 @@ public class Item_Controller {
 	// TODO: [sch] admin / item/admin_item_detail.jsp / 서충희
 	// admin item 상세
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.GET)
-	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
+	public String ranking_detail(@PathVariable int item,Model model, HttpServletRequest req) throws SQLException {
 		logger.debug(LogEnum.DEBUG+"detail-param: "+item);
-		items_service.item_detailPage(model,item);
+		items_service.item_detailPage(model,item,req);
 		
 		goRoot="../../";
 		model.addAttribute("goRoot", goRoot);
@@ -140,7 +140,7 @@ public class Item_Controller {
 		logger.debug(LogEnum.DEBUG+bean);
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(items_service.item_add(bean));
+		resp.getWriter().print(items_service.item_add(bean,req));
 	}
 
 	// TODO: [sch] admin / 아이템 수정 / 서충희
@@ -204,18 +204,18 @@ public class Item_Controller {
 		}
 		logger.debug(LogEnum.DEBUG+"item controller param: "+bean);
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(items_service.item_update(option,bean));
+		resp.getWriter().print(items_service.item_update(option,bean,req));
 	}
 	
 	
 	// TODO: [sch] admin / 아이템 삭제 / 서충희
 	// 아이템 삭제
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.DELETE)
-	public void item_delete(@PathVariable("item") int item,HttpServletResponse resp) throws IOException, SQLException {
+	public void item_delete(@PathVariable("item") int item,HttpServletResponse resp,HttpServletRequest req) throws IOException, SQLException {
 		logger.debug(LogEnum.DEBUG+"item del param: "+item);
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(items_service.item_delete(item));
+		resp.getWriter().print(items_service.item_delete(item,req));
 	}
 	
 	

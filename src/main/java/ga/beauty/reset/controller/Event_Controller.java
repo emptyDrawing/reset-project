@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.common.io.Files;
-
 import ga.beauty.reset.dao.Companys_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Companys_Vo;
@@ -205,7 +203,6 @@ public class Event_Controller {
 		List<Companys_Vo> companyList = companys_Dao.selectAll();
 		model.addAttribute("companyList",companyList);
 		service.detailPage(model, bean, comment);
-		System.out.println(bean.getCom_email());
 		return "event/event_update";
 	}
 	

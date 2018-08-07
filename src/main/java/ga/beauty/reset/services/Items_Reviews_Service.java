@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import ga.beauty.reset.dao.Reviews_Dao;
 import ga.beauty.reset.dao.entity.Items_Vo;
 import ga.beauty.reset.dao.entity.Ranks_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
+import ga.beauty.reset.utils.CrudEnum;
 import ga.beauty.reset.utils.LogEnum;
 
 @Service
@@ -128,9 +131,16 @@ public class Items_Reviews_Service {
 	}
 	
 	// 리뷰 추가
-	public int review_addPage(HttpServletResponse resp,Reviews_Vo bean) throws SQLException, IOException {
+	public int review_addPage(HttpServletResponse resp,Reviews_Vo bean,HttpServletRequest req) throws SQLException, IOException {
 		int result=Reviews_Dao.reviewAdd(bean);
-		if(result==1) {avgUpdate(bean);}
+		if(result==1) {
+			avgUpdate(bean);
+			HttpSession session = req.getSession();
+			String ip = req.getHeader("X-FORWARDED-FOR");
+			if (ip == null) ip = req.getRemoteAddr();
+			
+			logger.info(CrudEnum.ADD + " {ip:"+ip+"}가 리뷰[No."+bean.getRev_no()+"]을 등록 하였습니다.");
+		}
 		return result;
 	}
 
@@ -213,7 +223,7 @@ public class Items_Reviews_Service {
 	}
 	
 	// 리뷰 수정페이지
-	public int review_updatePage(int option,Reviews_Vo bean) throws SQLException, IOException {
+	public int review_updatePage(int option,Reviews_Vo bean,HttpServletRequest req) throws SQLException, IOException {
 		logger.debug(LogEnum.DEBUG+"updatePage param: "+option+" "+bean);
 		
 		if(option==1) {
@@ -224,15 +234,29 @@ public class Items_Reviews_Service {
 			bean.setImg(temp);
 		}
 		int result=Reviews_Dao.reviewUpdate(bean);
-		if(result==1) {avgUpdate(bean);}
+		if(result==1) {
+			avgUpdate(bean);
+			HttpSession session = req.getSession();
+			String ip = req.getHeader("X-FORWARDED-FOR");
+			if (ip == null) ip = req.getRemoteAddr();
+			logger.info(CrudEnum.UPDATE + " {ip:"+ip+"}가 리뷰[No."+bean.getRev_no()+"]을 수정 하였습니다.");
+		}
 		return result;
 	}
 	
 	// 리뷰 삭제페이지
-	public int review_deletePage(String filePath,Reviews_Vo bean) throws SQLException, IOException {
+	public int review_deletePage(String filePath,Reviews_Vo bean,HttpServletRequest req) throws SQLException, IOException {
 		logger.debug(LogEnum.DEBUG+"deletePage param: "+bean);
 		int result=Reviews_Dao.reviewDelete(filePath,bean);
-		if(result==1) {avgUpdate(bean);}
+		if(result==1) {
+			avgUpdate(bean);
+			HttpSession session = req.getSession();
+			String ip = req.getHeader("X-FORWARDED-FOR");
+			if (ip == null) ip = req.getRemoteAddr();
+			
+			logger.info(CrudEnum.DELETE + " {ip:"+ip+"}가 리뷰 [No."+bean.getRev_no()+"]을 삭제 하였습니다.");
+		
+		}
 		return result;
 	}
 	

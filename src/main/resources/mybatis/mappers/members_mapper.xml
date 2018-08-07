@@ -5,10 +5,15 @@
 <mapper namespace="members">
 	<select id="totCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) FROM MEMBERS
-		 <trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<if test="searchType != null and txt != null and pointUp == null and pointDown == null">#{searchType} LIKE CONCAT("%",#{txt},"%")</if>
+		 <trim prefix="WHERE" prefixOverrides="AND | OR ">
+			<if test="searchType != null and txt != null and pointUp == null and pointDown == null">${searchType} LIKE CONCAT("%",#{txt},"%")</if>
 			<if test="searchType != null and txt != null and pointUp == null and pointDown != null">EXP <![CDATA[ <= ]]> #{txt}</if>
 			<if test="searchType != null and txt != null and pointUp !=null and pointDown == null">EXP <![CDATA[ >= ]]> #{txt}</if>
+		</trim>
+		<trim>
+		<if test="start != null">
+			LIMIT #{start}, #{cnt}
+		</if>
 		</trim>
 	</select>
 	<select id="selectAllLimit"  parameterType="hashmap" resultType="Members_Vo">
@@ -50,7 +55,7 @@
   	</update>
   	<select id="checkInfo" resultType="int">
   		SELECT count(*) FROM MEMBERS
-  		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+  		<trim prefix="WHERE" prefixOverrides="AND | OR ">
   		<if test="email != null">EMAIL = #{email}</if>
   		<if test="nick != null">AND NICK = #{nick}</if>
 		</trim>

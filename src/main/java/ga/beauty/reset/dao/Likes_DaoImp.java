@@ -2,7 +2,6 @@ package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;

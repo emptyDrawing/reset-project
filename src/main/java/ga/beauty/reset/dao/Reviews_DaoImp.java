@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

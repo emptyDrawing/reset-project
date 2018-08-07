@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,8 @@ public class Cart_Service {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cart", cart);
 		map.put("email", email);
-		
+		logger.info(LogEnum.CART+"계정["+email+"]이  상품 [No"+item+"]을 찜했습니다.");
+
 		return Cart_Dao.cartUpdate(map);
 		}
 		return 0;
@@ -113,7 +113,7 @@ public class Cart_Service {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cart", cart);
 		map.put("email", email);
-		
+		logger.info(LogEnum.CART+"계정["+email+"]이  상품 [No"+item+"]을 찜취소 했습니다.");
 		return Cart_Dao.cartUpdate(map);
 		} else {
 			return 0;
