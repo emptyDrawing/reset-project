@@ -1,7 +1,16 @@
 # reset-project
+=============================
 
+### version 1.0 release ( Web, App )
+
+- App download : webview[apk]resetbeauty.7z 를 압축풀어서 사용
+- project deploy : maven을 이용해 주세요 
+- contributers : 김형준(hyungjoon90), 김수성(emptyDrawing), 서충희(wjbs06), 이지현(JihyunLee99)
+
+=============================
 1. 환경
-- Spring tool suite ( Version: 3.9.4.RELEASE )
+- Java 1.8 이상
+- Spring tool suite ( Version: 4.3.8 RELEASE )
 - Mysql ( Version 8.0.11 )
 - Apache Tomcat ( Version : 7.0.85)
 - 그외 자세한 내용은 pom.xml 참고
@@ -17,6 +26,3 @@
 
 3. commit 규칙
 : [주제] 설명 / 2018-xx-xx / 이름
-
-99. 그외 필요한 사항 누구든지 수정가능.
-
