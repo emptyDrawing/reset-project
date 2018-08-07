@@ -242,18 +242,6 @@ $(document).ready(function(){
                         <td>평점</td>
                         <td>${item_bean.tot }</td>
                     </tr>
-                    <tr>
-                        <td>기능성 성분</td>
-                        <td>${item_bean.comp }</td>
-                    </tr>
-                    <tr>
-                        <td>태그</td>
-                        <td>
-                        	<c:forEach var="tag" items="${tags}">
-								<span>${tag }</span>
-							</c:forEach>
-						</td>
-                    </tr>
                 </table>
             </div>
         </div>

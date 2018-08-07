@@ -273,10 +273,6 @@ function mobileCheck(){
 						<td>${item_bean.tot }</td>
 					</tr>
 					<tr>
-						<td>기능성 성분</td>
-						<td>${item_bean.comp }</td>
-					</tr>
-					<tr>
 						<td>네이버 가격정보</td>
 						<td><a
 							href="#" id="naverShop"><img class="naverImg" alt="naver" src="${goRoot}imgs/icon/naver_shopping.png" onclick="mobileCheck();"></a></td>
