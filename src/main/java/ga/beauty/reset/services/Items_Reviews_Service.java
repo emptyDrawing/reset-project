@@ -21,6 +21,7 @@ import ga.beauty.reset.dao.Reviews_Dao;
 import ga.beauty.reset.dao.entity.Items_Vo;
 import ga.beauty.reset.dao.entity.Ranks_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Service
 public class Items_Reviews_Service {
@@ -34,7 +35,7 @@ public class Items_Reviews_Service {
 	
 	// 카테고리에 따른 랭킹 리스트페이지
 	public void ranking_listPage(Model model,int type) throws SQLException {
-		logger.debug("param: "+type);
+		logger.debug(LogEnum.DEBUG+"param: "+type);
 		model.addAttribute("alist", Items_Dao.rankAll(type));
 		model.addAttribute("cate", type);
 	}
@@ -42,12 +43,12 @@ public class Items_Reviews_Service {
 	// item 상세 페이지
 	@Transactional
 	public void item_detailPage(Model model,int item) throws SQLException{
-		logger.debug("param: "+item);
+		logger.debug(LogEnum.DEBUG+"param: "+item);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//tag.start
 		Items_Vo temp = Items_Dao.selectOne(item);
-		logger.debug(temp.getTags());
+		logger.debug(LogEnum.DEBUG+temp.getTags());
 		String tempStr="";
 		tempStr=temp.getTags().toString();
 		
@@ -56,7 +57,7 @@ public class Items_Reviews_Service {
 		while(tokens.hasMoreTokens()) {
 			list.add(tokens.nextToken());
 		}
-		logger.debug(list.size());
+		logger.debug(LogEnum.DEBUG+list.size());
 		//tag.end
 		
 		//tot start
@@ -108,8 +109,8 @@ public class Items_Reviews_Service {
 			four= rank.getFour()*100/total;
 			five= rank.getFive()*100/total;
 		}
-		logger.debug("avg: "+one+" "+two+" "+three+" "+four+" "+five);
-		logger.debug("total: "+total);
+		logger.debug(LogEnum.DEBUG+"avg: "+one+" "+two+" "+three+" "+four+" "+five);
+		logger.debug(LogEnum.DEBUG+"total: "+total);
 		map.put("total", total);
 		map.put("one", one);
 		map.put("two", two);
@@ -136,7 +137,7 @@ public class Items_Reviews_Service {
 	// 리뷰 상세페이지
 	@Transactional
 	public void review_detailPage(Model model, int item, int rev_no) throws SQLException {
-		logger.debug("param: "+item+" "+rev_no);
+		logger.debug(LogEnum.DEBUG+"param: "+item+" "+rev_no);
 		//tot start
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Ranks_Vo rank=Reviews_Dao.totAll(item);
@@ -187,8 +188,8 @@ public class Items_Reviews_Service {
 			four= rank.getFour()*100/total;
 			five= rank.getFive()*100/total;
 		}
-		logger.debug("avg: "+one+" "+two+" "+three+" "+four+" "+five);
-		logger.debug("total: "+total);
+		logger.debug(LogEnum.DEBUG+"avg: "+one+" "+two+" "+three+" "+four+" "+five);
+		logger.debug(LogEnum.DEBUG+"total: "+total);
 		map.put("total", total);
 		map.put("one", one);
 		map.put("two", two);
@@ -198,9 +199,9 @@ public class Items_Reviews_Service {
 		//tot end
 		
 		Reviews_Vo bean=Reviews_Dao.reviewOne(item,rev_no);
-		logger.debug(bean);
+		logger.debug(LogEnum.DEBUG+bean);
 		if(!bean.getImg().equals("")) {
-			logger.debug("확인"+bean.getImg());
+			logger.debug(LogEnum.DEBUG+"확인"+bean.getImg());
 			String temp=bean.getImg();
 			String[] temp2=temp.split("_s_");
 			bean.setImg(temp2[0]+temp2[1]);
@@ -213,10 +214,10 @@ public class Items_Reviews_Service {
 	
 	// 리뷰 수정페이지
 	public int review_updatePage(int option,Reviews_Vo bean) throws SQLException, IOException {
-		logger.debug("updatePage param: "+option+" "+bean);
+		logger.debug(LogEnum.DEBUG+"updatePage param: "+option+" "+bean);
 		
 		if(option==1) {
-			logger.debug("확인"+bean.getImg());
+			logger.debug(LogEnum.DEBUG+"확인"+bean.getImg());
 			StringBuffer sb=new StringBuffer(bean.getImg());
 			sb.insert(28,"_s_");
 			String temp=sb.toString();
@@ -229,7 +230,7 @@ public class Items_Reviews_Service {
 	
 	// 리뷰 삭제페이지
 	public int review_deletePage(String filePath,Reviews_Vo bean) throws SQLException, IOException {
-		logger.debug("deletePage param: "+bean);
+		logger.debug(LogEnum.DEBUG+"deletePage param: "+bean);
 		int result=Reviews_Dao.reviewDelete(filePath,bean);
 		if(result==1) {avgUpdate(bean);}
 		return result;

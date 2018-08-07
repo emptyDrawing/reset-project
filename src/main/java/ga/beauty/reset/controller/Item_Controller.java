@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ga.beauty.reset.dao.Items_DaoImp;
 import ga.beauty.reset.dao.entity.Items_Vo;
 import ga.beauty.reset.services.Items_Service;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
@@ -67,7 +68,7 @@ public class Item_Controller {
 	// 아이템 검색
 	@RequestMapping("/itemSearch")
 	public void item_search_page(@RequestParam("search") String condition,@RequestParam("type") String type,HttpServletResponse resp) throws JsonProcessingException, IOException, SQLException {
-		logger.debug("itemSearch param: "+condition+"/"+type);
+		logger.debug(LogEnum.DEBUG+"itemSearch param: "+condition+"/"+type);
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(mapper.writeValueAsString(items_service.item_search(condition, type)));
 	}
@@ -76,7 +77,7 @@ public class Item_Controller {
 	// admin item 상세
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.GET)
 	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
-		logger.debug("detail-param: "+item);
+		logger.debug(LogEnum.DEBUG+"detail-param: "+item);
 		items_service.item_detailPage(model,item);
 		
 		goRoot="../../";
@@ -96,7 +97,7 @@ public class Item_Controller {
 	// 아이템 추가
 	@RequestMapping(value="/admin/item",method=RequestMethod.POST)
 	public void item_add(@RequestParam("img") MultipartFile file,HttpServletRequest req,HttpServletResponse resp) throws IOException, Exception {
-		logger.debug(file.getOriginalFilename());
+		logger.debug(LogEnum.DEBUG+file.getOriginalFilename());
 
 		
 		Items_Vo bean=new Items_Vo();
@@ -136,7 +137,7 @@ public class Item_Controller {
 			//TODO:[sch] 이미지 경로설정
 			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}
-		logger.debug(bean);
+		logger.debug(LogEnum.DEBUG+bean);
 		
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(items_service.item_add(bean));
@@ -147,10 +148,10 @@ public class Item_Controller {
 	@RequestMapping(value="/admin/itemUpdate/{item}",method=RequestMethod.POST)
 	public void item_update(@PathVariable("item") int item,@RequestParam("img") MultipartFile file, HttpServletResponse resp,HttpServletRequest req) throws IOException, Exception {
 
-		logger.debug("item_update: "+item);
-		logger.debug("option: "+req.getParameter("option"));// 원래대로1,바꿈2
+		logger.debug(LogEnum.DEBUG+"item_update: "+item);
+		logger.debug(LogEnum.DEBUG+"option: "+req.getParameter("option"));// 원래대로1,바꿈2
 		int option=Integer.parseInt(req.getParameter("option"));
-		logger.debug(option);
+		logger.debug(LogEnum.DEBUG+option);
 		// 공통
 		Items_Vo bean=new Items_Vo();
 		bean.setItem(item);
@@ -191,7 +192,7 @@ public class Item_Controller {
 			//TODO:[sch] 이미지 파일 경로 설정
 			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}
-		logger.debug(bean);
+		logger.debug(LogEnum.DEBUG+bean);
 		
 		if(req.getParameter("option").equals("1")) {
 			bean.setImg(req.getParameter("preimg"));
@@ -201,7 +202,7 @@ public class Item_Controller {
 		}else if(req.getParameter("option").equals("3")) {
 			bean.setImg("");
 		}
-		logger.debug("item controller param: "+bean);
+		logger.debug(LogEnum.DEBUG+"item controller param: "+bean);
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(items_service.item_update(option,bean));
 	}
@@ -211,7 +212,7 @@ public class Item_Controller {
 	// 아이템 삭제
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.DELETE)
 	public void item_delete(@PathVariable("item") int item,HttpServletResponse resp) throws IOException, SQLException {
-		logger.debug("item del param: "+item);
+		logger.debug(LogEnum.DEBUG+"item del param: "+item);
 		
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(items_service.item_delete(item));

@@ -197,11 +197,12 @@ public class Mypage_Admin_Service {
 			List<Reviews_Vo> lists  = null;
 			if(req.getParameter("itemList")!=null){
 				if(where !=null && !where.equals("") && !where.equals("undefined")) {
-				Reviews_Vo bean = new Reviews_Vo();
-				bean.setCom_email(where);
-				lists = reviews_Dao.reviewToTAll(bean);
+					lists = reviews_Dao.reviewToTAll(where);
 				}else lists = reviews_Dao.reviewToTAll();
-			}else return reviews_Dao.reviewToTAll();
+			}else {
+				if(where !=null && !where.equals("") && !where.equals("undefined")) return reviews_Dao.reviewToTAll(where);
+				return reviews_Dao.reviewToTAll();
+			} 
 			List<Simple_Vo> listitem = new ArrayList<Simple_Vo>();
 			Iterator<Reviews_Vo> ite = lists.iterator();
 			while(ite.hasNext()) {

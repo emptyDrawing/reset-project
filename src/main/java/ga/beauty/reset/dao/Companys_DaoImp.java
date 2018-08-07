@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ga.beauty.reset.dao.entity.Companys_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Repository
 public class Companys_DaoImp implements Companys_Dao {
@@ -41,7 +42,7 @@ public class Companys_DaoImp implements Companys_Dao {
 	
 	@Override
 	public int insertOne(Companys_Vo bean) throws SQLException {
-		logger.debug(bean);
+		logger.debug(LogEnum.DEBUG+bean);
 		return sqlSession.insert("companys.insertOne", bean);
 	}
 

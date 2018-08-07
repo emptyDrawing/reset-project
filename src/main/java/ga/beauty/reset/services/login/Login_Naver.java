@@ -32,6 +32,7 @@ import ga.beauty.reset.dao.entity.Login_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
 import ga.beauty.reset.utils.ErrorEnum;
+import ga.beauty.reset.utils.LogEnum;
 
 @Service("login_Naver")
 public class Login_Naver implements Login_Service{
@@ -132,7 +133,7 @@ public class Login_Naver implements Login_Service{
 		String responseString ="";
 		responseString = EntityUtils.toString(response.getEntity());
 
-		logger.debug("Response Code - getToken(naver) : " + responseCode);
+		logger.debug(LogEnum.DEBUG+"Response Code - getToken(naver) : " + responseCode);
 		JsonNode tokenJson = null;
 		if(responseCode==200) {
 			tokenJson = mapper.readTree(responseString);
@@ -141,7 +142,7 @@ public class Login_Naver implements Login_Service{
 			//access_token= tokenJson.get("access_token").asText();
 			//refresh_token= tokenJson.get("refresh_token").asText();
 		}else {
-			logger.debug("Response Err - getToken(naver) : ("+bean.getRequest().getRemoteHost()+")/"+ responseString);
+			logger.debug(LogEnum.DEBUG+"Response Err - getToken(naver) : ("+bean.getRequest().getRemoteHost()+")/"+ responseString);
 		}
 		return responseCode;
 		
@@ -165,14 +166,14 @@ public class Login_Naver implements Login_Service{
 		responseString = EntityUtils.toString(response.getEntity());
 
 		JsonNode tokenJson = null;
-		logger.debug("Response Code - checkEmail(naver) : ("+bean.getRequest().getRemoteHost()+")/"+responseCode); // TODO 지울거
+		logger.debug(LogEnum.DEBUG+"Response Code - checkEmail(naver) : ("+bean.getRequest().getRemoteHost()+")/"+responseCode); // TODO 지울거
 		if(responseCode==200) {
 			tokenJson = mapper.readTree(responseString.toString());
 			JsonNode resultJson = tokenJson.get("response");
 			return resultJson.get("email").asText();
 		}else {
-			logger.debug("Response Code - checkEmail(naver) : ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
-			logger.debug("Response Err - checkEmail(naver) : ("+bean.getRequest().getRemoteHost()+")/"+responseString);
+			logger.debug(LogEnum.DEBUG+"Response Code - checkEmail(naver) : ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
+			logger.debug(LogEnum.DEBUG+"Response Err - checkEmail(naver) : ("+bean.getRequest().getRemoteHost()+")/"+responseString);
 			return ErrorEnum.EMAILERR;
 		}
 	}// checkEmail();

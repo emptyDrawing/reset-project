@@ -20,4 +20,6 @@ public class LogEnum {
 	public static final String ERROR = "@에러@-"; // 에러상황일때
 	public static final String ERROR_ASYNC = "@비동기-스케쥴러에러@-"; // 
 	public static final String EEROR_CON= "@비정상접속@-";
+	
+	public static final String DEBUG ="@디버그@-";
 }

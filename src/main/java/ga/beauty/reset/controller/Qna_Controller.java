@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ga.beauty.reset.dao.entity.Qna_Vo;
 import ga.beauty.reset.services.Qna_Service;
+import ga.beauty.reset.utils.LogEnum;
 
 @Controller
 public class Qna_Controller {
-	private static final Logger log = Logger.getLogger(Qna_Controller.class);
+	private static final Logger logger = Logger.getLogger(Qna_Controller.class);
 
 	@Autowired
 	Qna_Service service;
@@ -31,7 +32,7 @@ public class Qna_Controller {
 	//고객의 문의사항
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
 	public String show(Model model) {
-		log.debug("show form" );
+		logger.debug(LogEnum.DEBUG+"show form" );
 		model.addAttribute("goRoot", "./");
 		return "qna/qna";
 	}
@@ -40,7 +41,7 @@ public class Qna_Controller {
 	@RequestMapping(value = "/qna", method = RequestMethod.POST)
 	public String add(Qna_Vo bean,HttpServletRequest req) throws SQLException {
 		service.addPage(bean);
-		log.debug("고객 - qna send : " + bean);
+		logger.debug(LogEnum.DEBUG+"고객 - qna send : " + bean);
 		return view;
 	}
 	
@@ -48,7 +49,7 @@ public class Qna_Controller {
 	@RequestMapping(value = "/admin/qna")
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
-		log.debug("Admin qna - show List");
+		logger.debug(LogEnum.DEBUG+"Admin qna - show List");
 		System.out.println("리스트 보여주기");
 		model.addAttribute("goRoot", "../");
 		return "admin/admin_qna_list";
@@ -57,7 +58,7 @@ public class Qna_Controller {
 	//TODO admin qna detail / "admin/admin_qna_detail" / 이지현
 	@RequestMapping(value = "/admin/qna/{qa_no}", method=RequestMethod.GET)
 	public String detail(@PathVariable int qa_no, Model model) throws SQLException {
-	log.debug("qna detail : "+ qa_no);
+		logger.debug(LogEnum.DEBUG+"qna detail : "+ qa_no);
 	model.addAttribute("bean", service.selectOnePage(qa_no));
 	model.addAttribute("goRoot", "../../");
 	return "admin/admin_qna_detail";
@@ -76,7 +77,7 @@ public class Qna_Controller {
 			result.put("result", resultNum);
 			result.put("new_answer",bean.getAnswer());
 		}
-		log.debug(bean);
+		logger.debug(LogEnum.DEBUG+bean);
 		return result;
 	}
 

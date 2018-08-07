@@ -63,7 +63,7 @@ public class Admin_Controller {
 		@RequestMapping(value="/admin/{item}/review/{rev_no}",method=RequestMethod.GET)
 		@Transactional
 		public String review_detail(@PathVariable int item,@PathVariable int rev_no,Model model) throws SQLException {
-			logger.debug("review_detail-param: "+item+" "+rev_no);
+			logger.debug(LogEnum.DEBUG+"review_detail-param: "+item+" "+rev_no);
 			
 			String goRoot = "../../../";
 				
@@ -79,7 +79,7 @@ public class Admin_Controller {
 		// 리뷰 삭제
 		@RequestMapping(value="/admin/{item}/review/{rev_no}", method=RequestMethod.DELETE)
 		public void review_delete(@PathVariable("item") int item,@PathVariable("rev_no") int rev_no,HttpServletResponse resp,HttpServletRequest req) throws Exception{
-			logger.debug("admin_review_delete: "+item+"/"+rev_no);
+			logger.debug(LogEnum.DEBUG+"admin_review_delete: "+item+"/"+rev_no);
 			
 			// 공통
 			Reviews_Vo bean=new Reviews_Vo();

@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="reviews">
-  	<select id="reviewToTAll" resultType="reviews_Vo">
+  	<select id="reviewToTAll" parameterType="hashmap" resultType="reviews_Vo">
   		SELECT * FROM REVIEW WHERE OPEN=1 
-  		<if test="com_email != null">
-		AND ITEM IN ( SELECT ITEM FROM ITEMS WHERE BRAND = #{where} ORDER BY ITEM)
+  		<if test="where != null">
+		AND ITEM IN ( SELECT ITEM FROM ITEMS WHERE BRAND = (SELECT COMPANY FROM COMPANYS WHERE EMAIL =#{where}) ORDER BY ITEM)
   		</if>
   		ORDER BY REV_NO
   	</select>
@@ -39,10 +39,10 @@
   	<select id="reviewTot" resultType="int">
   		SELECT COUNT(*) FROM REVIEW WHERE ITEM=#{item}
   	</select>
-  	<select id="reviewCountTotAll" resultType="int">
+  	<select id="reviewCountTotAll" parameterType="hashmap" resultType="int">
   		SELECT COUNT(*) FROM REVIEW
   		<if test="where!=null">
-		AND ITEM IN ( SELECT ITEM FROM ITEMS WHERE BRAND = #{where} ORDER BY ITEM)
+		WHERE ITEM IN ( SELECT ITEM FROM ITEMS WHERE BRAND = (SELECT COMPANY FROM COMPANYS WHERE EMAIL =#{where}) ORDER BY ITEM)
 		</if>
 	</select>
   	<select id="mypage_review" resultType="reviews_Vo" parameterType="String">

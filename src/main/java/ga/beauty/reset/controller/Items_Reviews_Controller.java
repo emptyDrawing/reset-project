@@ -26,6 +26,7 @@ import ga.beauty.reset.dao.Reviews_DaoImp;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.services.Items_Reviews_Service;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
@@ -52,7 +53,7 @@ public class Items_Reviews_Controller {
 	//랭킹 리스트 조회
 	@RequestMapping(value="/ranking", method = RequestMethod.GET)
 	public String ranking_list(@RequestParam("id") int cate,Model model) throws SQLException {
-		logger.debug("list-param: "+cate);
+		logger.debug(LogEnum.DEBUG+"list-param: "+cate);
 		items_Reviews_service.ranking_listPage(model, cate);
 		goRoot="";
 		model.addAttribute("goRoot", goRoot);
@@ -62,7 +63,7 @@ public class Items_Reviews_Controller {
 	// 랭킹 리스트 추가
 	@RequestMapping(value="/rankingadd", method = RequestMethod.GET)
 	public void ranking_list_add(@RequestParam("id") int cate,HttpServletResponse resp) throws SQLException, IOException {
-		logger.debug("list-param: "+cate);
+		logger.debug(LogEnum.DEBUG+"list-param: "+cate);
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(mapper.writeValueAsString(items_DaoImp.rankListAdd(cate)));
 	}
@@ -70,7 +71,7 @@ public class Items_Reviews_Controller {
 	// item 상세
 	@RequestMapping(value="/item/{item}",method=RequestMethod.GET)
 	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
-		logger.debug("detail-param: "+item);
+		logger.debug(LogEnum.DEBUG+"detail-param: "+item);
 		items_Reviews_service.item_detailPage(model,item);
 		
 		goRoot="../";
@@ -82,7 +83,7 @@ public class Items_Reviews_Controller {
 	// 리뷰 리스트 추가 ajax
 	@RequestMapping(value="/item/reviewListadd", method=RequestMethod.GET)
 	public String reviews_list_add(@RequestParam("item") int item,@RequestParam("page") int review_num,HttpServletResponse resp,Model model) throws SQLException, IOException {
-		logger.debug("review-param: "+item+"/"+review_num);
+		logger.debug(LogEnum.DEBUG+"review-param: "+item+"/"+review_num);
 		goRoot="../";
 		model.addAttribute("goRoot", goRoot);
 		model.addAttribute("item", item);
@@ -93,8 +94,8 @@ public class Items_Reviews_Controller {
 	// 리뷰 작성
 	@RequestMapping(value="/item/{item}", method=RequestMethod.POST)
 	public void review_add(@PathVariable("item") int item,Model model,@RequestParam("img") MultipartFile file,HttpServletRequest req,HttpServletResponse resp) throws Exception{
-		logger.debug("review_add: "+item);
-		logger.debug(file.getOriginalFilename());
+		logger.debug(LogEnum.DEBUG+"review_add: "+item);
+		logger.debug(LogEnum.DEBUG+file.getOriginalFilename());
 		
 		Reviews_Vo bean=new Reviews_Vo();
 		bean.setItem(item);
@@ -119,7 +120,7 @@ public class Items_Reviews_Controller {
 	@RequestMapping(value="/item/{item}/review/{rev_no}",method=RequestMethod.GET)
 	@Transactional
 	public String review_detail(@PathVariable int item,@PathVariable int rev_no,Model model) throws SQLException {
-		logger.debug("review_detail-param: "+item+" "+rev_no);
+		logger.debug(LogEnum.DEBUG+"review_detail-param: "+item+" "+rev_no);
 		
 		goRoot="../../../";
 			
@@ -136,9 +137,9 @@ public class Items_Reviews_Controller {
 	// 리뷰 수정
 	@RequestMapping(value="/item/{item}/review/{rev_no}", method=RequestMethod.POST)
 	public void review_update(@PathVariable("item") int item,@PathVariable("rev_no") int rev_no,@RequestParam("img") MultipartFile file, HttpServletResponse resp,HttpServletRequest req) throws Exception{
-		logger.debug("review_update: "+item);
-		logger.debug("파일이름: "+file.getOriginalFilename());
-		logger.debug("option: "+req.getParameter("option"));// 원래대로1,바꿈2,지움3
+		logger.debug(LogEnum.DEBUG+"review_update: "+item);
+		logger.debug(LogEnum.DEBUG+"파일이름: "+file.getOriginalFilename());
+		logger.debug(LogEnum.DEBUG+"option: "+req.getParameter("option"));// 원래대로1,바꿈2,지움3
 		int option=Integer.parseInt(req.getParameter("option"));
 		// 공통
 		Reviews_Vo bean=new Reviews_Vo();
@@ -167,7 +168,7 @@ public class Items_Reviews_Controller {
 	// 리뷰 삭제
 	@RequestMapping(value="/item/{item}/review/{rev_no}", method=RequestMethod.DELETE)
 	public void review_delete(@PathVariable("item") int item,@PathVariable("rev_no") int rev_no,HttpServletResponse resp,HttpServletRequest req) throws Exception{
-		logger.debug("review_delete: "+item+"/"+rev_no);
+		logger.debug(LogEnum.DEBUG+"review_delete: "+item+"/"+rev_no);
 		
 		// 공통
 		Reviews_Vo bean=new Reviews_Vo();

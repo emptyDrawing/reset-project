@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import ga.beauty.reset.dao.Cart_DaoImp;
 import ga.beauty.reset.dao.entity.Items_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Service
 public class Cart_Service {
@@ -24,7 +25,7 @@ public class Cart_Service {
 	
 	// 찜 확인
 	public int Cart_check(int item,String email) throws SQLException {
-		logger.debug("param: "+item+"/"+email);
+		logger.debug(LogEnum.DEBUG+"param: "+item+"/"+email);
 		Members_Vo member=new Members_Vo();
 		member=Cart_Dao.cartList(email);
 		String cart=member.getCart();
@@ -37,19 +38,19 @@ public class Cart_Service {
 	
 	// 찜목록 조회
 	public 	List<Items_Vo> Cart_List(String email) throws SQLException {
-		logger.debug("param: "+email);
+		logger.debug(LogEnum.DEBUG+"param: "+email);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<Items_Vo> list=new ArrayList<Items_Vo>();
 		Members_Vo member=new Members_Vo();
 		member=Cart_Dao.cartList(email);
-		logger.debug("확인"+member.getCart());
+		logger.debug(LogEnum.DEBUG+"확인"+member.getCart());
 		String[] temp=null;
 		temp=member.getCart().split(";");
-		logger.debug(temp);
+		logger.debug(LogEnum.DEBUG+temp);
 		if(!temp.equals(null)) {
 		for(int j=0;j<temp.length;j++) {
-			logger.debug(temp[j]);
+			logger.debug(LogEnum.DEBUG+temp[j]);
 		}
 		for(int i=1;i<temp.length;i++) {
 			list.add(Cart_Dao.selectOne(Integer.parseInt(temp[i])));
@@ -60,20 +61,20 @@ public class Cart_Service {
 	
 	// 찜목록에 추가
 	public int Cart_Add(int item,String email) throws SQLException {
-		logger.debug("param: "+item+"/"+email);
+		logger.debug(LogEnum.DEBUG+"param: "+item+"/"+email);
 		
 		Members_Vo member=new Members_Vo();
 		member=Cart_Dao.cartList(email);
 		
-		logger.debug(member.getCart());
+		logger.debug(LogEnum.DEBUG+member.getCart());
 		String cart=member.getCart();
 		
 		String temp=";"+item;
-		logger.debug(cart.contains(temp));
+		logger.debug(LogEnum.DEBUG+cart.contains(temp));
 		
 		if(!cart.contains(temp)) {
 		cart+=";"+item;
-		logger.debug("변경"+cart);
+		logger.debug(LogEnum.DEBUG+"변경"+cart);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cart", cart);
@@ -87,16 +88,16 @@ public class Cart_Service {
 	
 	// 찜목록에서 제거
 	public int Cart_Del(int item,String email) throws SQLException {
-		logger.debug("param: "+item+"/"+email);
+		logger.debug(LogEnum.DEBUG+"param: "+item+"/"+email);
 		
 		Members_Vo member=new Members_Vo();
 		member=Cart_Dao.cartList(email);
 		
-		logger.debug(member.getCart());
+		logger.debug(LogEnum.DEBUG+member.getCart());
 		String cart=member.getCart();
 		
 		String temp=";"+item;
-		logger.debug(cart.contains(temp));
+		logger.debug(LogEnum.DEBUG+cart.contains(temp));
 		
 		if(cart.contains(temp)) {
 		String[] temp2=cart.split(temp);
@@ -107,7 +108,7 @@ public class Cart_Service {
 			}
 			cart+=temp2[i];
 		}
-		logger.debug("cart: "+cart);
+		logger.debug(LogEnum.DEBUG+"cart: "+cart);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cart", cart);

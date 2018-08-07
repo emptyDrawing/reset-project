@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.Ranks_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
+import ga.beauty.reset.utils.LogEnum;
 
 @Repository
 public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
@@ -22,31 +25,33 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	
 	@Override
 	public Ranks_Vo totAll(int item) throws SQLException {
-		logger.debug("DaoImp-totAll-param: "+item);
+		logger.debug(LogEnum.DEBUG+"DaoImp-totAll-param: "+item);
 		return sqlSession.selectOne("items.totAll", item);
 	}
 
 	@Override
 	public List<Reviews_Vo> reviewToTAll() throws SQLException {
-		logger.debug("DaoImp-reviewToTAll-noParam");
+		logger.debug(LogEnum.DEBUG+"DaoImp-reviewToTAll-noParam");
 		return sqlSession.selectList("reviews.reviewToTAll");
 	}
 
-	public List<Reviews_Vo> reviewToTAll(Reviews_Vo bean) throws SQLException {
-		logger.debug("DaoImp-reviewToTAll-noParam");
-		return sqlSession.selectList("reviews.reviewToTAll", bean);
+	public List<Reviews_Vo> reviewToTAll(String where) throws SQLException {
+		logger.debug(LogEnum.DEBUG+"DaoImp-reviewToTAll-noParam");
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("where", where);
+		return sqlSession.selectList("reviews.reviewToTAll", params);
 	}
 	
 	@Override
 	public List<Reviews_Vo> reviewAll(int item) throws SQLException {
-		logger.debug("DaoImp-reviewAll-param: "+item);
+		logger.debug(LogEnum.DEBUG+"DaoImp-reviewAll-param: "+item);
 		return sqlSession.selectList("reviews.reviewAll", item);
 	}
 	
 	//TODO:[sch] 3.크롤링 dao 부분
 	@Override
 	public List<Reviews_Vo> reviewListAdd(int item,int review_num) throws SQLException {
-		logger.debug("DaoImp-reviewAdd-param: "+item+" "+review_num);
+		logger.debug(LogEnum.DEBUG+"DaoImp-reviewAdd-param: "+item+" "+review_num);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("item", item);
@@ -56,7 +61,7 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 
 	@Override
 	public int reviewAdd(Reviews_Vo bean) throws SQLException {
-		logger.debug("DaoImp-reviewAdd:"+bean);
+		logger.debug(LogEnum.DEBUG+"DaoImp-reviewAdd:"+bean);
 		int result=sqlSession.insert("reviews.reviewAdd", bean);
 		if(result==1){rankUpdate(bean);}
 		return result;
@@ -64,7 +69,7 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 
 	@Override
 	public Reviews_Vo reviewOne(int item,int rev_no) throws SQLException {
-		logger.debug("param: "+item+" "+rev_no);
+		logger.debug(LogEnum.DEBUG+"param: "+item+" "+rev_no);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("item", item);
 		map.put("rev_no", rev_no);
@@ -107,18 +112,18 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 
 	@Override
 	public int cartAdd(int item, String email) throws SQLException {
-		logger.debug("DaoImp param: "+item+" "+email);
+		logger.debug(LogEnum.DEBUG+"DaoImp param: "+item+" "+email);
 		
 		Members_Vo member=sqlSession.selectOne("items.cartAll", email);
-		logger.debug(member.getCart());
+		logger.debug(LogEnum.DEBUG+member.getCart());
 		String cart=member.getCart();
 		
 		String temp=";"+item;
-		logger.debug(cart.contains(temp));
+		logger.debug(LogEnum.DEBUG+cart.contains(temp));
 		
 		if(!cart.contains(temp)) {
 		cart+=";"+item;
-		logger.debug("변경"+cart);
+		logger.debug(LogEnum.DEBUG+"변경"+cart);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cart", cart);
@@ -141,7 +146,9 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		return sqlSession.selectOne("reviewCountTotAll");
 	}
 	public int getCount(String where) {
-		return sqlSession.selectOne("reviewCountTotAll", where);
+		HashMap<String, Object> params =new HashMap<String, Object>();
+		params.put("where", where);
+		return sqlSession.selectOne("reviewCountTotAll", params);
 	}
 
 	@Override
@@ -150,7 +157,7 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	}
 	
 	private void rankUpdate(Reviews_Vo bean) {
-		logger.debug("check"+bean);
+		logger.debug(LogEnum.DEBUG+"check"+bean);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int one=0;
 		int two=0;

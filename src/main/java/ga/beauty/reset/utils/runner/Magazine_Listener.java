@@ -111,7 +111,7 @@ public class Magazine_Listener implements Common_Listener{
 				logger.info("@매거진@ No."+checkNo+" 번 매거진의 댓글수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setNum(checkVo.getNum()+chNum);
 			}
-			logger.debug("값변화체크:"+checkVo);
+			logger.debug(LogEnum.DEBUG+"값변화체크:"+checkVo);
 		}		
 	}
 
