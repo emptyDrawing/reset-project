@@ -1,12 +1,11 @@
 # reset-project
-=============================
 
 ### version 1.0 release ( Web, App )
 
 - App download : webview[apk]resetbeauty.7z 를 압축풀어서 사용
 - project deploy : maven을 이용해 주세요 
 - contributers : 김형준(hyungjoon90), 김수성(emptyDrawing), 서충희(wjbs06), 이지현(JihyunLee99)
-=============================
+
 ## Instrall 
 
 1. tomcat 7.0.9 버젼을 추천하며, 이를 루트/Tomcat/ 에 설치힌다.
@@ -26,7 +25,7 @@
 ( Window cmd : netstat -nao  / Linux console : netstat -tnlp | grep ':80' )
 7. 만약 포트가 정상화되지 않았다면 서버를 재부팅 하는 등의 조치를 취한다.
 
-==============================
+
 ## 개발시 주의사항
 1. 환경
 - Java 1.8 이상
