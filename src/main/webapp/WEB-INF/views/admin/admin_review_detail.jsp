@@ -286,8 +286,6 @@
 				processData : false,
 				dataType : "text"
 			}).done(function(data) {
-				expDown("review");
-				console.log(data);
 				if (data == "1") {
 					console.log("성공");
 					window.location.href = "/item/" + item;
